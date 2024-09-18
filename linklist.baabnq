@@ -1,0 +1,149 @@
+use 'libs/chunk.baabnq';
+
+
+"chain interface
+" _p+1 -> next :: Ptr
+" _p+2 -> prev :: Ptr
+
+put _LinkList::Chain::NEXT = 1;
+put _LinkList::Chain::PREV = 2;
+
+"container structure extends chain
+" _p+0 -> size :: Int
+" _p+1 -> head :: Ptr
+" _p+2 -> tail :: Ptr
+
+put _LinkList::Container::SIZE = 0;
+
+"node structure extends chain
+" _p+0 -> data :: Void 
+" _p+1 -> next :: Ptr
+" _p+2 -> prev :: Ptr
+
+put _LinkList::Node::DATA = 0;
+
+
+"This library defines a type "LList" which contains a linked list and
+"is a pointer to the container structure
+
+"parameter names are not given, as this library is analogous to c++'s std::list
+
+
+
+
+jump LinkList::Skip;
+
+
+lab LinkList::LocalAllocContainer;
+    new 3 _pCont;
+    
+    push _pCont;
+    sub Stack::Swap;
+    return;
+    
+lab LinkList::LocalAllocNode;
+    new 3 _pNode;
+    
+    push _pNode;
+    sub Stack::Swap;
+    return;
+    
+
+
+
+
+"=> (::LList)
+lab LinkList::CreateEmpty;
+    sub LinkList::LocalAllocContainer;
+    sub Stack::Swap;
+    return;    
+
+
+"(Size::Int) => (::LList)
+lab LinkList::CreateEmptyWithSize;
+    sub Stack::Swap;
+    pull _len;
+
+    sub LinkList::LocalAllocContainer;
+    pull _pList;
+    put _pList + _LinkList::Container::SIZE <- _len;
+    
+    
+    "this only works because both node and container extend chain
+    put _pLast = _pList;
+    
+    put _i = 0;
+    lab LinkList::CreateEmptyWithSize::Loop;
+        sub LinkList::LocalAllocNode;
+        pull _pNode;
+                
+        "link last to node
+        put _pLast -> _pNode + _LinkList::Chain::PREV;
+        
+        "link node to last
+        put _pNode -> _pLast + _LinkList::Chain::NEXT;
+        
+        put _i = _i + 1;
+    jump LinkList::CreateEmptyWithSize::Loop ~ _i < _len;
+    
+    "link tail to last
+    put _pLast -> _pList + _LinkList::Chain::PREV;
+    
+    "remove head to container
+    put _pHead <- _pList + _LinkList::Chain::NEXT;
+    put 0 -> _pHead + _LinkList::Chain::PREV;
+    
+    push _pList;
+    sub Stack::Swap;
+    return;
+
+
+
+
+
+
+"(::Void*) => (::LList)
+lab LinkList::CreateFromChunk;
+    sub Stack::Swap;
+    pull _pChunk;
+    
+    push _pChunk;
+    sub Chunk::Len;
+    pull _chunkLen;
+    
+    
+    push _chunkLen;
+    sub LinkList::CreateEmptyWithSize;
+    pull _pList;
+        
+    put _pNode <- _pList + _LinkList::Chain::NEXT;
+        
+    put _i = 0;
+    lab LinkList::CreateFromChunk::Loop;        
+        "write content
+        put __ <- _pChunk + _i;
+        put __ -> _pNode + _LinkList::Node::DATA;
+        
+        put _pNode <- _pNode + _LinkList::Node::NEXT;    
+        
+        put _i = _i + 1;
+    jump LinkList::CreateFromChunk::Loop ~ _i < _chunkLen;
+        
+    push _pList;
+    sub Stack::Swap;
+    return;
+        
+
+
+
+
+"(::LList) => (::LList)
+lab LinkList::CreateCopy;
+    
+
+
+
+
+
+lab LinkList::Skip;
+
