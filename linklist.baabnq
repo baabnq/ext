@@ -166,6 +166,19 @@ lab LinkList::CreateCopy;
 
 
 
+"(::List)
+lab LinkList::Delete;
+    sub Stack::Swap;
+    pull _pList;
+        
+    lab LinkList::Delete::Loop;
+        put _pNext <- _pList + _LinkList::Chain::NEXT;
+        free _pList;
+        put _pList = _pNext;
+    jump LinkList::Delete::Loop ~ _pList != 0;
+
+    return;        
+
 
 
 lab LinkList::Skip;
