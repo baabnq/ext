@@ -66,7 +66,7 @@ lab LinkList::CreateEmptyWithSize;
 
     sub LinkList::LocalAllocContainer;
     pull _pList;
-    put _pList + _LinkList::Container::SIZE <- _len;
+    put _len -> _pList + _LinkList::Container::SIZE;
     
     
     "this only works because both node and container extend chain
@@ -124,7 +124,7 @@ lab LinkList::CreateFromChunk;
         put __ <- _pChunk + _i;
         put __ -> _pNode + _LinkList::Node::DATA;
         
-        put _pNode <- _pNode + _LinkList::Node::NEXT;    
+        put _pNode <- _pNode + _LinkList::Chain::NEXT;    
         
         put _i = _i + 1;
     jump LinkList::CreateFromChunk::Loop ~ _i < _chunkLen;
@@ -139,7 +139,30 @@ lab LinkList::CreateFromChunk;
 
 "(::LList) => (::LList)
 lab LinkList::CreateCopy;
+    sub Stack::Swap;
+    pull _pSrc;
     
+    put _srcLen <- _pSrc + _LinkList::Container::SIZE;
+    
+    push _srcLen;
+    sub LinkList::CreateEmptyWithSize;
+    pull _pDst;
+    
+    put _pSrcIter <- _pSrc + _LinkList::Chain::NEXT;
+    put _pDstIter <- _pDst + _LinkList::Chain::NEXT;
+    
+    lab LinkList::CreateCopy::Loop;
+        put __ <- _pSrcIter + _LinkList::Node::DATA;
+        put __ -> _pDstIter + _LinkList::Node::DATA;
+        
+        put _pSrcIter <- _pSrcIter + _LinkList::Chain::NEXT;    
+        put _pDstIter <- _pDstIter + _LinkList::Chain::NEXT;    
+
+    jump LinkList::CreateCopy::Loop ~ _pSrcIter & _pDstIter != 0;
+    
+    push _pDst;
+    sub Stack::Swap;
+    return;
 
 
 
