@@ -76,6 +76,32 @@ lab LinkList::GetHeadPtr;
 
 
 
+"(::Element) => (Data::Void)
+lab LinkList::GetDataAtPtr;
+    sub Stack::Swap;
+    pull _pElement;
+    
+    put _data <- _pElement + _LinkList::Element::DATA;
+    
+    push _data;
+    sub Stack::Swap;
+    return;
+    
+"(::Element, Data::Void)
+lab LinkList::SetDataAtPtr;
+    sub Stack::Swap; pull _data;
+    sub Stack::Swap; pull _pElement;
+    
+    put _data -> _pElement + _LinkList::Element::DATA;
+    
+    return;
+
+
+
+
+
+
+
 
 lab LinkList::Skip;
 
