@@ -1,183 +1,41 @@
 use 'libs/chunk.baabnq';
+use 'libs/no.baabnq';
 
-
-"chain interface
+"circleNode interface
 " _p+1 -> next :: Ptr
 " _p+2 -> prev :: Ptr
 
-put _LinkList::Chain::NEXT = 1;
-put _LinkList::Chain::PREV = 2;
+put _LinkList::CircleNode::NEXT = 1;
+put _LinkList::CircleNode::PREV = 2;
 
-"container structure extends chain
+"hook structure implements circleNode
 " _p+0 -> size :: Int
 " _p+1 -> head :: Ptr
 " _p+2 -> tail :: Ptr
 
-put _LinkList::Container::SIZE = 0;
+put _LinkList::Hook::SIZE = 0;
 
-"node structure extends chain
+"element structure implements circleNode
 " _p+0 -> data :: Void 
 " _p+1 -> next :: Ptr
 " _p+2 -> prev :: Ptr
 
-put _LinkList::Node::DATA = 0;
+put _LinkList::Element::DATA = 0;
 
 
-"This library defines a type "LList" which contains a linked list and
-"is a pointer to the container structure
+"This module defines a circular double linked list, which always includes
+"the hook node, that acts as the point of contact for the rest of the list.
+"The other nodes function as the actual elements, storing data.
+"Symmetry between hook and elements is given by the circleNode interface, which
+"is implemented by both.
 
-"parameter names are not given, as this library is analogous to c++'s std::list
-
+"Parameter names are not given, as this library is analogous to c++'s std::list
 
 
 
 jump LinkList::Skip;
 
 
-lab LinkList::LocalAllocContainer;
-    new 3 _pCont;
-    
-    push _pCont;
-    sub Stack::Swap;
-    return;
-    
-lab LinkList::LocalAllocNode;
-    new 3 _pNode;
-    
-    push _pNode;
-    sub Stack::Swap;
-    return;
-    
-
-
-
-
-"=> (::LList)
-lab LinkList::CreateEmpty;
-    sub LinkList::LocalAllocContainer;
-    sub Stack::Swap;
-    return;    
-
-
-"(Size::Int) => (::LList)
-lab LinkList::CreateEmptyWithSize;
-    sub Stack::Swap;
-    pull _len;
-
-    sub LinkList::LocalAllocContainer;
-    pull _pList;
-    put _len -> _pList + _LinkList::Container::SIZE;
-    
-    
-    "this only works because both node and container extend chain
-    put _pLast = _pList;
-    
-    put _i = 0;
-    lab LinkList::CreateEmptyWithSize::Loop;
-        sub LinkList::LocalAllocNode;
-        pull _pNode;
-                
-        "link last to node
-        put _pLast -> _pNode + _LinkList::Chain::PREV;
-        
-        "link node to last
-        put _pNode -> _pLast + _LinkList::Chain::NEXT;
-        
-        put _i = _i + 1;
-    jump LinkList::CreateEmptyWithSize::Loop ~ _i < _len;
-    
-    "link tail to last
-    put _pLast -> _pList + _LinkList::Chain::PREV;
-    
-    "remove head to container
-    put _pHead <- _pList + _LinkList::Chain::NEXT;
-    put 0 -> _pHead + _LinkList::Chain::PREV;
-    
-    push _pList;
-    sub Stack::Swap;
-    return;
-
-
-
-
-
-
-"(::Void*) => (::LList)
-lab LinkList::CreateFromChunk;
-    sub Stack::Swap;
-    pull _pChunk;
-    
-    push _pChunk;
-    sub Chunk::Len;
-    pull _chunkLen;
-    
-    
-    push _chunkLen;
-    sub LinkList::CreateEmptyWithSize;
-    pull _pList;
-        
-    put _pNode <- _pList + _LinkList::Chain::NEXT;
-        
-    put _i = 0;
-    lab LinkList::CreateFromChunk::Loop;        
-        "write content
-        put __ <- _pChunk + _i;
-        put __ -> _pNode + _LinkList::Node::DATA;
-        
-        put _pNode <- _pNode + _LinkList::Chain::NEXT;    
-        
-        put _i = _i + 1;
-    jump LinkList::CreateFromChunk::Loop ~ _i < _chunkLen;
-        
-    push _pList;
-    sub Stack::Swap;
-    return;
-        
-
-
-
-
-"(::LList) => (::LList)
-lab LinkList::CreateCopy;
-    sub Stack::Swap;
-    pull _pSrc;
-    
-    put _srcLen <- _pSrc + _LinkList::Container::SIZE;
-    
-    push _srcLen;
-    sub LinkList::CreateEmptyWithSize;
-    pull _pDst;
-    
-    put _pSrcIter <- _pSrc + _LinkList::Chain::NEXT;
-    put _pDstIter <- _pDst + _LinkList::Chain::NEXT;
-    
-    lab LinkList::CreateCopy::Loop;
-        put __ <- _pSrcIter + _LinkList::Node::DATA;
-        put __ -> _pDstIter + _LinkList::Node::DATA;
-        
-        put _pSrcIter <- _pSrcIter + _LinkList::Chain::NEXT;    
-        put _pDstIter <- _pDstIter + _LinkList::Chain::NEXT;    
-
-    jump LinkList::CreateCopy::Loop ~ _pSrcIter & _pDstIter != 0;
-    
-    push _pDst;
-    sub Stack::Swap;
-    return;
-
-
-
-"(::List)
-lab LinkList::Delete;
-    sub Stack::Swap;
-    pull _pList;
-        
-    lab LinkList::Delete::Loop;
-        put _pNext <- _pList + _LinkList::Chain::NEXT;
-        free _pList;
-        put _pList = _pNext;
-    jump LinkList::Delete::Loop ~ _pList != 0;
-
-    return;        
 
 
 
