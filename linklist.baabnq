@@ -1,21 +1,21 @@
 use 'libs/chunk.baabnq';
 use 'libs/no.baabnq';
 
-"circleNode interface
+"node interface
 " _p+1 -> next :: Ptr
 " _p+2 -> prev :: Ptr
 
-put _LinkList::CircleNode::NEXT = 1;
-put _LinkList::CircleNode::PREV = 2;
+put _LinkList::Node::NEXT = 1;
+put _LinkList::Node::PREV = 2;
 
-"hook structure implements circleNode
+"hook structure implements node
 " _p+0 -> size :: Int
 " _p+1 -> head :: Ptr
 " _p+2 -> tail :: Ptr
 
 put _LinkList::Hook::SIZE = 0;
 
-"element structure implements circleNode
+"element structure implements node
 " _p+0 -> data :: Void 
 " _p+1 -> next :: Ptr
 " _p+2 -> prev :: Ptr
@@ -26,8 +26,8 @@ put _LinkList::Element::DATA = 0;
 "This module defines a circular double linked list, which always includes
 "the hook node, that acts as the point of contact for the rest of the list.
 "The other nodes function as the actual elements, storing data.
-"Symmetry between hook and elements is given by the circleNode interface, which
-"is implemented by both.
+"Symmetry between the hook and the elements is given by the node interface, 
+"which is implemented by both.
 
 "Parameter names are not given, as this library is analogous to c++'s std::list
 
@@ -35,6 +35,44 @@ put _LinkList::Element::DATA = 0;
 
 jump LinkList::Skip;
 
+
+"=> (::Hook)
+lab LinkList::LocalAllocHook;
+"=> (::Element)
+lab LinkList::LocalAllocElement;
+    new 3 _pNode;
+    
+    push _pNode;
+    sub Stack::Swap;
+    return;
+    
+
+
+
+
+
+"(::LinkList) => (Head::Node)
+lab LinkList::GetHeadPtr;
+    sub Stack::Swap;
+    pull _pList;
+    
+    put _pHead <- _pList + _LinkList::Node::NEXT;
+
+    push _pHead;
+    sub Stack::Swap;
+    return;
+
+"(::LinkList) => (Tail::Node)
+lab LinkList::GetHeadPtr;
+    sub Stack::Swap;
+    pull _pList;
+    
+    put _pTail <- _pList + _LinkList::Node::PREV;
+
+    push _pTail;
+    sub Stack::Swap;
+    return;
+    
 
 
 
