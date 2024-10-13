@@ -98,6 +98,30 @@ lab LinkList::SetDataAtPtr;
 
 
 
+"(::Node) => (::Node)
+lab LinkList::PrevNode;
+    sub Stack::Swap;
+    pull _pNode;
+    
+    put _pPrev <- _pNode + _LinkList::Node::PREV;
+    
+    push _pPrev;
+    sub Stack::Swap;
+    return;
+    
+"(::Node) => (::Node)
+lab LinkList::NextNode;
+    sub Stack::Swap;
+    pull _pNode;
+    
+    put _pNext <- _pNode + _LinkList::Node::NEXT;
+    
+    push _pNext;
+    sub Stack::Swap;
+    return;
+
+
+
 
 
 
