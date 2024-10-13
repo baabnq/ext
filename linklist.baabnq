@@ -47,11 +47,24 @@ lab LinkList::LocalAllocElement;
     return;
     
     
+"=> (::LinkList)
+lab LinkList::CreateEmpty;
+    sub LinkList::LocalAllocHook;
+    pull _pList;
+    
+    put _pList -> _pList + _LinkList::Node::PREV;
+    put _pList -> _pList + _LinkList::Node::NEXT;
+    
+    push _pList;
+    sub Stack::Swap;
+    return;
+    
+    
     
     
 
 "(::LinkList) => (Head::Node)
-lab LinkList::GetHeadPtr;
+lab LinkList::GetHeadNode;
     sub Stack::Swap;
     pull _pList;
     
@@ -62,7 +75,7 @@ lab LinkList::GetHeadPtr;
     return;
 
 "(::LinkList) => (Tail::Node)
-lab LinkList::GetHeadPtr;
+lab LinkList::GetHeadNode;
     sub Stack::Swap;
     pull _pList;
     
@@ -77,7 +90,7 @@ lab LinkList::GetHeadPtr;
 
 
 "(::Element) => (Data::Void)
-lab LinkList::GetDataAtPtr;
+lab LinkList::GetElementData;
     sub Stack::Swap;
     pull _pElement;
     
@@ -88,7 +101,7 @@ lab LinkList::GetDataAtPtr;
     return;
     
 "(::Element, Data::Void)
-lab LinkList::SetDataAtPtr;
+lab LinkList::SetElementData;
     sub Stack::Swap; pull _data;
     sub Stack::Swap; pull _pElement;
     
