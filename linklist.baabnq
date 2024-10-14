@@ -163,6 +163,28 @@ lab LinkList::IsEmpty;
 
 
 
+"(::LinkList, Index::Int) => (::Node)
+lab LinkList::GetNodeAtIndex;
+    sub Stack::Swap; pull _index;
+    sub Stack::Swap; pull _pList;
+
+    push _pList;
+    sub LinkList::GetHeadNode;
+    pull _pIter;
+
+    lab LinkList::GetNodeAtIndex::Loop;
+        jump LinkList::GetNodeAtIndex::Done ~ _index == 0;
+
+        put _pIter <- _pIter + _LinkList::Node::NEXT;
+        put _index = _index - 1;
+        jump LinkList::GetNodeAtIndex::Loop;
+    lab LinkList::GetNodeAtIndex::Done;
+
+
+    push _pIter;
+    sub Stack::Swap;
+    return;
+
 
 
 
