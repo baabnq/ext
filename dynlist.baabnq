@@ -1,0 +1,116 @@
+
+
+use 'libs/chunk.baabnq';
+
+
+"list structure
+" _p+0 -> size      :: Int
+" _p+1 -> container :: Chunk
+
+"capacity is stored by container, because it's a chunk
+
+put _DynList::List::SIZE       = 0;
+put _DynList::List::CONTAINER  = 1;
+
+
+
+
+
+
+
+jump DynList::Skip;
+
+"(Size::Int, Container::Chunk) => (::DynList)
+lab DynList::AllocAndPopulateDynList;
+    sub Stack::Swap; pull _pContainer;
+    sub Stack::Swap; pull _size;
+
+    new 2 _pList;
+        
+    put _size       -> _pList + _DynList::List::SIZE;
+    put _pContainer -> _pList + _DynList::List::CONTAINER;
+
+    push _pList;
+    sub Stack::Swap;
+    return;
+
+
+
+"(Size::Int) => (::DynList)
+lab DynList::CreateWithSize;
+    sub Stack::Swap;
+    pull _size;
+
+    new _size _pContainer;
+    
+    push _size;
+    push _pContainer;
+    sub DynList::AllocAndPopulateDynList;
+    
+    sub Stack::Swap;
+    return;
+
+            
+    
+"=> (::DynList)
+lab DynList::CreateEmpty;
+    push 0;
+    sub DynList::CreateWithSize;
+    sub Stack::Swap;
+    return;
+
+    
+"(::Chunk, Size::Int) => (::DynList)
+lab DynList::CreateFromChunkAndSize;
+    sub Stack::Swap; 
+    pull _size;
+    
+    sub Stack::Swap;
+    sub Chunk::Copy;
+    pull _pContainer;
+        
+    push _size;
+    push _pContainer;
+    sub DynList::AllocAndPopulateDynList;
+    
+    sub Stack::Swap;
+    return;
+
+
+
+
+"(::Chunk) => (::DynList)
+lab DynList::CreateFromChunk;    
+    sub Stack::Swap; 
+
+    sub Stack::Dup;        
+    sub Chunk::Len;
+    sub DynList::CreateFromChunkAndSize;
+    
+    sub Stack::Swap;
+    return;
+    
+    
+"(::DynList) => (::DynList)
+lab DynList::CreateCopy;
+lab DynList::Copy;
+    sub Stack::Swap;
+    pull _pList;
+    
+    push _pList;
+    put _size <- _pList + _DynList::List::SIZE;
+    push _size;
+    sub DynList::CreateFromChunkAndSize;
+    
+    sub Stack::Swap;
+    return;
+
+
+
+
+
+
+lab DynList::Skip;
+
+
+
