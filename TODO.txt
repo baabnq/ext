@@ -1,0 +1,106 @@
+-extras
+    -https://github.com/S1monr3dst0ne07/ext
+        -generic  dynamic lists
+            
+            -constructors
+                -CreateEmpty        /
+                -CreateWithSize     /
+                -CreateFromChunk    /
+                -CreateCopy         
+                
+            -Delete
+            -GetAtIndex
+            -SetAtIndex
+            -GetFront
+            -GetBack
+            -GetContainer
+            
+            -IsEmpty
+            -Size
+            
+            -Reserve
+            -ShrinkToFit
+            
+            -Clear
+            -PushBack
+            -PopBack
+            
+            -Insert
+            -Erase
+            
+        
+        -generic linked list
+            -MAKE VERY MINIMAL
+            
+            -GetHeadNode /
+            -GetTailNode /
+                                    
+            -PrevNode   /
+            -NextNode   /
+
+            -Size         / 
+                -IsEmpty  / 
+
+            -GetNodeAtIndex /
+
+            -GetFront   
+            -GetBack
+
+            -Insert
+            -Erase
+
+
+            -PushBack
+            -PopBack
+            -PushFront
+            -PopFront
+
+            -GetAtIndex
+            -SetAtIndex
+
+            -CreateEmpty
+                -CreateFromChunk
+                -CreateFillWithSize
+                    -CreateEmptyWithSize
+
+            -Delete                        
+            
+            
+        -listed/dynamic conversion routines
+            -convlist.baabnq
+            
+            LinkListToDynList / L2D
+            DynListToLinkList / D2L 
+            
+            
+    -arena
+        -maybe
+        -kinda goes against baabnq's philosophy
+            
+        
+    -btree.baabnq
+        -generic binary tree
+        
+    -vec.baabnq
+        -generic vector
+        -(vec2/vec3)
+        
+    -bignum.baabnq
+    
+    -frac.baabnq
+        -fractions
+        
+    -json.baabnq
+        -json parse/generator
+        
+    -trie.baabnq
+        -trie dictionary
+        
+    -hashmap.baabnq
+    -set.baabnq
+
+    -raylib binding maybe ???
+
+
+    -(mysql.baabnq)
+        -maybe maybe if i have too much time lol
