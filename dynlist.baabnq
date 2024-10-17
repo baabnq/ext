@@ -36,6 +36,20 @@ lab DynList::AllocAndPopulateDynList;
 
 
 
+
+
+"(::DynList) => (Size::Int)
+lab Dynlist::Size;
+    sub Stack::Swap;
+    pull _pList;
+
+    put _size <- _pList + _Dynlist::List::SIZE;
+    push _size;
+    sub Stack::Swap;
+    return;
+
+
+
 "(Size::Int) => (::DynList)
 lab DynList::CreateWithSize;
     sub Stack::Swap;
@@ -120,6 +134,9 @@ lab DynList::Delete;
     free _pList;
     
     return;    
+
+
+
 
 
 

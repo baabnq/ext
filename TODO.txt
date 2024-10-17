@@ -8,7 +8,7 @@
                 -CreateFromChunk    /
                 -CreateCopy         
                 
-            -Delete
+            -Delete                 /
             -GetAtIndex
             -SetAtIndex
             -GetFront
@@ -16,7 +16,7 @@
             -GetContainer
             
             -IsEmpty
-            -Size
+            -Size                   /
             
             -Reserve
             -ShrinkToFit
