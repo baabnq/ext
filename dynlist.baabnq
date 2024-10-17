@@ -98,12 +98,34 @@ lab DynList::Copy;
     pull _pList;
     
     push _pList;
-    put _size <- _pList + _DynList::List::SIZE;
-    push _size;
+    "put _size <- _pList + _DynList::List::SIZE;
+    "push _size;
+    push _pList;
+    sub DynList::Size;
     sub DynList::CreateFromChunkAndSize;
     
     sub Stack::Swap;
     return;
+
+
+
+
+"(::DynList)
+lab DynList::Delete;
+    sub Stack::Swap;
+    pull _pList;
+
+    put _pContainer <- _pList + _DynList::List::CONTAINER;
+    free _pContainer;
+    free _pList;
+    
+    return;    
+
+
+
+
+
+
 
 
 
