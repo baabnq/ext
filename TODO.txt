@@ -10,9 +10,9 @@
                 
             -Delete                 /
                         
-            -IsEmpty
+            -IsEmpty                /
             -Size                   /
-            -Container / Data
+            -Container / Data       /
             
             -Reserve
             -ShrinkToFit

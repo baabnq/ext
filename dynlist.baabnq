@@ -44,6 +44,7 @@ lab DynList::Size;
     pull _pList;
 
     put _size <- _pList + _DynList::List::SIZE;
+
     push _size;
     sub Stack::Swap;
     return;
@@ -51,10 +52,13 @@ lab DynList::Size;
 
 "(::DynList) => (Container::Chunk)
 lab DynList::Container;
+lab DynList::Data;
+lab DynList::Pointer;
     sub Stack::Swap;
     pull _pList;
 
     put _size <- _pList + _DynList::List::CONTAINER;
+
     push _size;
     sub Stack::Swap;
     return;
