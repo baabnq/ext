@@ -43,7 +43,7 @@ lab Dynlist::Size;
     sub Stack::Swap;
     pull _pList;
 
-    put _size <- _pList + _Dynlist::List::SIZE;
+    put _size <- _pList + _DynList::List::SIZE;
     push _size;
     sub Stack::Swap;
     return;
@@ -139,8 +139,17 @@ lab DynList::Delete;
 
 
 
-
-
+"(::DynList) => (Empty::Bool)
+lab DynList::IsEmpty;
+    sub Stack::Swap;
+    sub LinkList::Size;
+    pull _size;
+    
+    jump LinkList::IsEmpty::False ~ _size == 0; push 0; lab LinkList::IsEmpty::False;
+    jump LinkList::IsEmpty::True  ~ _size != 0; push 1; lab LinkList::IsEmpty::True;
+    
+    sub Stack::Swap;
+    return;
 
 
 
