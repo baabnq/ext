@@ -6,17 +6,13 @@
                 -CreateEmpty        /
                 -CreateWithSize     /
                 -CreateFromChunk    /
-                -CreateCopy         
+                -CreateCopy         /
                 
             -Delete                 /
-            -GetAtIndex
-            -SetAtIndex
-            -GetFront
-            -GetBack
-            -GetContainer
-            
+                        
             -IsEmpty
             -Size                   /
+            -Container / Data
             
             -Reserve
             -ShrinkToFit
