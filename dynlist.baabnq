@@ -158,6 +158,37 @@ lab DynList::Pointer;
 
 
 
+"(::DynList,  Capacity::Int)
+lab DynList::Reserve;
+    sub Stack::Swap; pull _capacitiyNew;
+    sub Stack::Swap; pull _pList;
+
+    push _pList; sub DynList::Container; pull _pContainerOld;
+    push _pContainerOld; sub Chunk::Len; pull _capacitiyOld;
+
+
+    "capacity already reserved
+    sub No::Return ~ _capacitiyNew <  _capacitiyOld;
+    sub No::Return ~ _capacitiyNew == _capacitiyOld;
+
+    "alloc new container
+    new _capacitiyNew _pContainerNew;
+
+    "copy old to new
+    push _pContainerOld;
+    push _pContainerNew;
+    push _capacitiyOld;
+    sub String::MemCpy;
+
+    "free old
+    free _pContainerOld;
+
+    "inject new container into list
+    put _pContainerNew -> _pList + _DynList::List::Container;
+
+    return;
+
+
 
 
 
