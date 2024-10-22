@@ -1,5 +1,5 @@
 
-
+use 'libs/stack.baabnq';
 use 'libs/chunk.baabnq';
 
 
@@ -20,12 +20,22 @@ put _DynList::List::CONTAINER  = 1;
 
 jump DynList::Skip;
 
+
+"=> (::DynList)
+lab DynList::Allocate;    
+    new 2 _pList;
+
+    push _pList;
+    sub Stack::Swap;
+    return;
+
 "(Size::Int, Container::Chunk) => (::DynList)
-lab DynList::AllocAndPopulateDynList;
+lab DynList::CreatePopulate;
     sub Stack::Swap; pull _pContainer;
     sub Stack::Swap; pull _size;
 
-    new 2 _pList;
+    sub DynList::Allocate;
+    pull _pList;
         
     put _size       -> _pList + _DynList::List::SIZE;
     put _pContainer -> _pList + _DynList::List::CONTAINER;
@@ -35,106 +45,60 @@ lab DynList::AllocAndPopulateDynList;
     return;
 
 
-
-
-
-"(::DynList) => (Size::Int)
-lab DynList::Size;
+"(Container::Chunk) => (::DynList)
+lab DynList::CreatePopulateInferSize;
+lab DynList::CreateUseChunk;
     sub Stack::Swap;
-    pull _pList;
+    pull _pContainer;
 
-    put _size <- _pList + _DynList::List::SIZE;
-
-    push _size;
-    sub Stack::Swap;
-    return;
-
-
-"(::DynList) => (Container::Chunk)
-lab DynList::Container;
-lab DynList::Data;
-lab DynList::Pointer;
-    sub Stack::Swap;
-    pull _pList;
-
-    put _size <- _pList + _DynList::List::CONTAINER;
-
-    push _size;
-    sub Stack::Swap;
-    return;
-
-
-
-"(Size::Int) => (::DynList)
-lab DynList::CreateWithSize;
-    sub Stack::Swap;
-    pull _size;
-
-    new _size _pContainer;
-    
-    push _size;
     push _pContainer;
-    sub DynList::AllocAndPopulateDynList;
-    
+    push _pContainer;
+    sub Chunk::Len;
+    sub DynList::CreatePopulate;
+
     sub Stack::Swap;
     return;
 
-            
-    
+
 "=> (::DynList)
 lab DynList::CreateEmpty;
-    push 0;
-    sub DynList::CreateWithSize;
-    sub Stack::Swap;
-    return;
+lab DynList::Create;
+    new 0 _pContainer;
 
-    
-"(::Chunk, Size::Int) => (::DynList)
-lab DynList::CreateFromChunkAndSize;
-    sub Stack::Swap; 
-    pull _size;
-    
-    sub Stack::Swap;
-    sub Chunk::Copy;
-    pull _pContainer;
-        
-    push _size;
     push _pContainer;
-    sub DynList::AllocAndPopulateDynList;
-    
+    sub DynList::CreatePopulateInferSize;
+
     sub Stack::Swap;
     return;
-
 
 
 
 "(::Chunk) => (::DynList)
-lab DynList::CreateFromChunk;    
-    sub Stack::Swap; 
+lab DynList::CreateCopyChunk;
+    sub Stack::Swap;
 
-    sub Stack::Dup;        
-    sub Chunk::Len;
-    sub DynList::CreateFromChunkAndSize;
+    sub Chunk::Copy;
+    sub DynList::CreatePopulateInferSize;
     
     sub Stack::Swap;
     return;
-    
-    
+
+
 "(::DynList) => (::DynList)
-lab DynList::CreateCopy;
+lab DynList::CreateCopyList;
 lab DynList::Copy;
     sub Stack::Swap;
-    pull _pList;
     
-    push _pList;
-    "put _size <- _pList + _DynList::List::SIZE;
-    "push _size;
-    push _pList;
-    sub DynList::Size;
-    sub DynList::CreateFromChunkAndSize;
-    
+    sub DynList::Container;
+    sub Chunk::Copy;
+    sub DynList::CreatePopulateInferSize;
+
     sub Stack::Swap;
     return;
+    
+
+
+
 
 
 
@@ -167,6 +131,30 @@ lab DynList::IsEmpty;
     return;
 
 
+"(::DynList) => (Size::Int)
+lab DynList::Size;
+    sub Stack::Swap;
+    pull _pList;
+
+    put _size <- _pList + _DynList::List::SIZE;
+
+    push _size;
+    sub Stack::Swap;
+    return;
+
+
+"(::DynList) => (Container::Chunk)
+lab DynList::Container;
+lab DynList::Data;
+lab DynList::Pointer;
+    sub Stack::Swap;
+    pull _pList;
+
+    put _size <- _pList + _DynList::List::CONTAINER;
+
+    push _size;
+    sub Stack::Swap;
+    return;
 
 
 

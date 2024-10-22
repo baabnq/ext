@@ -5,13 +5,13 @@
             -rename allocator to not include dynlist in lab name
 
             -constructors
-                -Allocate
-                -CreatePopulate
-                -CreateUseChunk / CreatePopulateInferrSize
-                -CreateEmpty / Create        /
+                -Allocate                                   /
+                -CreatePopulate                             /
+                -CreateUseChunk / CreatePopulateInferSize   /
+                -CreateEmpty / Create                       /
                 
-                -CreateCopyChunk    /
-                -CreateCopyList / Copy     /
+                -CreateCopyChunk                            /
+                -CreateCopyList / Copy                      /
 
 
 
