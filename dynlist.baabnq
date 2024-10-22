@@ -184,7 +184,7 @@ lab DynList::Reserve;
     free _pContainerOld;
 
     "inject new container into list
-    put _pContainerNew -> _pList + _DynList::List::Container;
+    put _pContainerNew -> _pList + _DynList::List::CONTAINER;
 
     return;
 
