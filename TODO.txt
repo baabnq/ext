@@ -1,13 +1,20 @@
 -extras
     -https://github.com/S1monr3dst0ne07/ext
         -generic  dynamic lists
-            
+
+            -rename allocator to not include dynlist in lab name
+
             -constructors
-                -CreateEmpty        /
-                -CreateWithSize     /
-                -CreateFromChunk    /
-                -CreateCopy         /
+                -Allocate
+                -CreatePopulate
+                -CreateUseChunk / CreatePopulateInferrSize
+                -CreateEmpty / Create        /
                 
+                -CreateCopyChunk    /
+                -CreateCopyList / Copy     /
+
+
+
             -Delete                 /
                         
             -IsEmpty                /
