@@ -175,7 +175,7 @@ lab DynList::ChangeCapacity;
 
 
     "list content must still fit into container
-    sub No::Return ~ _capacitiyNew <  _size;
+    sub No::Return ~ _capacitiyNew < _size;
 
     "alloc new container
     new _capacitiyNew _pContainerNew;
@@ -216,6 +216,21 @@ lab DynList::Reserve;
     return;
 
     
+
+"(::DynList)
+lab DynList::ShrinkToFit;
+    sub Stack::Swap;
+    pull _pList;
+
+    push _pList;
+    push _pList;
+    sub DynList::Size;
+    sub DynList::ChangeCapacity;
+
+    return;
+
+
+
 
 
 

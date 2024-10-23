@@ -23,7 +23,7 @@
             
             -ChangeCapacity         /                 
             -Reserve                /
-            -ShrinkToFit
+            -ShrinkToFit            /
             
             -Clear
             -PushBack
