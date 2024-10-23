@@ -231,6 +231,21 @@ lab DynList::ShrinkToFit;
 
 
 
+"(::DynList)
+lab DynList::Clear;
+    sub Stack::Swap;
+    pull _pList;
+
+    put 0 -> _pList + _DynList::List::SIZE;
+
+    push _pList;
+    sub DynList::Container;
+    push 0;
+    sub Chunk::Fill;
+
+    return;
+
+
 
 
 
