@@ -158,9 +158,6 @@ lab DynList::Pointer;
 
 
 
-"(::DynList,  Capacity::Int)
-lab DynList::Reserve;
-
 
 
 
@@ -197,6 +194,26 @@ lab DynList::ChangeCapacity;
 
     return;
 
+
+"(::DynList, Capacity::Int)
+lab DynList::Reserve;
+    sub Stack::Swap; pull _capacitiyNew;
+    sub Stack::Swap; pull _pList;
+
+    push _pList;
+    sub DynList::Container;
+    sub Chunk::Len;
+    pull _capacitiyOld;
+
+    "reserve can only increase the capacity, not however shrink it
+    sub No::Return ~ _capacitiyNew <  _capacitiyOld;
+    sub No::Return ~ _capacitiyNew == _capacitiyOld;
+
+    push _pList;
+    push _capacitiyNew;
+    sub DynList::ChangeCapacity;
+
+    return;
 
     
 

@@ -22,7 +22,7 @@
             -Container / Data       /
             
             -ChangeCapacity         /                 
-            -Reserve               (/)
+            -Reserve                /
             -ShrinkToFit
             
             -Clear
