@@ -107,8 +107,3 @@
     -hashmap.baabnq
     -set.baabnq
 
-    -raylib binding maybe ???
-
-
-    -(mysql.baabnq)
-        -maybe maybe if i have too much time lol
