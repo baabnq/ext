@@ -21,7 +21,8 @@
             -Size                   /
             -Container / Data       /
             
-            -Reserve                /
+            -Resize                 
+            -Reserve                (/)
             -ShrinkToFit
             
             -Clear
