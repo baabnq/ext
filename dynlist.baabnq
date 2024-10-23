@@ -160,16 +160,25 @@ lab DynList::Pointer;
 
 "(::DynList,  Capacity::Int)
 lab DynList::Reserve;
+
+
+
+
+
+
+
+"(::DynList, Capacity::Int)
+lab DynList::ChangeCapacity;
     sub Stack::Swap; pull _capacitiyNew;
     sub Stack::Swap; pull _pList;
 
+    push _pList; sub DynList::Size;      pull _size;
     push _pList; sub DynList::Container; pull _pContainerOld;
     push _pContainerOld; sub Chunk::Len; pull _capacitiyOld;
 
 
-    "capacity already reserved
-    sub No::Return ~ _capacitiyNew <  _capacitiyOld;
-    sub No::Return ~ _capacitiyNew == _capacitiyOld;
+    "list content must still fit into container
+    sub No::Return ~ _capacitiyNew <  _size;
 
     "alloc new container
     new _capacitiyNew _pContainerNew;
@@ -189,6 +198,7 @@ lab DynList::Reserve;
     return;
 
 
+    
 
 
 
