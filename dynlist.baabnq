@@ -1,5 +1,6 @@
 
 use 'libs/stack.baabnq';
+use 'libs/math.baabnq';
 use 'libs/chunk.baabnq';
 
 
@@ -245,6 +246,36 @@ lab DynList::Clear;
 
     return;
 
+
+
+"(::DynList, X::Value)
+lab DynList::PushBack;
+    sub Stack::Swap; pull _x;
+    sub Stack::Swap; pull _pList;
+
+    "get old size and calculate new one
+    push _pList;
+    sub DynList::Size;
+    pull _sizeOld;
+    put  _sizeNew = _sizeOld + 1;
+
+   "update size
+    put _sizeNew -> _pList + _DynList::List::SIZE;
+
+    "ensure capacity
+    push _pList;
+    push _sizeNew;
+    sub DynList::Reserve;
+
+    "actual push
+    push _pList;
+    sub DynList::Container; 
+    pull _pContainer;
+    
+    put _x -> _pContainer + _sizeOld;
+
+    return;
+    
 
 
 
