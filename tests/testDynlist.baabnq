@@ -1,0 +1,31 @@
+
+use 'libs/tests/common.baabnq';
+
+
+lab Local::TestDynList::Init;
+    use 'ext/dynlist.baabnq';
+return;
+
+
+
+lab TestDynList::CreatePopulate;
+    sub Local::TestDynList::Init;
+
+    push 123;
+    push 321;
+    sub DynList::CreatePopulate;
+    pull _pList;
+
+
+    put __ <- _pList + _DynList::List::SIZE;
+    jump fail ~ __ != 123;
+    put __ <- _pList + _DynList::List::CONTAINER;
+    jump fail ~ __ != 321;
+
+    free _pList;
+
+    jump succ;
+
+
+    
+

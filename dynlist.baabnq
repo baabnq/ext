@@ -37,7 +37,7 @@ lab DynList::CreatePopulate;
 
     sub DynList::Allocate;
     pull _pList;
-        
+
     put _size       -> _pList + _DynList::List::SIZE;
     put _pContainer -> _pList + _DynList::List::CONTAINER;
 
