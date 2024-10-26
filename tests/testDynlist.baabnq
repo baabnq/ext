@@ -23,8 +23,48 @@ lab TestDynList::CreatePopulate;
     jump fail ~ __ != 321;
 
     free _pList;
-
     jump succ;
+
+
+lab TestDynList::Size;
+    sub Local::TestDynList::Init;
+
+    push 123;
+    push 321;
+    sub DynList::CreatePopulate;
+    pull _pList;
+
+    push _pList;
+    sub DynList::Size;
+    pull _size;
+    jump fail ~ _size != 123;
+
+    free _pList;
+    jump succ;
+
+
+lab TestDynList::Container;
+    sub Local::TestDynList::Init;
+
+    push 123;
+    push 321;
+    sub DynList::CreatePopulate;
+    pull _pList;
+
+    push _pList;
+    sub DynList::Container;
+    pull _pContainer;
+    jump fail ~ _pContainer != 321;
+
+    free _pList;
+    jump succ;
+
+
+
+
+
+
+
 
 
     
