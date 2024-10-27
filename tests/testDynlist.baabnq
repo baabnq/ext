@@ -160,6 +160,27 @@ lab TestDynList::Container;
 
 
 
+lab TestDynList::ChangeCapacity;
+    sub Local::TestDynList::MakeTestList;
+    pull _pList;
+
+    push _pList;
+    push 10;
+    sub DynList::ChangeCapacity;
+
+    put __ <- _pList + _DynList::List::SIZE;
+    jump fail ~ __ != 4;
+
+    put __ <- _pList + _DynList::List::CONTAINER;
+    push __; sub Chunk::Len; pull __;
+    jump fail ~ __ != 10;
+
+    push _pList; sub DynList::Delete;
+    jump succ;
+
+
+
+
 
 
 
