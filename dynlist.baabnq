@@ -157,9 +157,9 @@ lab DynList::Pointer;
     sub Stack::Swap;
     pull _pList;
 
-    put _size <- _pList + _DynList::List::CONTAINER;
+    put _pContainer <- _pList + _DynList::List::CONTAINER;
 
-    push _size;
+    push _pContainer;
     sub Stack::Swap;
     return;
 
@@ -180,9 +180,9 @@ lab DynList::ChangeCapacity;
     push _pList; sub DynList::Container; pull _pContainerOld;
     push _pContainerOld; sub Chunk::Len; pull _capacitiyOld;
 
-
     "list content must still fit into container
     sub No::Return ~ _capacitiyNew < _size;
+
 
     "alloc new container
     new _capacitiyNew _pContainerNew;
