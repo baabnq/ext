@@ -89,10 +89,16 @@ lab DynList::CreateCopyChunk;
 lab DynList::CreateCopyList;
 lab DynList::Copy;
     sub Stack::Swap;
-    
+    pull _pList;
+
+    push _pList;
+    sub DynList::Size;
+
+    push _pList;
     sub DynList::Container;
     sub Chunk::Copy;
-    sub DynList::CreatePopulateInferSize;
+
+    sub DynList::CreatePopulate;
 
     sub Stack::Swap;
     return;
