@@ -180,6 +180,39 @@ lab TestDynList::ChangeCapacity;
 
 
 
+lab TestDynList::Reserve;
+    sub Local::TestDynList::MakeTestList;
+    pull _pList;
+
+    push _pList;
+    push 10;
+    sub DynList::Reserve;
+
+    put __ <- _pList + _DynList::List::SIZE;
+    jump fail ~ __ != 4;
+
+    put __ <- _pList + _DynList::List::CONTAINER;
+    push __; sub Chunk::Len; pull __;
+    jump fail ~ __ != 10;
+
+
+    "shouldn't do anything,
+    "because reserve only increases the capacity,
+    "and doesn't decreases it
+    push _pList;
+    push 5;
+    sub DynList::Reserve;
+
+    put __ <- _pList + _DynList::List::SIZE;
+    jump fail ~ __ != 4;
+
+    put __ <- _pList + _DynList::List::CONTAINER;
+    push __; sub Chunk::Len; pull __;
+    jump fail ~ __ != 10;
+
+
+    push _pList; sub DynList::Delete;
+    jump succ;
 
 
 
