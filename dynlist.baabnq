@@ -53,8 +53,8 @@ lab DynList::CreateUseChunk;
     pull _pContainer;
 
     push _pContainer;
-    push _pContainer;
     sub Chunk::Len;
+    push _pContainer;
     sub DynList::CreatePopulate;
 
     sub Stack::Swap;
