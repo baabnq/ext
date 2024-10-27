@@ -6,22 +6,22 @@
 
             -constructors
                 -Allocate                                   /
-                -CreatePopulate                             /
-                -CreateUseChunk / CreatePopulateInferSize   /
-                -CreateEmpty / Create                       /
+                -CreatePopulate                             //
+                -CreateUseChunk / CreatePopulateInferSize   //
+                -CreateEmpty / Create                       //
                 
-                -CreateCopyChunk                            /
-                -CreateCopyList / Copy                      /
+                -CreateCopyChunk                            //
+                -CreateCopyList / Copy                      //
 
 
 
             -Delete                 /
                         
             -IsEmpty                /
-            -Size                   /
-            -Container / Data       /
+            -Size                   //
+            -Container / Data       //
             
-            -ChangeCapacity         /                 
+            -ChangeCapacity         //
             -Reserve                /
             -ShrinkToFit            /
             
