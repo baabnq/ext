@@ -26,37 +26,133 @@ lab TestDynList::CreatePopulate;
     jump succ;
 
 
-lab TestDynList::Size;
+lab TestDynList::CreatePopulateInferSize;
     sub Local::TestDynList::Init;
 
-    push 123;
-    push 321;
+    new 10 _pContainer;
+
+    push _pContainer;
+    sub DynList::CreatePopulateInferSize;
+    pull _pList;
+
+    put __ <- _pList + _DynList::List::SIZE;
+    jump fail ~ __ != 10;
+    put __ <- _pList + _DynList::List::CONTAINER;
+    jump fail ~ __ != _pContainer;
+
+    push _pList; sub DynList::Delete;
+    jump succ;
+
+
+lab TestDynList::CreateEmpty;
+    sub Local::TestDynList::Init;
+
+    sub DynList::CreateEmpty;
+    pull _pList;
+
+    put __ <- _pList + _DynList::List::SIZE;
+    jump fail ~ __ != 0;
+
+    put __ <- _pList + _DynList::List::CONTAINER;
+    push __; sub Chunk::Len; pull __;
+    jump fail ~ __ != 0;
+
+    push _pList; sub DynList::Delete;
+    jump succ;
+
+
+
+
+lab TestDynList::CreateCopyChunk;
+    sub Local::TestDynList::Init;
+
+    new 10 _pContainer;
+
+    push _pContainer;
+    sub DynList::CreateCopyChunk;
+    pull _pList;
+
+    free _pContainer;
+
+
+
+    put __ <- _pList + _DynList::List::SIZE;
+    jump fail ~ __ != 10;
+    put __ <- _pList + _DynList::List::CONTAINER;
+    jump fail ~ __ != _pContainer;
+
+    push _pList; sub DynList::Delete;
+    jump succ;
+
+
+lab TestDynList::CreateCopyList;
+    sub Local::TestDynList::MakeTestList;
+    pull _pSrc;
+
+    push _pSrc;
+    sub DynList::CreateCopyList;
+    pull _pDst;
+
+    push _pSrc; sub DynList::Delete;
+
+
+
+    put __ <- _pDst + _DynList::List::SIZE;
+    jump fail ~ __ != 4;
+
+    put __ <- _pDst + _DynList::List::CONTAINER;
+    push __; sub Chunk::Len; pull __;
+    jump fail ~ __ != 6;
+
+    push _pDst; sub DynList::Delete;
+    jump succ;
+
+
+
+
+
+
+
+lab Local::TestDynList::MakeTestList;
+    sub Local::TestDynList::Init;
+
+    new 'test ' _p;
+
+    push 4;
+    push _p;
     sub DynList::CreatePopulate;
+
+    sub Stack::Swap;
+    return;
+
+
+
+lab TestDynList::Size;
+    sub Local::TestDynList::MakeTestList;
     pull _pList;
 
     push _pList;
     sub DynList::Size;
     pull _size;
-    jump fail ~ _size != 123;
+    jump fail ~ _size != 4;
 
-    free _pList;
+    push _pList; sub DynList::Delete;
     jump succ;
 
 
 lab TestDynList::Container;
-    sub Local::TestDynList::Init;
-
-    push 123;
-    push 321;
-    sub DynList::CreatePopulate;
+    sub Local::TestDynList::MakeTestList;
     pull _pList;
 
     push _pList;
     sub DynList::Container;
     pull _pContainer;
-    jump fail ~ _pContainer != 321;
 
-    free _pList;
+    put __ <- _pList + _DynList::List::CONTAINER;
+
+    jump fail ~ _pContainer != __;
+
+    push _pList; sub DynList::Delete;
     jump succ;
 
 
