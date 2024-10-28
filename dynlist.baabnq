@@ -283,6 +283,28 @@ lab DynList::PushBack;
     return;
     
 
+"(::DynList) => (X::Value)
+lab DynList::PopBack;
+    sub Stack::Swap;
+    pull _pList;
+
+    push _pList;
+    sub DynList::Size;
+    pull _sizeOld;
+    put  _sizeNew = _sizeOld - 1;
+
+    sub No::Return ~ _sizeOld == 0;
+
+    put _sizeNew -> _pList + _DynList::List::SIZE;
+
+    push _pList;
+    sub DynList::Container;
+    pull _pContainer;
+
+    put _x <- _pContainer + _sizeNew;
+    push _x;
+    sub Stack::Swap;
+    return;
 
 
 
