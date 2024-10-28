@@ -254,3 +254,51 @@ lab TestDynList::Clear;
     jump fail ~ __ != 0;
 
     jump succ;
+
+
+
+lab TestDynList::PushBack;
+    sub Local::TestDynList::MakeTestList;
+    pull _pList;
+
+
+    push _pList;
+    push 200;
+    sub DynList::PushBack;
+
+    put __ <- _pList + _DynList::List::SIZE;
+    jump fail ~ __ != 5;
+
+    put _pContainer <- _pList + _DynList::List::CONTAINER;
+    push _pContainer; sub Chunk::Len; pull __;
+    jump fail ~ __ != 6;
+
+    put __ <- _pContainer + 4;
+    jump fail ~ __ != 200;
+
+
+    push _pList;
+    push 300;
+    sub DynList::PushBack;
+    push _pList;
+    push 400;
+    sub DynList::PushBack;
+
+
+    put __ <- _pList + _DynList::List::SIZE;
+    jump fail ~ __ != 7;
+
+    put _pContainer <- _pList + _DynList::List::CONTAINER;
+    push _pContainer; sub Chunk::Len; pull __;
+    jump fail ~ __ != 7;
+
+    put __ <- _pContainer + 5;
+    jump fail ~ __ != 300;
+    put __ <- _pContainer + 6;
+    jump fail ~ __ != 400;
+
+    jump succ;
+
+
+
+
