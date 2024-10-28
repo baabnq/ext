@@ -216,6 +216,23 @@ lab TestDynList::Reserve;
 
 
 
+lab TestDynList::ShrinkToFit;
+    sub Local::TestDynList::MakeTestList;
+    pull _pList;
+
+    push _pList;
+    sub DynList::ShrinkToFit;
+
+
+    put __ <- _pList + _DynList::List::SIZE;
+    jump fail ~ __ != 4;
+
+    put __ <- _pList + _DynList::List::CONTAINER;
+    push __; sub Chunk::Len; pull __;
+    jump fail ~ __ != 4;
+
+    jump succ;
+
 
     
 
