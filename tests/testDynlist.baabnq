@@ -235,4 +235,22 @@ lab TestDynList::ShrinkToFit;
 
 
     
+lab TestDynList::Clear;
+    sub Local::TestDynList::MakeTestList;
+    pull _pList;
 
+    push _pList;
+    sub DynList::Clear;
+
+
+    put __ <- _pList + _DynList::List::SIZE;
+    jump fail ~ __ != 0;
+
+    put _pContainer <- _pList + _DynList::List::CONTAINER;
+    push _pContainer; sub Chunk::Len; pull __;
+    jump fail ~ __ != 6;
+
+    put __ <- _pContainer;
+    jump fail ~ __ != 0;
+
+    jump succ;
