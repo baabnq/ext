@@ -22,10 +22,10 @@
             -Container / Data       //
             
             -ChangeCapacity         //
-            -Reserve                /
-            -ShrinkToFit            /
+            -Reserve                //
+            -ShrinkToFit            //
             
-            -Clear                  /
+            -Clear                  //
             -PushBack               /
             -PopBack
             
