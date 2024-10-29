@@ -29,9 +29,13 @@
             -PushBack               //
             -PopBack                //
             
-            -Insert
+            -Insert                 //
+                -Refactor
             -Erase
-            
+
+            -Compare / Cmp
+
+
         
         -generic linked list
             -MAKE VERY MINIMAL
