@@ -254,7 +254,7 @@ lab DynList::Clear;
 
 
 
-"(::DynList, X::Value)
+"(::DynList, X::Int)
 lab DynList::PushBack;
     sub Stack::Swap; pull _x;
     sub Stack::Swap; pull _pList;
@@ -283,7 +283,7 @@ lab DynList::PushBack;
     return;
     
 
-"(::DynList) => (X::Value)
+"(::DynList) => (X::Int)
 lab DynList::PopBack;
     sub Stack::Swap;
     pull _pList;
@@ -305,6 +305,57 @@ lab DynList::PopBack;
     push _x;
     sub Stack::Swap;
     return;
+
+
+
+"(::DynList, Pos::Int, X::Int)
+lab DynList::Insert;
+    sub Stack::Swap; pull _x;
+    sub Stack::Swap; pull _pos;
+    sub Stack::Swap; pull _pList;
+
+    "get old size and calculate new one
+    push _pList;
+    sub DynList::Size;
+    pull _sizeOld;
+    put  _sizeNew = _sizeOld + 1;
+
+   "update size
+    put _sizeNew -> _pList + _DynList::List::SIZE;
+
+    "ensure capacity
+    push _pList;
+    push _sizeNew;
+    sub DynList::Reserve;
+
+
+    push _pList;
+    sub DynList::Size;
+    pull _size;
+
+    sub No::Return ~ _pos > _size;
+
+
+
+    push _pList;
+    sub DynList::Container;
+    pull _pContainer;
+
+
+    put _i = _sizeOld;
+    lab DynList::Insert::Loop;
+        put _data <- _pContainer + _i - 1;
+        put _data -> _pContainer + _i;
+
+        put _i = _i - 1;
+    jump DynList::Insert::Loop ~ _i > _pos;
+
+    put _x -> _pContainer + _pos;
+
+    return;
+
+
+
 
 
 
