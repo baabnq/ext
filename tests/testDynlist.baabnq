@@ -319,9 +319,49 @@ lab TestDynList::PopBack;
 
 
 
+lab TestDynList::Insert;
+    sub Local::TestDynList::MakeTestList;
+    pull _pList;
 
 
+    push _pList;
+    push 4;
+    push 65;
+    sub DynList::Insert;
+    
+    push _pList;
+    push 2;
+    push 65;
+    sub DynList::Insert;
 
+    push _pList;
+    push 0;
+    push 65;
+    sub DynList::Insert;
+
+
+    static 'AteAstA' _pRef;
+
+    put __ <- _pList + _DynList::List::SIZE;
+    jump fail ~ __ != 7;
+
+    push _pList;
+    sub DynList::Container;
+    pull _pContainer;
+
+    put _i = 0;
+    lab Local::TestDynList::Insert::Loop;
+        put _char1 <- _pContainer;
+        put _char2 <- _pRef;
+
+        jump fail ~ _char1 != _char2;
+
+        put _pContainer = _pContainer + 1;
+        put _pRef       = _pRef       + 1;
+        put _i = _i + 1;
+    jump Local::TestDynList::Insert::Loop ~ _i < 7;
+
+    jump succ;
 
 
 
