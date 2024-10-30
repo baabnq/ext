@@ -366,6 +366,49 @@ lab TestDynList::Insert;
 
 
 
+lab TestDynList::Erase;
+    sub Local::TestDynList::MakeTestList;
+
+        static 'AteAstA' _pRefContainer;
+        push _pRefContainer;
+        sub DynList::CreatePopulateInferSize;
+        pull _pRef;
+
+
+        push _pRef;
+        push 0;
+        sub DynList::Erase;
+    
+        push _pRef;
+        push 2;
+        sub DynList::Erase;
+
+        push _pRef;
+        push 4;
+        sub DynList::Erase;
+
+        put __ <- _pRef + _DynList::List::SIZE;
+        jump fail ~ __ != 5;
+
+    sub DynList::Container;
+    pull _pContainer;
+
+    put _i = 0;
+    lab Local::TestDynList::Erase::Loop;
+        put _char1 <- _pContainer;
+        put _char2 <- _pRefContainer;
+
+        jump fail ~ _char1 != _char2;
+
+        put _pContainer    = _pContainer    + 1;
+        put _pRefContainer = _pRefContainer + 1;
+        put _i = _i + 1;
+    jump Local::TestDynList::Erase::Loop ~ _i < 4;
+
+    jump succ;
+
+
+
 
 
 
