@@ -355,6 +355,42 @@ lab DynList::Insert;
     return;
 
 
+"(::DynList, Pos::Int)
+lab DynList::Erase;
+    sub Stack::Swap; pull _pos;
+    sub Stack::Swap; pull _pList;
+
+    push _pList;
+    sub DynList::Size;
+    pull _sizeOld;
+    put  _sizeNew = _sizeOld - 1;
+
+    sub No::Return ~ _sizeOld == 0;
+
+    put _sizeNew -> _pList + _DynList::List::SIZE;
+
+
+
+
+    push _pList;
+    sub DynList::Container;
+    pull _pContainer;
+
+
+    put _i = _pos;
+    lab DynList::Erase::Loop;
+        jump DynList::Erase::Done ~ _i >  _sizeNew;
+        jump DynList::Erase::Done ~ _i == _sizeNew;
+        put _data <- _pContainer + _i + 1;
+        put _data -> _pContainer + _i;
+
+        put _i = _i + 1;
+        jump DynList::Erase::Loop;
+    lab DynList::Erase::Done;
+
+    return;
+
+
 
 
 
