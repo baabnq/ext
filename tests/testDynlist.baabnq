@@ -315,6 +315,21 @@ lab TestDynList::PopBack;
     pull __;
     jump fail ~ __ != 115; "ord("s") = 115
 
+    push _pList;
+    sub DynList::PopBack;
+    pull __;
+    jump fail ~ __ != 101; "ord("e") = 101
+
+    push _pList;
+    sub DynList::PopBack;
+    pull __;
+    jump fail ~ __ != 116; "ord("t") = 116
+
+    push _pList;
+    sub DynList::PopBack;
+    pull __;
+    jump fail ~ __ != 0;
+
     jump succ;
 
 
