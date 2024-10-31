@@ -293,7 +293,9 @@ lab DynList::PopBack;
     pull _sizeOld;
     put  _sizeNew = _sizeOld - 1;
 
+    push 0;
     sub No::Return ~ _sizeOld == 0;
+    pull __;
 
     put _sizeNew -> _pList + _DynList::List::SIZE;
 

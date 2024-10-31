@@ -28,10 +28,9 @@
             -Clear                  //
             -PushBack               //
             -PopBack                //
-                -Fix out-paramter interface
             -Insert                 //
                 -Refactor
-            -Erase
+            -Erase                  //
 
 
         
