@@ -294,7 +294,9 @@ lab DynList::PopBack;
     put  _sizeNew = _sizeOld - 1;
 
     push 0;
+    sub Stack::Swap;
     sub No::Return ~ _sizeOld == 0;
+    sub Stack::Swap;
     pull __;
 
     put _sizeNew -> _pList + _DynList::List::SIZE;
