@@ -254,10 +254,13 @@ lab DynList::Clear;
 
 
 
-"(::DynList, X::Int)
-lab DynList::PushBack;
-    sub Stack::Swap; pull _x;
-    sub Stack::Swap; pull _pList;
+
+"(::DynList)
+"increments size of dynlist object,
+"while ensuring capacity for the new size to fit
+lab DynList::LocalIncSizeEnsureCapacity;
+    sub Stack::Swap;
+    pull _pList;
 
     "get old size and calculate new one
     push _pList;
@@ -272,6 +275,18 @@ lab DynList::PushBack;
     push _pList;
     push _sizeNew;
     sub DynList::Reserve;
+
+    return;
+
+
+
+"(::DynList, X::Int)
+lab DynList::PushBack;
+    sub Stack::Swap; pull _x;
+    sub Stack::Swap; pull _pList;
+
+    push _pList;
+    sub DynList::LocalIncSizeEnsureCapacity;
 
     "actual push
     push _pList;
@@ -318,20 +333,8 @@ lab DynList::Insert;
     sub Stack::Swap; pull _pos;
     sub Stack::Swap; pull _pList;
 
-    "get old size and calculate new one
     push _pList;
-    sub DynList::Size;
-    pull _sizeOld;
-    put  _sizeNew = _sizeOld + 1;
-
-   "update size
-    put _sizeNew -> _pList + _DynList::List::SIZE;
-
-    "ensure capacity
-    push _pList;
-    push _sizeNew;
-    sub DynList::Reserve;
-
+    sub DynList::LocalIncSizeEnsureCapacity;
 
     push _pList;
     sub DynList::Size;

@@ -29,7 +29,6 @@
             -PushBack               //
             -PopBack                //
             -Insert                 //
-                -Refactor
             -Erase                  //
 
 
