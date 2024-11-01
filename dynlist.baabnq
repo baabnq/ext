@@ -288,14 +288,13 @@ lab DynList::DecSizeBoundsCheckMetaReturnOnFail;
 
     push _pList;
     sub DynList::Size;
-    pull _sizeOld;
-    put  _sizeNew = _sizeOld - 1;
+    pull _size;
     
     pull __; "remove rt address to act as caller
-    sub No::Return ~ _sizeOld == 0;
+    sub No::Return ~ _size == 0;
     push __; "restore rt address to continue as callee
 
-    put _sizeNew -> _pList + _DynList::List::SIZE;
+    put (_size - 1) -> _pList + _DynList::List::SIZE;
     return;
 
 
