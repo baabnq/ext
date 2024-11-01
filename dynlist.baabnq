@@ -279,6 +279,27 @@ lab DynList::LocalIncSizeEnsureCapacity;
     return;
 
 
+"(::DynList)
+"decrements size of dynlist object,
+"while checking bounds and cause caller to return on fail
+lab DynList::DecSizeBoundsCheckMetaReturnOnFail;
+    sub Stack::Swap;
+    pull _pList;
+
+    push _pList;
+    sub DynList::Size;
+    pull _sizeOld;
+    put  _sizeNew = _sizeOld - 1;
+    
+    pull __; "remove rt address to act as caller
+    sub No::Return ~ _sizeOld == 0;
+    push __; "restore rt address to continue as callee
+
+    put _sizeNew -> _pList + _DynList::List::SIZE;
+    return;
+
+
+
 
 "(::DynList, X::Int)
 lab DynList::PushBack;
@@ -306,13 +327,7 @@ lab DynList::PopBack;
     push 0;
     sub Stack::Swap;
         push _pList;
-        sub DynList::Size;
-        pull _sizeOld;
-        put  _sizeNew = _sizeOld - 1;
-
-        sub No::Return ~ _sizeOld == 0;
-
-        put _sizeNew -> _pList + _DynList::List::SIZE;
+        sub DynList::DecSizeBoundsCheckMetaReturnOnFail;
     sub Stack::Swap;
     pull __;
 
