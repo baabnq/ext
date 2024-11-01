@@ -282,7 +282,7 @@ lab DynList::LocalIncSizeEnsureCapacity;
 "(::DynList)
 "decrements size of dynlist object,
 "while checking bounds and cause caller to return on fail
-lab DynList::DecSizeBoundsCheckMetaReturnOnFail;
+lab DynList::LocalDecSizeBoundsCheckMetaReturnOnFail;
     sub Stack::Swap;
     pull _pList;
 
@@ -326,7 +326,7 @@ lab DynList::PopBack;
     push 0;
     sub Stack::Swap;
         push _pList;
-        sub DynList::DecSizeBoundsCheckMetaReturnOnFail;
+        sub DynList::LocalDecSizeBoundsCheckMetaReturnOnFail;
     sub Stack::Swap;
     pull __;
 
@@ -381,7 +381,7 @@ lab DynList::Erase;
     sub Stack::Swap; pull _pList;
 
     push _pList;
-    sub DynList::DecSizeBoundsCheckMetaReturnOnFail;
+    sub DynList::LocalDecSizeBoundsCheckMetaReturnOnFail;
 
     push _pList; sub DynList::Container; pull _pContainer;
     push _pList; sub DynList::Size;      pull _size;
