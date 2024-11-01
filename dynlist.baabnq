@@ -383,16 +383,7 @@ lab DynList::Erase;
     sub Stack::Swap; pull _pList;
 
     push _pList;
-    sub DynList::Size;
-    pull _sizeOld;
-    put  _sizeNew = _sizeOld - 1;
-
-    sub No::Return ~ _sizeOld == 0;
-
-    put _sizeNew -> _pList + _DynList::List::SIZE;
-
-
-
+    sub DynList::DecSizeBoundsCheckMetaReturnOnFail;
 
     push _pList;
     sub DynList::Container;
