@@ -1,8 +1,6 @@
 -extras
     -https://github.com/S1monr3dst0ne07/ext
-        -generic  dynamic lists
-
-            -rename allocator to not include dynlist in lab name
+        -generic  dynamic lists ///
 
             -constructors
                 -Allocate                                   /
