@@ -78,6 +78,22 @@ lab Ringbuf::Container;
     return;
 
 
+"(::Ringbuf) => (Size::Int)
+lab Ringbuf::Size;
+    sub Stack::Swap;
+    pull _pRing;
+
+    put _size <- _pRing + _Ringbuf::Ringbuf::SIZE;
+
+    push _size;
+    sub Stack::Swap;
+    return;
+
+
+
+
+
+
 
 "(Capacity::Int) => (::Ringbuf)
 lab Ringbuf::Create;
