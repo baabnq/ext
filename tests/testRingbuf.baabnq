@@ -8,6 +8,21 @@ return;
 
 
 
+lab TestRingbuf::Allocate;
+    sub Local::TestRingbuf::Init;
+
+    sub Ringbuf::Allocate;
+    pull _pRing;
+
+    put __ <- _pRing + _Ringbuf::Ringbuf::SIZE     ; jump fail ~ __ != 0; 
+    put __ <- _pRing + _Ringbuf::Ringbuf::HEAD     ; jump fail ~ __ != 0; 
+    put __ <- _pRing + _Ringbuf::Ringbuf::TAIL     ; jump fail ~ __ != 0; 
+    put __ <- _pRing + _Ringbuf::Ringbuf::END      ; jump fail ~ __ != 0; 
+    put __ <- _pRing + _Ringbuf::Ringbuf::CONTAINER; jump fail ~ __ != 0; 
+    
+    jump succ;
+
+
 lab TestRingbuf::Create;
     sub Local::TestRingbuf::Init;
 
