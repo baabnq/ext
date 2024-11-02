@@ -60,7 +60,8 @@ lab Ringbuf::AdvancePtr;
         return;
 
     lab Ringbuf::AdvancePtr::Teleport;
-        put 0 -> _ppField;
+        put _pContainer <- _pRing + _Ringbuf::Ringbuf::CONTAINER;
+        put _pContainer -> _ppField;
         return;
 
 
