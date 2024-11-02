@@ -183,6 +183,32 @@ lab Ringbuf::Peek;
 
 
 
+"(::Ringbuf) => (Value::Int)
+lab Ringbuf::Get;
+    sub Stack::Swap;
+    pull _pRing;
+
+    put _pTail <- _pRing + _Ringbuf::Ringbuf::TAIL;
+    put _size  <- _pRing + _Ringbuf::Ringbuf::SIZE;
+
+    "peek fails if buffer is empty
+    push 0;
+    sub Stack::Swap;
+        sub No::Return ~ _size == 0;
+    sub Stack::Swap;
+    pull __;
+
+    put _value <- _pTail;
+
+    push _pRing;
+    push _pRing + _Ringbuf::Ringbuf::TAIL;
+    sub Ringbuf::AdvancePtr;
+
+    put _size - 1 -> _pRing + _Ringbuf::Ringbuf::SIZE;
+
+    push _value;
+    sub Stack::Swap;
+    return;
 
 
 
