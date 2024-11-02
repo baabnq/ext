@@ -76,11 +76,11 @@
     -ring buffer
         -ringbuf.baabnq
 
-        -allocate
+        -allocate //
         -advancePtr
         -container
 
-        -create
+        -create //
         -put
         -get
         -peek
@@ -88,7 +88,9 @@
 
         -size
 
-
+        -TODO: 
+            -make DynList::Allocate init the memory
+            -add unittest for DynList::Allocate
 
 
     -arena
