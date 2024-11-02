@@ -23,3 +23,37 @@ put _Ringbuf::Ringbuf::TAIL         = 2;
 put _Ringbuf::Ringbuf::END          = 3;
 put _Ringbuf::Ringbuf::CONTAINER    = 4;
 
+
+
+"=> (::Ringbuf)
+lab Ringbuf::Allocate;
+    new 5 _pRing;
+
+    put 0 -> _Ringbuf::Ringbuf::SIZE;
+    put 0 -> _Ringbuf::Ringbuf::HEAD;
+    put 0 -> _Ringbuf::Ringbuf::TAIL;
+    put 0 -> _Ringbuf::Ringbuf::END;
+    put 0 -> _Ringbuf::Ringbuf::CONTAINER;
+
+    push _pRing;
+    sub Stack::Swap;
+    return;
+
+"(Capacity::Int) => (::Ringbuf)
+lab Ringbuf::Create;
+    sub Stack::Swap;
+    pull _capacity;
+
+    sub Ringbuf::Allocate;
+    pull _pRing;
+
+    new _capacity _pContainer;
+    put _pContainer -> _pRing + _Ringbuf::Ringbuf::CONTAINER;
+
+    push _pRing;
+    sub Stack::Swap;
+    return;
+
+
+
+
