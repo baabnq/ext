@@ -133,6 +133,34 @@ lab Ringbuf::Delete;
     return;
 
 
+"(::Ringbuf, Value::Int)
+lab Ringbuf::Put;
+    sub Stack::Swap; pull _value;
+    sub Stack::Swap; pull _pRing;
+
+    put _pHead      <- _pRing + _Ringbuf::Ringbuf::HEAD;
+    put _size       <- _pRing + _Ringbuf::Ringbuf::SIZE;
+    put _pContainer <- _pRing + _Ringbuf::Ringbuf::CONTAINER;
+    push _pContainer; sub Chunk::Len; pull _capacity;
+
+
+    "write fails if buffer is full
+    sub No::Return ~ _size == _capacity;
+
+    put _value -> _pHead;
+
+    push _pRing;
+    push _pRing + _Ringbuf::Ringbuf::HEAD;
+    sub Ringbuf::AdvancePtr;
+
+    put _size     <- _pRing + _Ringbuf::Ringbuf::SIZE;
+    put _size + 1 -> _pRing + _Ringbuf::Ringbuf::SIZE;
+
+    return;
+
+
+
+
 
 
 
