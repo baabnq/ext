@@ -59,6 +59,31 @@ lab TestRingbuf::Container;
     jump succ;
 
 
+lab TestRingbuf::Size;
+    sub Local::TestRingbuf::Init;
+    
+    push 10;
+    sub Ringbuf::Create;
+    pull _pRing;
+
+    push _pRing;
+    sub Ringbuf::Size;
+    pull __;
+    jump fail ~ __ != 0;
+
+    put 100 -> _pRing + _Ringbuf::Ringbuf::SIZE;
+
+    push _pRing;
+    sub Ringbuf::Size;
+    pull __;
+    jump fail ~ __ != 100;
+
+    jump succ;
+
+
+
+
+
 
 lab TestRingbuf::AdvancePtr;
     sub Local::TestRingbuf::Init;
