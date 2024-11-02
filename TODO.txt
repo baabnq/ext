@@ -76,17 +76,17 @@
     -ring buffer
         -ringbuf.baabnq
 
-        -allocate //
-        -advancePtr
-        -container
+        -Allocate //
+        -AdvancePtr //
+        -Container
 
-        -create //
-        -put
-        -get
-        -peek
-        -delete
+        -Create //
+        -Put
+        -Get
+        -Peek
+        -Delete
 
-        -size
+        -Size
 
         -TODO: 
             -make DynList::Allocate init the memory
