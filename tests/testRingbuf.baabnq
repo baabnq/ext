@@ -42,3 +42,38 @@ lab TestRingbuf::Create;
     jump succ;
 
 
+
+lab TestRingbuf::AdvancePtr;
+    sub Local::TestRingbuf::Init;
+
+    push 2;
+    sub Ringbuf::Create;
+    pull _pRing;
+
+
+    push _pRing;
+    push _pRing + _Ringbuf::Ringbuf::HEAD;
+    sub Ringbuf::AdvancePtr;
+
+    push _pRing;
+    push _pRing + _Ringbuf::Ringbuf::TAIL;
+    sub Ringbuf::AdvancePtr;
+ 
+    put __ <- _pRing + _Ringbuf::Ringbuf::HEAD; jump fail ~ __ != 1; 
+    put __ <- _pRing + _Ringbuf::Ringbuf::TAIL; jump fail ~ __ != 1; 
+
+
+    push _pRing;
+    push _pRing + _Ringbuf::Ringbuf::HEAD;
+    sub Ringbuf::AdvancePtr;
+
+    push _pRing;
+    push _pRing + _Ringbuf::Ringbuf::TAIL;
+    sub Ringbuf::AdvancePtr;
+ 
+    put __ <- _pRing + _Ringbuf::Ringbuf::HEAD; jump fail ~ __ != 0; 
+    put __ <- _pRing + _Ringbuf::Ringbuf::TAIL; jump fail ~ __ != 0; 
+
+
+    jump succ;
+
