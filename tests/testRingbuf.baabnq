@@ -150,7 +150,11 @@ lab TestRingbuf::Put;
     put __ <- _pContainer + 1; jump fail ~ __ != 2;
     put __ <- _pContainer + 2; jump fail ~ __ != 3;
 
+    push _pRing; sub Ringbuf::Size; pull _size;
+    jump fail ~ _size != 3;
+
     jump succ;
+
 
 lab TestRingbuf::Peek;
     sub Local::TestRingbuf::Init;
@@ -168,4 +172,34 @@ lab TestRingbuf::Peek;
     jump fail ~ __ != 1;
 
     jump succ;
+
+
+lab TestRingbuf::Get;
+    sub Local::TestRingbuf::Init;
+
+    push 3;
+    sub Ringbuf::Create;
+    pull _pRing;
+
+    push _pRing; push 1; sub Ringbuf::Put;
+    push _pRing; push 2; sub Ringbuf::Put;
+    push _pRing; push 3; sub Ringbuf::Put;
+    push _pRing; push 4; sub Ringbuf::Put;
+    push _pRing; push 5; sub Ringbuf::Put;
+
+    push _pRing; sub Ringbuf::Get; pull __; jump fail ~ __ != 1;
+    push _pRing; sub Ringbuf::Get; pull __; jump fail ~ __ != 2;
+    push _pRing; sub Ringbuf::Get; pull __; jump fail ~ __ != 3;
+    push _pRing; sub Ringbuf::Get; pull __; jump fail ~ __ != 0;
+    push _pRing; sub Ringbuf::Get; pull __; jump fail ~ __ != 0;
+
+    push _pRing; sub Ringbuf::Size; pull _size;
+    jump fail ~ _size != 0;
+    
+
+    jump succ;
+
+
+
+
 
