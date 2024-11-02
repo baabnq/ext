@@ -1,0 +1,25 @@
+
+use 'libs/stack.baabnq';
+
+
+
+"ringbuf structure
+" _p+0 -> size      :: Int
+" _p+1 -> head      :: Ptr
+" _p+2 -> tail      :: Ptr
+" _p+3 -> end       :: Ptr
+" _p+4 -> container :: Chunk
+
+"the head pointer tracks write to the buffer.
+"the tail pointer tracks reading from the buffer.
+"the end pointer points to the end of container,
+"to allow for bounds checking
+
+"capacity is stored by container, because it's a chunk.
+
+put _Ringbuf::Ringbuf::SIZE         = 0;
+put _Ringbuf::Ringbuf::HEAD         = 1;
+put _Ringbuf::Ringbuf::TAIL         = 2;
+put _Ringbuf::Ringbuf::END          = 3;
+put _Ringbuf::Ringbuf::CONTAINER    = 4;
+
