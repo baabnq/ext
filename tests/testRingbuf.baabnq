@@ -152,6 +152,20 @@ lab TestRingbuf::Put;
 
     jump succ;
 
+lab TestRingbuf::Peek;
+    sub Local::TestRingbuf::Init;
 
+    push 3;
+    sub Ringbuf::Create;
+    pull _pRing;
 
+    push _pRing; push 1; sub Ringbuf::Put;
+    push _pRing; sub Ringbuf::Peek; pull __;
+    jump fail ~ __ != 1;
+
+    push _pRing; push 2; sub Ringbuf::Put;
+    push _pRing; sub Ringbuf::Peek; pull __;
+    jump fail ~ __ != 1;
+
+    jump succ;
 
