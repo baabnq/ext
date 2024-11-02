@@ -131,3 +131,27 @@ lab TestRingbuf::Delete;
     jump succ;
 
 
+lab TestRingbuf::Put;
+    sub Local::TestRingbuf::Init;
+
+    push 3;
+    sub Ringbuf::Create;
+    pull _pRing;
+
+    push _pRing; push 1; sub Ringbuf::Put;
+    push _pRing; push 2; sub Ringbuf::Put;
+    push _pRing; push 3; sub Ringbuf::Put;
+    push _pRing; push 4; sub Ringbuf::Put;
+    push _pRing; push 5; sub Ringbuf::Put;
+
+    push _pRing; sub Ringbuf::Container; pull _pContainer;
+
+    put __ <- _pContainer + 0; jump fail ~ __ != 1;
+    put __ <- _pContainer + 1; jump fail ~ __ != 2;
+    put __ <- _pContainer + 2; jump fail ~ __ != 3;
+
+    jump succ;
+
+
+
+
