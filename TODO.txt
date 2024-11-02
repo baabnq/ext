@@ -82,10 +82,10 @@
         -Size //
 
         -Create //
-        -Delete
-        -Put
-        -Get
-        -Peek
+        -Delete //
+        -Put //
+        -Peek //
+        -Get //
 
         -TODO: 
             -make DynList::Allocate init the memory
