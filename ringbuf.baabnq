@@ -120,5 +120,34 @@ lab Ringbuf::Create;
     return;
 
 
+"(::Ringbuf)
+lab Ringbuf::Delete;
+    sub Stack::Swap;
+    pull _pRing;
+
+    push _pRing; sub Ringbuf::Container; pull _pContainer;
+
+    free _pRing;
+    free _pContainer;
+
+    return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 lab Ringbuf::Jump;
