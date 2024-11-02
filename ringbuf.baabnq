@@ -83,6 +83,8 @@ lab Ringbuf::Create;
 
 
     put _pContainer -> _pRing + _Ringbuf::Ringbuf::CONTAINER;
+    put _pContainer -> _pRing + _Ringbuf::Ringbuf::HEAD;
+    put _pContainer -> _pRing + _Ringbuf::Ringbuf::TAIL;
     put _pEnd       -> _pRing + _Ringbuf::Ringbuf::END;
     
 
