@@ -79,14 +79,13 @@
         -Allocate //
         -AdvancePtr //
         -Container //
+        -Size //
 
         -Create //
+        -Delete
         -Put
         -Get
         -Peek
-        -Delete
-
-        -Size
 
         -TODO: 
             -make DynList::Allocate init the memory
