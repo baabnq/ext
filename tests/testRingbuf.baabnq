@@ -43,6 +43,23 @@ lab TestRingbuf::Create;
 
 
 
+
+lab TestRingbuf::Container;
+    sub Local::TestRingbuf::Init;
+
+    push 10;
+    sub Ringbuf::Create;    
+    pull _pRing;
+
+    push _pRing; sub Ringbuf::Container; pull _pContainerLookedup;
+    put _pContainerReal <- _pRing + _Ringbuf::Ringbuf::CONTAINER;
+
+    jump fail ~ _pContainerReal != _pContainerLookedup;
+    
+    jump succ;
+
+
+
 lab TestRingbuf::AdvancePtr;
     sub Local::TestRingbuf::Init;
 
