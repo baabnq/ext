@@ -39,6 +39,31 @@ lab Ringbuf::Allocate;
     sub Stack::Swap;
     return;
 
+
+"(::Ringbuf, Field::PtrPtr)
+"advances field in Ringbuf object,
+"while performing bounds checks.
+"this is used to advance head and tail.
+lab Ringbuf::AdvancePtr;
+    sub Stack::Swap; pull _ppField;
+    sub Stack::Swap; pull _pRing;
+
+    put _pField <- _ppField;
+    put _pEnd   <- _pRing + _Ringbuf::Ringbuf::END;
+
+    jump Ringbuf::AdvancePtr::Teleport ~ _pField == _pEnd;
+        put _pField + 1 -> _ppField;
+        return;
+
+    lab Ringbuf::AdvancePtr::Teleport;
+        put 0 -> _ppField;
+        return;
+
+
+
+
+
+
 "(Capacity::Int) => (::Ringbuf)
 lab Ringbuf::Create;
     sub Stack::Swap;
