@@ -1,6 +1,6 @@
 
 use 'libs/stack.baabnq';
-
+use 'libs/no.baabnq';
 
 
 "ringbuf structure
@@ -44,11 +44,18 @@ lab Ringbuf::Create;
     sub Stack::Swap;
     pull _capacity;
 
+    sub No::Return ~ _capacity == 0;
+
     sub Ringbuf::Allocate;
     pull _pRing;
 
     new _capacity _pContainer;
+    put _pEnd = _pContainer + _capacity - 1;
+
+
     put _pContainer -> _pRing + _Ringbuf::Ringbuf::CONTAINER;
+    put _pEnd       -> _pRing + _Ringbuf::Ringbuf::END;
+    
 
     push _pRing;
     sub Stack::Swap;
