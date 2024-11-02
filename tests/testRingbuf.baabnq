@@ -30,13 +30,14 @@ lab TestRingbuf::Create;
     sub Ringbuf::Create;
     pull _pRing;
 
+    put _pContainer <- _pRing + _Ringbuf::Ringbuf::CONTAINER;
+    put _pWhatEndShouldBe = _pContainer + 10 - 1;
+    push _pContainer; sub Chunk::Len; pull __; jump fail ~ __ != 10;
+    
     put __ <- _pRing + _Ringbuf::Ringbuf::SIZE; jump fail ~ __ != 0; 
     put __ <- _pRing + _Ringbuf::Ringbuf::HEAD; jump fail ~ __ != 0; 
     put __ <- _pRing + _Ringbuf::Ringbuf::TAIL; jump fail ~ __ != 0; 
-    put __ <- _pRing + _Ringbuf::Ringbuf::END ; jump fail ~ __ != 0; 
-    
-    put __ <- _pRing + _Ringbuf::Ringbuf::CONTAINER;
-    push __; sub Chunk::Len; pull __; jump fail ~ __ != 10;
+    put __ <- _pRing + _Ringbuf::Ringbuf::END ; jump fail ~ __ != _pWhatEndShouldBe; 
 
     jump succ;
 
