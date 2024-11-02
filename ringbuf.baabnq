@@ -66,6 +66,16 @@ lab Ringbuf::AdvancePtr;
 
 
 
+"(::Ringbuf) => (Container::Chunk)
+lab Ringbuf::Container;
+    sub Stack::Swap;
+    pull _pRing;
+
+    put _pContainer <- _pRing + _Ringbuf::Ringbuf::CONTAINER;
+
+    push _pContainer;
+    sub Stack::Swap;
+    return;
 
 
 
