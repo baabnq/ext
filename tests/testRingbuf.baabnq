@@ -1,0 +1,28 @@
+
+use 'libs/tests/common.baabnq';
+use 'libs/chunk.baabnq';
+
+lab Local::TestRingbuf::Init;
+    use 'ext/ringbuf.baabnq';
+return;
+
+
+
+lab TestRingbuf::Create;
+    sub Local::TestRingbuf::Init;
+
+    push 10;
+    sub Ringbuf::Create;
+    pull _pRing;
+
+    put __ <- _pRing + _Ringbuf::Ringbuf::SIZE; jump fail ~ __ != 0; 
+    put __ <- _pRing + _Ringbuf::Ringbuf::HEAD; jump fail ~ __ != 0; 
+    put __ <- _pRing + _Ringbuf::Ringbuf::TAIL; jump fail ~ __ != 0; 
+    put __ <- _pRing + _Ringbuf::Ringbuf::END ; jump fail ~ __ != 0; 
+    
+    put __ <- _pRing + _Ringbuf::Ringbuf::CONTAINER;
+    push __; sub Chunk::Len; pull __; jump fail ~ __ != 10;
+
+    jump succ;
+
+
