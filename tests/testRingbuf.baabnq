@@ -120,3 +120,14 @@ lab TestRingbuf::AdvancePtr;
 
     jump succ;
 
+
+lab TestRingbuf::Delete;
+    sub Local::TestRingbuf::Init;
+
+    push 10;
+    sub Ringbuf::Create;
+    sub Ringbuf::Delete;
+
+    jump succ;
+
+
