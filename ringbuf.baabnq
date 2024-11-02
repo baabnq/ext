@@ -160,6 +160,26 @@ lab Ringbuf::Put;
 
 
 
+"(::Ringbuf) => (Value::Int)
+lab Ringbuf::Peek;
+    sub Stack::Swap;
+    pull _pRing;
+
+    put _pTail <- _pRing + _Ringbuf::Ringbuf::TAIL;
+    put _size  <- _pRing + _Ringbuf::Ringbuf::SIZE;
+
+    "peek fails if buffer is empty
+    push 0;
+    sub Stack::Swap;
+        sub No::Return ~ _size == 0;
+    sub Stack::Swap;
+    pull __;
+
+    put _value <- _pTail;
+
+    push _value;
+    sub Stack::Swap;
+    return;
 
 
 
