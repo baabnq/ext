@@ -30,23 +30,27 @@
             -Erase                  //
 
 
+
         
         -generic linked list
+            -node
+                -allocate
+                -next
+                -prev
+                -get
+                -set
+
+
+
             -MAKE VERY MINIMAL
             
-            -GetHeadNode /
-            -GetTailNode /
-                                    
-            -PrevNode   /
-            -NextNode   /
+            -GetHeadNode
+            -GetTailNode
+            -GetNodeAtIndex
 
             -Size         / 
                 -IsEmpty  / 
 
-            -GetNodeAtIndex /
-
-            -GetFront   
-            -GetBack
 
             -Insert
             -Erase
@@ -57,14 +61,8 @@
             -PushFront
             -PopFront
 
-            -GetAtIndex
-            -SetAtIndex
-
-            -CreateEmpty
-                -CreateFromChunk
-                -CreateFillWithSize
-                    -CreateEmptyWithSize
-
+            -Allocate
+            -Create
             -Delete                        
             
             
@@ -77,6 +75,20 @@
 
     -ring buffer
         -ringbuf.baabnq
+
+        -allocate
+        -advancePtr
+        -container
+
+        -create
+        -put
+        -get
+        -peek
+        -delete
+
+        -size
+
+
 
 
     -arena
