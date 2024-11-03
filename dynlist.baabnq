@@ -26,6 +26,9 @@ jump DynList::Skip;
 lab DynList::Allocate;    
     new 2 _pList;
 
+    put 0 -> _pList + _DynList::List::SIZE;
+    put 0 -> _pList + _DynList::List::CONTAINER;
+
     push _pList;
     sub Stack::Swap;
     return;
