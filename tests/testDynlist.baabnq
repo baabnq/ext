@@ -8,6 +8,18 @@ return;
 
 
 
+lab TestDynList::Allocate;
+    sub Local::TestDynList::Init;
+
+    sub DynList::Allocate;
+    pull _pList;
+
+    put __ <- _pList + _DynList::List::SIZE;      jump fail ~ __ != 0;
+    put __ <- _pList + _DynList::List::CONTAINER; jump fail ~ __ != 0;
+
+    jump succ;
+
+
 lab TestDynList::CreatePopulate;
     sub Local::TestDynList::Init;
 
