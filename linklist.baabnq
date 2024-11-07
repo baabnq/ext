@@ -59,7 +59,7 @@ lab LinkList::Link::Delete;
 
 
 "(::Link) => (::Link)
-lab LinkList::List::Next;
+lab LinkList::Link::Next;
     sub Stack::Swap;
     pull _pLink;
 
@@ -70,7 +70,7 @@ lab LinkList::List::Next;
     return;
 
 "(::Link) => (::Link)
-lab LinkList::List::Prev;
+lab LinkList::Link::Prev;
     sub Stack::Swap;
     pull _pLink;
 
@@ -82,7 +82,7 @@ lab LinkList::List::Prev;
 
 
 "(::Link) => (Data::Void)
-lab LinkList::List::Get;
+lab LinkList::Link::Get;
     sub Stack::Swap;
     pull _pLink;
 
@@ -93,7 +93,7 @@ lab LinkList::List::Get;
     return;
 
 "(::Link, Data::Void)
-lab LinkList::List::Set;
+lab LinkList::Link::Set;
     sub Stack::Swap; pull _data;
     sub Stack::Swap; pull _pLink;
 
@@ -104,6 +104,39 @@ lab LinkList::List::Set;
 
 
 
+"(Subject::Link, Position::Link)
+"subject will be hooked in after position
+"(that's also why position is called _pPrev)
+lab LinkList::Link::Hook;
+    sub Stack::Swap; pull _pPrev;
+    sub Stack::Swap; pull _pSubj;
+    
+    "before:
+    "┌──────┐              ┌──────┐
+    "│      ├─────────────►│      │
+    "│ Prev │              │ Next │
+    "│      │◄─────────────│      │
+    "└──────┘              └──────┘
+    "after:
+    "┌──────┐   ┌──────┐   ┌──────┐
+    "│      ├──►│      ├──►│      │
+    "│ Prev │   │ Subj │   │ Next │
+    "│      │◄──┤      │◄──│      │
+    "└──────┘   └──────┘   └──────┘
+    
+    "grab next node to lose reference
+    put _pNext <- _pPrev + _LinkList::Link::NEXT;
+
+    "link prev to subj and back
+    put _pSubj -> _pPrev + _LinkList::Link::NEXT;
+    put _pPrev -> _pSubj + _LinkList::Link::PREV;
+
+    "link next to subj and back
+    put _pSubj -> _pNext + _LinkList::Link::PREV;
+    put _pNext -> _pSubj + _LinkList::Link::NEXT;
+
+    
+    return;
 
 
 
