@@ -3,7 +3,7 @@
         -generic  dynamic lists ///
 
             -constructors
-                -Allocate                                   /
+                -Allocate                                   //
                 -CreatePopulate                             //
                 -CreateUseChunk / CreatePopulateInferSize   //
                 -CreateEmpty / Create                       //
@@ -33,37 +33,37 @@
 
         
         -generic linked list
-            -node
-                -allocate
-                -next
-                -prev
-                -get
-                -set
+            -Link
+                -Allocate   /
+                -Create     /
+                -Delete     /
+                -Next       /
+                -Prev       /
+                -Get        /
+                -Set        /
 
+                -DoLink
+                -Unlink
 
+                -Insert
+                -Erase
 
-            -MAKE VERY MINIMAL
-            
-            -GetHeadNode
-            -GetTailNode
-            -GetNodeAtIndex
+            -Container
+                -Allocate
+                -CreateEmpty
+                -Delete
+                -Sentinel
 
-            -Size         / 
-                -IsEmpty  / 
+                -Size         / 
+                    -IsEmpty  / 
 
+                -IsSentinel
 
-            -Insert
-            -Erase
+                -PushBack
+                -PopBack
+                -PushFront
+                -PopFront
 
-
-            -PushBack
-            -PopBack
-            -PushFront
-            -PopFront
-
-            -Allocate
-            -Create
-            -Delete                        
             
             
         -listed/dynamic conversion routines
@@ -73,7 +73,7 @@
             DynListToLinkList / D2L 
             
 
-    -ring buffer
+    -ring buffer //
         -ringbuf.baabnq
 
         -Allocate //
@@ -92,9 +92,6 @@
         -maybe
         -kinda goes against baabnq's philosophy
             
-        
-    -btree.baabnq
-        -generic binary tree
         
     -vec.baabnq
         -generic vector
