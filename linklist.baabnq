@@ -124,7 +124,7 @@ lab LinkList::Link::Hook;
     "│      │◄──┤      │◄──│      │
     "└──────┘   └──────┘   └──────┘
     
-    "grab next node to lose reference
+    "grab next node to not lose reference
     put _pNext <- _pPrev + _LinkList::Link::NEXT;
 
     "link prev to subj and back
@@ -137,6 +137,44 @@ lab LinkList::Link::Hook;
 
     
     return;
+
+
+
+
+"(Subject::Link)
+lab LinkList::Link::Unhook;
+    sub Stack::Swap; pull _pPrev;
+    sub Stack::Swap; pull _pSubj;
+    
+    "before:
+    "┌──────┐   ┌──────┐   ┌──────┐
+    "│      ├──►│      ├──►│      │
+    "│ Prev │   │ Subj │   │ Next │
+    "│      │◄──┤      │◄──│      │
+    "└──────┘   └──────┘   └──────┘
+    "after:
+    "┌──────┐              ┌──────┐
+    "│      ├─────────────►│      │
+    "│ Prev │              │ Next │
+    "│      │◄─────────────│      │
+    "└──────┘              └──────┘
+    
+    put _pNext <- _pPrev + _LinkList::Link::NEXT;
+
+    put _pPrev -> _pNext + _LinkList::Link::PREV;
+    put _pNext -> _pPrev + _LinkList::Link::NEXT;
+
+    
+    return;
+
+
+
+
+
+
+
+
+
 
 
 
