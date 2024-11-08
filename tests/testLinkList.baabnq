@@ -1,0 +1,74 @@
+
+use 'libs/tests/common.baabnq';
+
+
+lab Local::TestLinkList::Init;
+    use 'ext/linklist.baabnq';
+return;
+
+
+
+
+
+
+lab TestLinkList::Link::Create;
+    sub Local::TestLinkList::Init;
+
+    sub LinkList::Link::Create;
+    pull _pLink;
+    
+    push _pLink;
+    sub Chunk::Len;
+    pull _len;
+    jump fail ~ _len != 3;
+
+    jump succ;
+
+
+lab TestLinkList::Link::Delete;
+    sub Local::TestLinkList::Init;
+
+    sub LinkList::Link::Create;
+    sub LinkList::Link::Delete;
+
+    jump succ;
+    
+
+lab TestLinkList::Link::Next;
+    sub Local::TestLinkList::Init;
+
+    sub LinkList::Link::Create;
+    pull _pLink;
+
+    put 12345 -> _pLink + _LinkList::Link::NEXT;
+
+    push _pLink;
+    sub LinkList::Link::Next;
+    pull _pNext;
+
+    jump fail ~ _pNext != 12345;
+
+    jump succ;
+
+
+lab TestLinkList::Link::Prev;
+    sub Local::TestLinkList::Init;
+
+    sub LinkList::Link::Create;
+    pull _pLink;
+
+    put 12345 -> _pLink + _LinkList::Link::PREV;
+
+    push _pLink;
+    sub LinkList::Link::Prev;
+    pull _pPrev;
+
+    jump fail ~ _pPrev != 12345;
+
+    jump succ;
+
+
+
+
+
+
