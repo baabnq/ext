@@ -39,8 +39,8 @@
                 -Delete     //
                 -Next       //
                 -Prev       //
-                -Get        /
-                -Set        /
+                -Get        //
+                -Set        //
 
                 -Hook       /
                 -Unhook     /

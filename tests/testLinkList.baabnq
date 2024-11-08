@@ -57,18 +57,51 @@ lab TestLinkList::Link::Prev;
     sub LinkList::Link::Create;
     pull _pLink;
 
-    put 12345 -> _pLink + _LinkList::Link::PREV;
+    put 23456 -> _pLink + _LinkList::Link::PREV;
 
     push _pLink;
     sub LinkList::Link::Prev;
     pull _pPrev;
 
-    jump fail ~ _pPrev != 12345;
+    jump fail ~ _pPrev != 23456;
 
     jump succ;
 
 
 
 
+lab TestLinkList::Link::Get;
+    sub Local::TestLinkList::Init;
 
+    sub LinkList::Link::Create;
+    pull _pLink;
+
+    put 34567 -> _pLink + _LinkList::Link::DATA;
+
+    push _pLink;
+    sub LinkList::Link::Get;
+    pull _data;
+
+    jump fail ~ _data != 34567;
+
+    jump succ;
+
+
+
+
+lab TestLinkList::Link::Set;
+    sub Local::TestLinkList::Init;
+
+    sub LinkList::Link::Create;
+    pull _pLink;
+
+    push _pLink;
+    push 45678;
+    sub LinkList::Link::Set;
+
+    put _data <- _pLink + _LinkList::Link::DATA;
+
+    jump fail ~ _data != 45678;
+
+    jump succ;
 
