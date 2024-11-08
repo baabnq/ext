@@ -34,16 +34,16 @@
         
         -generic linked list
             -Link
-                -Allocate   /
-                -Create     /
-                -Delete     /
-                -Next       /
-                -Prev       /
+                -Allocate   //
+                -Create     //
+                -Delete     //
+                -Next       //
+                -Prev       //
                 -Get        /
                 -Set        /
 
-                -DoLink
-                -Unlink
+                -Hook       /
+                -Unhook     /
 
                 -Insert
                 -Erase
