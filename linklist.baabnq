@@ -1,3 +1,5 @@
+
+use 'libs/stack.baabnq';
 use 'libs/chunk.baabnq';
 use 'libs/no.baabnq';
 
@@ -74,7 +76,7 @@ lab LinkList::Link::Prev;
     sub Stack::Swap;
     pull _pLink;
 
-    put _pPrev <- _pLink + _LinkList::Link::NEXT;
+    put _pPrev <- _pLink + _LinkList::Link::PREV;
 
     push _pPrev;
     sub Stack::Swap;
