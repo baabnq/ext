@@ -126,6 +126,8 @@ lab LinkList::Link::Hook;
     "│      │◄──┤      │◄──│      │
     "└──────┘   └──────┘   └──────┘
     
+    push _pNext;
+
     "grab next node to not lose reference
     put _pNext <- _pPrev + _LinkList::Link::NEXT;
 
@@ -137,6 +139,7 @@ lab LinkList::Link::Hook;
     put _pSubj -> _pNext + _LinkList::Link::PREV;
     put _pNext -> _pSubj + _LinkList::Link::NEXT;
 
+    pull _pNext;
     
     return;
 
@@ -161,11 +164,14 @@ lab LinkList::Link::Unhook;
     "│      │◄─────────────│      │
     "└──────┘              └──────┘
     
+    push _pNext;
+
     put _pNext <- _pPrev + _LinkList::Link::NEXT;
 
     put _pPrev -> _pNext + _LinkList::Link::PREV;
     put _pNext -> _pPrev + _LinkList::Link::NEXT;
 
+    pull _pNext;
     
     return;
 
