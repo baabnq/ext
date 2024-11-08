@@ -105,3 +105,42 @@ lab TestLinkList::Link::Set;
 
     jump succ;
 
+
+
+lab TestLinkList::Link::Hook;
+    sub Local::TestLinkList::Init;
+
+    sub LinkList::Link::Create;
+    sub LinkList::Link::Create;
+    sub LinkList::Link::Create;
+
+    pull _pLink; pull _pPrev; pull _pNext;
+
+    "hook _pPrev to _pNext
+    push _pNext;
+    push _pPrev;
+    sub LinkList::Link::Hook;
+
+    "verfiy structure
+    put __ <- _pPrev + _LinkList::Link::PREV; jump fail ~ __ != 0;
+    put __ <- _pPrev + _LinkList::Link::NEXT; jump fail ~ __ != _pNext;
+
+    put __ <- _pNext + _LinkList::Link::PREV; jump fail ~ __ != _pPrev;
+    put __ <- _pNext + _LinkList::Link::NEXT; jump fail ~ __ != 0;
+
+
+    "hook _pLink into to the middle
+    push _pLink;
+    push _pPrev;
+    sub LinkList::Link::Hook;
+
+    "verfiy structure
+    put __ <- _pPrev + _LinkList::Link::PREV; jump fail ~ __ != 0;
+    put __ <- _pPrev + _LinkList::Link::NEXT; jump fail ~ __ != _pLink;
+
+    put __ <- _pNext + _LinkList::Link::PREV; jump fail ~ __ != _pLink;
+    put __ <- _pNext + _LinkList::Link::NEXT; jump fail ~ __ != 0;
+
+
+    jump succ;
+
