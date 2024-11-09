@@ -45,15 +45,16 @@
                 -Hook       //
                 -Unhook     //
 
-                -Insert
-                -Erase
 
             -Container
-                -Allocate
-                -CreateEmpty
-                -Delete
+                -Allocate   //
+                -Create     //
+                -Delete     //
                 -Sentinel
 
+                -Insert
+                -Erase
+                
                 -Size         / 
                     -IsEmpty  / 
 
