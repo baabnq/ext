@@ -11,10 +11,10 @@ return;
 
 
 
-lab TestLinkList::Link::Create;
+lab TestLinkList::Link::CreateEmpty;
     sub Local::TestLinkList::Init;
 
-    sub LinkList::Link::Create;
+    sub LinkList::Link::CreateEmpty;
     pull _pLink;
     
     push _pLink;
@@ -28,7 +28,7 @@ lab TestLinkList::Link::Create;
 lab TestLinkList::Link::Delete;
     sub Local::TestLinkList::Init;
 
-    sub LinkList::Link::Create;
+    sub LinkList::Link::CreateEmpty;
     sub LinkList::Link::Delete;
 
     jump succ;
@@ -37,7 +37,7 @@ lab TestLinkList::Link::Delete;
 lab TestLinkList::Link::Next;
     sub Local::TestLinkList::Init;
 
-    sub LinkList::Link::Create;
+    sub LinkList::Link::CreateEmpty;
     pull _pLink;
 
     put 12345 -> _pLink + _LinkList::Link::NEXT;
@@ -54,7 +54,7 @@ lab TestLinkList::Link::Next;
 lab TestLinkList::Link::Prev;
     sub Local::TestLinkList::Init;
 
-    sub LinkList::Link::Create;
+    sub LinkList::Link::CreateEmpty;
     pull _pLink;
 
     put 23456 -> _pLink + _LinkList::Link::PREV;
@@ -73,7 +73,7 @@ lab TestLinkList::Link::Prev;
 lab TestLinkList::Link::Get;
     sub Local::TestLinkList::Init;
 
-    sub LinkList::Link::Create;
+    sub LinkList::Link::CreateEmpty;
     pull _pLink;
 
     put 34567 -> _pLink + _LinkList::Link::DATA;
@@ -92,7 +92,7 @@ lab TestLinkList::Link::Get;
 lab TestLinkList::Link::Set;
     sub Local::TestLinkList::Init;
 
-    sub LinkList::Link::Create;
+    sub LinkList::Link::CreateEmpty;
     pull _pLink;
 
     push _pLink;
@@ -110,9 +110,9 @@ lab TestLinkList::Link::Set;
 lab TestLinkList::Link::Hook;
     sub Local::TestLinkList::Init;
 
-    sub LinkList::Link::Create;
-    sub LinkList::Link::Create;
-    sub LinkList::Link::Create;
+    sub LinkList::Link::CreateEmpty;
+    sub LinkList::Link::CreateEmpty;
+    sub LinkList::Link::CreateEmpty;
 
     pull _pLink; pull _pPrev; pull _pNext;
 
@@ -153,9 +153,9 @@ lab TestLinkList::Link::Hook;
 lab TestLinkList::Link::Unhook;
     sub Local::TestLinkList::Init;
 
-    sub LinkList::Link::Create;
-    sub LinkList::Link::Create;
-    sub LinkList::Link::Create;
+    sub LinkList::Link::CreateEmpty;
+    sub LinkList::Link::CreateEmpty;
+    sub LinkList::Link::CreateEmpty;
 
     pull _pLink; pull _pPrev; pull _pNext;
 
@@ -254,6 +254,17 @@ lab TestLinkList::Container::Sentinel;
     jump fail ~ __ != _pSent;
 
     jump succ;
+
+
+
+
+
+
+
+
+
+
+
 
 
 

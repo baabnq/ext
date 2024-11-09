@@ -37,7 +37,7 @@ jump LinkList::Skip;
 
 "=> (::Link)
 lab LinkList::Link::Allocate;
-lab LinkList::Link::Create;
+lab LinkList::Link::CreateEmpty;
 
     new 3 _pLink;
     
@@ -205,7 +205,7 @@ lab LinkList::Container::Allocate;
 lab LinkList::Container::Create;
     
     sub LinkList::Container::Allocate;
-    sub LinkList::Link::Create;
+    sub LinkList::Link::CreateEmpty;
     pull _pSent;
     pull _pList;
 
@@ -237,6 +237,12 @@ lab LinkList::Container::Sentinel;
     push _pSent;
     sub Stack::Swap;
     return;
+
+
+
+
+
+
 
 
 
