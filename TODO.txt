@@ -50,7 +50,7 @@
                 -Allocate   //
                 -Create     //
                 -Delete     //
-                -Sentinel
+                -Sentinel   //
 
                 -Insert
                 -Erase
