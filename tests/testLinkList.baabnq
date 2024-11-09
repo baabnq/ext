@@ -240,62 +240,20 @@ lab TestLinkList::Container::Delete;
 
 
 
+lab TestLinkList::Container::Sentinel; 
+    sub Local::TestLinkList::Init;
 
+    sub LinkList::Container::Create;
+    pull _pList;
 
+    push _pList;
+    sub LinkList::Container::Sentinel;
+    pull _pSent;
 
+    put __ <- _pList + _LinkList::Container::SENTINEL;
+    jump fail ~ __ != _pSent;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    jump succ;
 
 
 
