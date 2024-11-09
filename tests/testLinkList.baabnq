@@ -121,7 +121,7 @@ lab TestLinkList::Link::Hook;
     push _pPrev;
     sub LinkList::Link::Hook;
 
-    "verfiy structure
+    "verify structure
     put __ <- _pPrev + _LinkList::Link::PREV; jump fail ~ __ != 0;
     put __ <- _pPrev + _LinkList::Link::NEXT; jump fail ~ __ != _pNext;
 
@@ -134,7 +134,7 @@ lab TestLinkList::Link::Hook;
     push _pPrev;
     sub LinkList::Link::Hook;
 
-    "verfiy structure
+    "verify structure
     put __ <- _pPrev + _LinkList::Link::PREV; jump fail ~ __ != 0;
     put __ <- _pPrev + _LinkList::Link::NEXT; jump fail ~ __ != _pLink;
 
@@ -146,4 +146,42 @@ lab TestLinkList::Link::Hook;
 
 
     jump succ;
+
+
+
+
+lab TestLinkList::Link::Unhook;
+    sub Local::TestLinkList::Init;
+
+    sub LinkList::Link::Create;
+    sub LinkList::Link::Create;
+    sub LinkList::Link::Create;
+
+    pull _pLink; pull _pPrev; pull _pNext;
+
+    push _pNext;
+    push _pPrev;
+    sub LinkList::Link::Hook;
+
+    push _pLink;
+    push _pPrev;
+    sub LinkList::Link::Hook;
+
+    "all the above is verified to work by TestLinkList::Link::Hook
+
+    push _pLink;
+    sub LinkList::Link::Unhook;
+
+    "verify structure
+    put __ <- _pPrev + _LinkList::Link::PREV; jump fail ~ __ != 0;
+    put __ <- _pPrev + _LinkList::Link::NEXT; jump fail ~ __ != _pNext;
+
+    put __ <- _pLink + _LinkList::Link::PREV; jump fail ~ __ != 0;
+    put __ <- _pLink + _LinkList::Link::NEXT; jump fail ~ __ != 0;
+
+    put __ <- _pNext + _LinkList::Link::PREV; jump fail ~ __ != _pPrev;
+    put __ <- _pNext + _LinkList::Link::NEXT; jump fail ~ __ != 0;
+
+    jump succ;
+
 

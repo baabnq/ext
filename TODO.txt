@@ -42,8 +42,8 @@
                 -Get        //
                 -Set        //
 
-                -Hook       /
-                -Unhook     /
+                -Hook       //
+                -Unhook     //
 
                 -Insert
                 -Erase
