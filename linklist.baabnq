@@ -228,6 +228,22 @@ lab LinkList::Container::Delete;
 
 
 
+"(::LinkList) => (Sentinel::Ptr)
+lab LinkList::Container::Sentinel;
+    sub Stack::Swap; pull _pList;
+
+    put _pSent <- _pList + _LinkList::Container::SENTINEL;
+
+    push _pSent;
+    sub Stack::Swap;
+    return;
+
+
+
+
+
+
+
 
 
 lab LinkList::Skip;
