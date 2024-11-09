@@ -185,3 +185,121 @@ lab TestLinkList::Link::Unhook;
     jump succ;
 
 
+
+
+
+
+
+
+
+lab TestLinkList::Container::Allocate;
+    sub Local::TestLinkList::Init;
+
+    sub LinkList::Container::Allocate;
+    pull _pList;
+    
+    push _pList;
+    sub Chunk::Len;
+    pull _len;
+    jump fail ~ _len != 2;
+
+    jump succ;
+
+
+
+lab TestLinkList::Container::Create; 
+    sub Local::TestLinkList::Init;
+
+    sub LinkList::Container::Create;
+    pull _pList;
+ 
+    push _pList;
+    sub Chunk::Len;
+    pull _len;
+    jump fail ~ _len != 2;
+
+    put _pSent <- _pList + _LinkList::Container::SENTINEL;
+    push _pSent; 
+    sub Chunk::Len;
+    pull _len;
+    jump fail ~ _len != 3;
+
+    jump succ;
+
+
+
+
+lab TestLinkList::Container::Delete; 
+    sub Local::TestLinkList::Init;
+
+    sub LinkList::Container::Create;
+    sub LinkList::Link::Delete;
+
+    jump succ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
