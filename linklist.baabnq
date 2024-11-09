@@ -189,9 +189,41 @@ lab LinkList::Link::Unhook;
 
 
 
+"=> (::LinkList)
+lab LinkList::Container::Allocate;    
+    new 2 _pList;
+    
+    put 0 -> _pList + _LinkList::Container::SIZE;
+    put 0 -> _pList + _LinkList::Container::SENTINEL;
+
+    push _pList;
+    sub Stack::Swap;
+    return;
 
 
+"=> (::LinkList)
+lab LinkList::Container::Create;
+    
+    sub LinkList::Container::Allocate;
+    sub LinkList::Link::Create;
+    pull _pSent;
+    pull _pList;
 
+    put _pSent -> _pList + _LinkList::Container::SENTINEL;
+
+    push _pList;
+    sub Stack::Swap;
+    return;
+
+"(::LinkList)
+lab LinkList::Container::Delete;
+    sub Stack::Swap; pull _pList;
+
+    put _pSent <- _pList + _LinkList::Container::SENTINEL;
+    free _pSent;
+    free _pList;
+
+    return;
 
 
 
