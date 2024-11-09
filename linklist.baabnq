@@ -48,7 +48,19 @@ lab LinkList::Link::CreateEmpty;
     push _pLink;
     sub Stack::Swap;
     return;
+
+"(Data::Void) => (::Link)
+lab LinkList::Link::CreateData;
+    sub Stack::Swap; pull _data;
+
+    sub LinkList::Link::Allocate;
+    pull _pLink;
     
+    put _data -> _pLink + _LinkList::Link::DATA;
+
+    push _pLink; sub Stack::Swap;
+    return;
+
 
 
 "(::Link)
