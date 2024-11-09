@@ -35,7 +35,8 @@
         -generic linked list
             -Link
                 -Allocate   //
-                -Create     //
+                -CreateEmpty    //
+                -CreateData     //  
                 -Delete     //
                 -Next       //
                 -Prev       //
