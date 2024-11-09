@@ -129,7 +129,7 @@ lab TestLinkList::Link::Hook;
     put __ <- _pNext + _LinkList::Link::NEXT; jump fail ~ __ != 0;
 
 
-    "hook _pLink into to the middle
+    "hook _pLink into the middle
     push _pLink;
     push _pPrev;
     sub LinkList::Link::Hook;
@@ -137,6 +137,9 @@ lab TestLinkList::Link::Hook;
     "verfiy structure
     put __ <- _pPrev + _LinkList::Link::PREV; jump fail ~ __ != 0;
     put __ <- _pPrev + _LinkList::Link::NEXT; jump fail ~ __ != _pLink;
+
+    put __ <- _pLink + _LinkList::Link::PREV; jump fail ~ __ != _pPrev;
+    put __ <- _pLink + _LinkList::Link::NEXT; jump fail ~ __ != _pNext;
 
     put __ <- _pNext + _LinkList::Link::PREV; jump fail ~ __ != _pLink;
     put __ <- _pNext + _LinkList::Link::NEXT; jump fail ~ __ != 0;
