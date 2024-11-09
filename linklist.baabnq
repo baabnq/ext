@@ -148,7 +148,6 @@ lab LinkList::Link::Hook;
 
 "(Subject::Link)
 lab LinkList::Link::Unhook;
-    sub Stack::Swap; pull _pPrev;
     sub Stack::Swap; pull _pSubj;
     
     "before:
@@ -165,12 +164,20 @@ lab LinkList::Link::Unhook;
     "└──────┘              └──────┘
     
     push _pNext;
+    push _pPrev;
 
-    put _pNext <- _pPrev + _LinkList::Link::NEXT;
+    put _pNext <- _pSubj + _LinkList::Link::NEXT;
+    put _pPrev <- _pSubj + _LinkList::Link::PREV;
 
+    "link prev and next
     put _pPrev -> _pNext + _LinkList::Link::PREV;
     put _pNext -> _pPrev + _LinkList::Link::NEXT;
 
+    "unlink subj
+    put 0 -> _pSubj + _LinkList::Link::PREV;
+    put 0 -> _pSubj + _LinkList::Link::NEXT;
+
+    pull _pPrev;
     pull _pNext;
     
     return;
