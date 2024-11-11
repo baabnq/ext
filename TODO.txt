@@ -53,7 +53,7 @@
                 -Delete     //
                 -Sentinel   //
 
-                -Insert
+                -Insert     //
                 -Erase
                 
                 -Size         / 
