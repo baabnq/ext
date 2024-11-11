@@ -255,8 +255,23 @@ lab LinkList::Container::Sentinel;
 
 
 
+"(::LinkList, Position::Link, Data::Void)
+lab LinkList::Container::Insert;
+    sub Stack::Swap; pull _data;
+    sub Stack::Swap; pull _pPos;
+    sub Stack::Swap; pull _pList;
+
+    push _data;
+    sub LinkList::Link::CreateData;
+
+    push _pPos;
+    sub LinkList::Link::Hook;
+
+    put _size     <- _pList + _LinkList::Container::SIZE;
+    put _size + 1 -> _pList + _LinkList::Container::SIZE;
 
 
+    return;
 
 
 
