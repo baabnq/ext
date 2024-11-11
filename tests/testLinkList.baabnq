@@ -280,13 +280,28 @@ lab TestLinkList::Container::Sentinel;
 
 
 
+lab TestLinkList::Container::Insert;
+    sub Local::TestLinkList::Init;
 
 
+    sub LinkList::Container::Create;
+    pull _pList;
 
+    put _pSent <- _pList + _LinkList::Container::SENTINEL;
 
+    push _pList;
+    push _pSent;
+    push 12345;
+    sub LinkList::Container::Insert;
 
+    put _pLink <- _pSent + _LinkList::Link::PREV;
+    "verify structure
+    put __     <- _pSent + _LinkList::Link::NEXT;
+    jump fail ~ __ != _pLink;
 
+    put __ <- _pLink + _LinkList::Link::PREV; jump fail ~ __ != _pSent;
+    put __ <- _pLink + _LinkList::Link::NEXT; jump fail ~ __ != _pSent;
 
-
+    jump succ;
 
 
