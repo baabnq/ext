@@ -221,6 +221,9 @@ lab LinkList::Container::Create;
     pull _pSent;
     pull _pList;
 
+    put _pSent -> _pSent + _LinkList::Link::PREV;
+    put _pSent -> _pSent + _LinkList::Link::NEXT;
+
     put _pSent -> _pList + _LinkList::Container::SENTINEL;
 
     push _pList;
