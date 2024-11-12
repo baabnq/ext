@@ -287,24 +287,24 @@ lab TestLinkList::Container::Insert;
     sub LinkList::Container::Create;
     pull _pList;
 
-    put _pSent <- _pList + _LinkList::Container::SENTINEL;
+    push _pList; sub LinkList::Container::Sentinel; pull _pSent;
 
     push _pList;
     push _pSent;
     push 12345;
     sub LinkList::Container::Insert;
 
-    put _size <- _pList + _LinkList::Container::SIZE;
+    push _pList; sub LinkList::Container::Size; pull _size;
     jump fail ~ _size != 1;
 
 
-    put _pLink <- _pSent + _LinkList::Link::PREV;
-    put __     <- _pSent + _LinkList::Link::NEXT;
-    jump fail ~ __ != _pLink;
+    push _pSent; sub LinkList::Link::Next; pull _pNext;
+    push _pSent; sub LinkList::Link::Prev; pull _pPrev;
+    jump fail ~ _pNext != _pPrev;
 
-    put __ <- _pLink + _LinkList::Link::PREV; jump fail ~ __ != _pSent;
-    put __ <- _pLink + _LinkList::Link::NEXT; jump fail ~ __ != _pSent;
-
+    push _pSent; sub LinkList::Link::Next; sub LinkList::Link::Prev; pull __; jump fail ~ __ != _pSent;
+    push _pSent; sub LinkList::Link::Prev; sub LinkList::Link::Next; pull __; jump fail ~ __ != _pSent;
+    
     jump succ;
 
 
@@ -316,7 +316,7 @@ lab TestLinkList::Container::Erase;
     sub LinkList::Container::Create;
     pull _pList;
 
-    put _pSent <- _pList + _LinkList::Container::SENTINEL;
+    push _pList; sub LinkList::Container::Sentinel; pull _pSent;
 
     push _pList;
     push _pSent;
@@ -327,12 +327,12 @@ lab TestLinkList::Container::Erase;
     push _pSent; sub LinkList::Link::Next;
     sub LinkList::Container::Erase;
     
-    put _size <- _pList + _LinkList::Container::SIZE;
+    push _pList; sub LinkList::Container::Size; pull _size;
     jump fail ~ _size != 0;
    
     "verify self-reference of sentinel
-    put __ <- _pSent + _LinkList::Link::PREV; jump fail ~ __ != _pSent;
-    put __ <- _pSent + _LinkList::Link::NEXT; jump fail ~ __ != _pSent;
+    push _pSent; sub LinkList::Link::Next; pull __; jump fail ~ __ != _pSent;
+    push _pSent; sub LinkList::Link::Prev; pull __; jump fail ~ __ != _pSent;
 
     jump succ;
 
@@ -345,7 +345,7 @@ lab TestLinkList::Container::Size;
     sub LinkList::Container::Create;
     pull _pList;
 
-    put _pSent <- _pList + _LinkList::Container::SENTINEL;
+    push _pList; sub LinkList::Container::Sentinel; pull _pSent;
 
     push _pList; sub LinkList::Container::Size; pull __;
     jump fail ~ __ != 0;

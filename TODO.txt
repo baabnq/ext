@@ -56,11 +56,7 @@
                 -Insert     //
                 -Erase      //
 
-                -Refactor
-                    -Insert
-                    -Erase
-
-                -Size          
+                -Size       // 
                     -IsEmpty   
 
                 -IsSentinel
