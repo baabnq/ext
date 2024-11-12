@@ -281,6 +281,9 @@ lab LinkList::Container::Erase;
     push _pPos;
     sub LinkList::Link::Unhook;
 
+    push _pPos;
+    sub LinkList::Link::Delete;
+
     put _size     <- _pList + _LinkList::Container::SIZE;
     put _size - 1 -> _pList + _LinkList::Container::SIZE;
 
