@@ -288,6 +288,18 @@ lab LinkList::Container::Erase;
 
 
 
+"(::LinkList) => (Size::Int)
+lab LinkList::Container::Size;
+    sub Stack::Swap;
+    pull _pList;
+
+    put _size <- _pList + _LinkList::Container::SIZE;
+
+    push _size;
+    sub Stack::Swap;
+    return;
+
+
 
 
 
