@@ -270,12 +270,21 @@ lab LinkList::Container::Insert;
     put _size     <- _pList + _LinkList::Container::SIZE;
     put _size + 1 -> _pList + _LinkList::Container::SIZE;
 
-
     return;
 
 
+"(::LinkList, Position::Link)
+lab LinkList::Container::Erase;
+    sub Stack::Swap; pull _pPos;
+    sub Stack::Swap; pull _pList;
 
+    push _pPos;
+    sub LinkList::Link::Unhook;
 
+    put _size     <- _pList + _LinkList::Container::SIZE;
+    put _size - 1 -> _pList + _LinkList::Container::SIZE;
+
+    return;
 
 
 
