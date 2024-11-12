@@ -407,3 +407,51 @@ lab TestLinkList::Container::IsEmpty;
 
 
 
+lab TestLinkList::Container::IsSentinel;
+    sub Local::TestLinkList::Init;
+
+
+    sub LinkList::Container::Create;
+    pull _pList;
+
+    push _pList;
+    push _pList; sub LinkList::Container::Sentinel;
+    push 12345;
+    sub LinkList::Container::Insert;
+
+    push _pList;
+    push _pList;
+    sub LinkList::Container::Sentinel;
+    sub LinkList::Container::IsSentinel;
+    pull __;
+    jump fail ~ __ != 1;
+
+
+    push _pList;
+    push _pList;
+    sub LinkList::Container::Sentinel;
+    sub LinkList::Link::Next;
+    sub LinkList::Container::IsSentinel;
+    pull __;
+    jump fail ~ __ != 0;
+
+    jump succ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
