@@ -234,9 +234,18 @@ lab LinkList::Container::Create;
 lab LinkList::Container::Delete;
     sub Stack::Swap; pull _pList;
 
-    put _pSent <- _pList + _LinkList::Container::SENTINEL;
-    free _pSent;
+    push _pList;
+    sub LinkList::Container::Sentinel;
+    pull _pSent;
+
     free _pList;
+
+    put _pIter = _pSent;
+    lab LinkList::Container::Delete::Loop;
+        free _pIter;
+
+        push _pIter; sub LinkList::Link::Next; pull _pIter;
+    jump LinkList::Container::Delete::Loop ~ _pIter != _pSent;
 
     return;
 
