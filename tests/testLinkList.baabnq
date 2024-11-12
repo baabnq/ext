@@ -294,8 +294,11 @@ lab TestLinkList::Container::Insert;
     push 12345;
     sub LinkList::Container::Insert;
 
+    put _size <- _pList + _LinkList::Container::SIZE;
+    jump fail ~ _size != 1;
+
+
     put _pLink <- _pSent + _LinkList::Link::PREV;
-    "verify structure
     put __     <- _pSent + _LinkList::Link::NEXT;
     jump fail ~ __ != _pLink;
 
@@ -324,6 +327,9 @@ lab TestLinkList::Container::Erase;
     push _pSent; sub LinkList::Link::Next;
     sub LinkList::Container::Erase;
     
+    put _size <- _pList + _LinkList::Container::SIZE;
+    jump fail ~ _size != 0;
+   
     "verify self-reference of sentinel
     put __ <- _pSent + _LinkList::Link::PREV; jump fail ~ __ != _pSent;
     put __ <- _pSent + _LinkList::Link::NEXT; jump fail ~ __ != _pSent;
