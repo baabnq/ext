@@ -305,3 +305,35 @@ lab TestLinkList::Container::Insert;
     jump succ;
 
 
+
+lab TestLinkList::Container::Erase;
+    sub Local::TestLinkList::Init;
+
+
+    sub LinkList::Container::Create;
+    pull _pList;
+
+    put _pSent <- _pList + _LinkList::Container::SENTINEL;
+
+    push _pList;
+    push _pSent;
+    push 12345;
+    sub LinkList::Container::Insert;
+
+    push _pList;
+    push _pSent; sub LinkList::Link::Next;
+    sub LinkList::Container::Erase;
+    
+    "verify self-reference of sentinel
+    put __ <- _pSent + _LinkList::Link::PREV; jump fail ~ __ != _pSent;
+    put __ <- _pSent + _LinkList::Link::NEXT; jump fail ~ __ != _pSent;
+
+    jump succ;
+
+
+
+
+
+
+
+
