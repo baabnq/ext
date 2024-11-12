@@ -328,6 +328,18 @@ lab LinkList::Container::IsEmpty;
 
 
 
+"(::LinkList, Sample::Link) => (Empty::Bool)
+lab LinkList::Container::IsSentinel;
+    sub Stack::Swap; pull _pSample;
+    sub Stack::Swap; pull _pList;
+
+    push _pList; sub LinkList::Container::Sentinel; pull _pSent;
+
+    jump LinkList::Container::IsSentinel::False ~ _pSample == _pSent; push 0; lab LinkList::Container::IsSentinel::False;
+    jump LinkList::Container::IsSentinel::True  ~ _pSample != _pSent; push 1; lab LinkList::Container::IsSentinel::True;
+
+    sub Stack::Swap;
+    return;
 
 
 
