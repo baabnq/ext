@@ -54,10 +54,14 @@
                 -Sentinel   //
 
                 -Insert     //
-                -Erase
-                
-                -Size         / 
-                    -IsEmpty  / 
+                -Erase      //
+
+                -Refactor
+                    -Insert
+                    -Erase
+
+                -Size          
+                    -IsEmpty   
 
                 -IsSentinel
 
