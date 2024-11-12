@@ -381,3 +381,29 @@ lab TestLinkList::Container::Size;
     jump fail ~ __ != 0;
 
     jump succ;
+
+
+
+lab TestLinkList::Container::IsEmpty;
+    sub Local::TestLinkList::Init;
+
+
+    sub LinkList::Container::Create;
+    pull _pList;
+
+    push _pList; sub LinkList::Container::IsEmpty; pull __;
+    jump fail ~ __ != 1;
+
+
+    push _pList;
+    push _pList; sub LinkList::Container::Sentinel;
+    push 12345;
+    sub LinkList::Container::Insert;
+
+    push _pList; sub LinkList::Container::IsEmpty; pull __;
+    jump fail ~ __ != 0;
+
+    jump succ;
+
+
+
