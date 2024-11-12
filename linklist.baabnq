@@ -314,6 +314,25 @@ lab LinkList::Container::Size;
 
 
 
+"(::LinkList) => (Empty::Bool)
+lab LinkList::Container::IsEmpty;
+    sub Stack::Swap;
+    sub LinkList::Container::Size;
+    pull _size;
+
+    jump LinkList::Container::IsEmpty::False ~ _size == 0; push 0; lab LinkList::Container::IsEmpty::False;
+    jump LinkList::Container::IsEmpty::True  ~ _size != 0; push 1; lab LinkList::Container::IsEmpty::True;
+
+    sub Stack::Swap;
+    return;
+
+
+
+
+
+
+
+
 
 lab LinkList::Skip;
 
