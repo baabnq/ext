@@ -344,6 +344,27 @@ lab LinkList::Container::IsSentinel;
 
 
 
+"(::LinkList) => (Back::Link)
+lab LinkList::Container::BackLink;
+    sub Stack::Swap;
+
+    sub LinkList::Container::Sentinel;
+    sub LinkList::Link::Prev;
+
+    sub Stack::Swap;
+    return;
+
+
+"(::LinkList) => (Front::Link)
+lab LinkList::Container::FrontLink;
+    sub Stack::Swap;
+
+    sub LinkList::Container::Sentinel;
+    sub LinkList::Link::Next;
+
+    sub Stack::Swap;
+    return;
+
 
 
 lab LinkList::Skip;
