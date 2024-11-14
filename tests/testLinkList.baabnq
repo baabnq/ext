@@ -441,15 +441,64 @@ lab TestLinkList::Container::IsSentinel;
 
 
 
+lab TestLinkList::Container::BackLink;
+    sub Local::TestLinkList::Init;
+
+
+    sub LinkList::Container::Create;
+    pull _pList;
+
+    push _pList;
+    push _pList; sub LinkList::Container::Sentinel;
+    push 12345;
+    sub LinkList::Container::Insert;
+    push _pList;
+    push _pList; sub LinkList::Container::Sentinel;
+    push 12345;
+    sub LinkList::Container::Insert;
+
+
+    push _pList;
+    sub LinkList::Container::BackLink;
+    sub LinkList::Link::Next;
+
+    push _pList;
+    sub LinkList::Container::Sentinel;
+
+    pull _pSent; pull __;
+    jump fail ~ __ != _pSent;
+
+    jump succ;
 
 
 
+lab TestLinkList::Container::FrontLink;
+    sub Local::TestLinkList::Init;
 
 
+    sub LinkList::Container::Create;
+    pull _pList;
 
+    push _pList;
+    push _pList; sub LinkList::Container::Sentinel;
+    push 12345;
+    sub LinkList::Container::Insert;
+    push _pList;
+    push _pList; sub LinkList::Container::Sentinel;
+    push 12345;
+    sub LinkList::Container::Insert;
 
+    push _pList;
+    sub LinkList::Container::FrontLink;
+    sub LinkList::Link::Prev;
 
+    push _pList;
+    sub LinkList::Container::Sentinel;
 
+    pull _pSent; pull __;
+    jump fail ~ __ != _pSent;
+
+    jump succ;
 
 
 
