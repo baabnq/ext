@@ -57,14 +57,18 @@
                 -Erase      //
 
                 -Size       // 
-                    -IsEmpty   
+                 -IsEmpty   //
 
-                -IsSentinel
+                -IsSentinel //
 
-                -PushBack
-                -PopBack
+                -BackLink   //
+                -FrontLink  //
+
+                -PushBack   //
+                -PopBack    //
                 -PushFront
                 -PopFront
+                    => refactor!!
 
             
             
