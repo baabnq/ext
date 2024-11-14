@@ -366,6 +366,35 @@ lab LinkList::Container::FrontLink;
     return;
 
 
+"(::LinkList, Item::Void)
+lab LinkList::Container::PushBack;
+    sub Stack::Swap; pull _pItem;
+    sub Stack::Swap; pull _pList;
+
+    push _pList;
+    push _pList; sub LinkList::Container::BackLink;
+    push _pItem;
+    sub LinkList::Container::Insert;
+
+    return;
+
+"(::LinkList) => (Item::Void)
+lab LinkList::Container::PopBack;
+    sub Stack::Swap; pull _pList;
+
+    push _pList; sub LinkList::Container::BackLink; pull _pBackLink;
+    push _pBackLink; sub LinkList::Link::Get; pull _pItem;
+
+    push _pList;
+    push _pBackLink;
+    sub LinkList::Container::Erase;
+
+    push _pItem;
+    sub Stack::Swap;
+    return;
+
+
+
 
 lab LinkList::Skip;
 
