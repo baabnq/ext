@@ -242,9 +242,9 @@ lab LinkList::Container::Delete;
 
     put _pIter = _pSent;
     lab LinkList::Container::Delete::Loop;
-        free _pIter;
-
-        push _pIter; sub LinkList::Link::Next; pull _pIter;
+        push _pIter; sub LinkList::Link::Next; 
+            free _pIter;
+        pull _pNext;
     jump LinkList::Container::Delete::Loop ~ _pIter != _pSent;
 
     return;
