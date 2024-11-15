@@ -558,4 +558,56 @@ lab TestLinkList::Container::PopBack;
 
 
 
+lab TestLinkList::Container::PushFront;
+    sub Local::TestLinkList::Init;
+
+
+    sub LinkList::Container::Create;
+    pull _pList;
+
+    push _pList; push 10; sub LinkList::Container::PushFront;
+    push _pList; push 20; sub LinkList::Container::PushFront;
+    push _pList; push 30; sub LinkList::Container::PushFront;
+    push _pList; push 40; sub LinkList::Container::PushFront;
+    push _pList; push 50; sub LinkList::Container::PushFront;
+
+    push _pList; sub LinkList::Container::Size; pull __; jump fail ~ __ != 5;
+
+    push _pList; sub LinkList::Container::FrontLink; pull _pIter;
+
+    push _pIter; sub Stack::Dup; sub LinkList::Link::Next; pull _pIter; sub LinkList::Link::Get; pull __; jump fail ~ __ != 50;
+    push _pIter; sub Stack::Dup; sub LinkList::Link::Next; pull _pIter; sub LinkList::Link::Get; pull __; jump fail ~ __ != 40;
+    push _pIter; sub Stack::Dup; sub LinkList::Link::Next; pull _pIter; sub LinkList::Link::Get; pull __; jump fail ~ __ != 30;
+    push _pIter; sub Stack::Dup; sub LinkList::Link::Next; pull _pIter; sub LinkList::Link::Get; pull __; jump fail ~ __ != 20;
+    push _pIter; sub Stack::Dup; sub LinkList::Link::Next; pull _pIter; sub LinkList::Link::Get; pull __; jump fail ~ __ != 10;
+
+    jump succ;
+
+
+
+lab TestLinkList::Container::PopFront;
+    sub Local::TestLinkList::Init;
+
+
+    sub LinkList::Container::Create;
+    pull _pList;
+
+    push _pList; push 10; sub LinkList::Container::PushFront;
+    push _pList; push 20; sub LinkList::Container::PushFront;
+    push _pList; push 30; sub LinkList::Container::PushFront;
+    push _pList; push 40; sub LinkList::Container::PushFront;
+    push _pList; push 50; sub LinkList::Container::PushFront;
+
+    push _pList; sub LinkList::Container::Size; pull __; jump fail ~ __ != 5;
+
+    push _pList; sub LinkList::Container::PopFront; pull __; jump fail ~ __ != 50;
+    push _pList; sub LinkList::Container::PopFront; pull __; jump fail ~ __ != 40;
+    push _pList; sub LinkList::Container::PopFront; pull __; jump fail ~ __ != 30;
+    push _pList; sub LinkList::Container::PopFront; pull __; jump fail ~ __ != 20;
+    push _pList; sub LinkList::Container::PopFront; pull __; jump fail ~ __ != 10;
+
+    jump succ;
+
+
+
 
