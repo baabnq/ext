@@ -3,35 +3,38 @@ use 'libs/stack.baabnq';
 use 'libs/chunk.baabnq';
 use 'libs/no.baabnq';
 
-
-
-"container structure
-" _p+0 -> size      :: Int
-" _p+1 -> sentinel  :: Ptr
-
-put _LinkList::Container::SIZE     = 0;
-put _LinkList::Container::SENTINEL = 1;
-
-
-"link structure
-" _p+0 -> data :: Void 
-" _p+1 -> next :: Ptr
-" _p+2 -> prev :: Ptr
-
-put _LinkList::Link::DATA = 0;
-put _LinkList::Link::NEXT = 1;
-put _LinkList::Link::PREV = 2;
-
-
-"This module defines a circular doubley linked list, 
-"which always contains a sentinel node that acts
-"as the entry point for the list.
-
-"Parameter names are not given, as this library is analogous to c++'s std::list
-
-
+sub LinkList::ModuleInit;
 
 jump LinkList::Skip;
+
+
+lab LinkList::ModuleInit;
+    "container structure
+    " _p+0 -> size      :: Int
+    " _p+1 -> sentinel  :: Ptr
+
+    put _LinkList::Container::SIZE     = 0;
+    put _LinkList::Container::SENTINEL = 1;
+
+
+    "link structure
+    " _p+0 -> data :: Void 
+    " _p+1 -> next :: Ptr
+    " _p+2 -> prev :: Ptr
+
+    put _LinkList::Link::DATA = 0;
+    put _LinkList::Link::NEXT = 1;
+    put _LinkList::Link::PREV = 2;
+
+
+    "This module defines a circular doubley linked list, 
+    "which always contains a sentinel node that acts
+    "as the entry point for the list.
+
+    "Parameter names are not given, as this library is analogous to c++'s std::list
+
+    return;
+
 
 
 

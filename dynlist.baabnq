@@ -4,22 +4,23 @@ use 'libs/math.baabnq';
 use 'libs/chunk.baabnq';
 
 
-"list structure
-" _p+0 -> size      :: Int
-" _p+1 -> container :: Chunk
-
-"capacity is stored by container, because it's a chunk
-
-put _DynList::List::SIZE       = 0;
-put _DynList::List::CONTAINER  = 1;
-
-
-
-
-
-
+sub DynList::ModuleInit;
 
 jump DynList::Skip;
+
+
+lab DynList::ModuleInit;
+    "list structure
+    " _p+0 -> size      :: Int
+    " _p+1 -> container :: Chunk
+
+    "capacity is stored by container, because it's a chunk
+
+    put _DynList::List::SIZE       = 0;
+    put _DynList::List::CONTAINER  = 1;
+
+    return;
+
 
 
 "=> (::DynList)
