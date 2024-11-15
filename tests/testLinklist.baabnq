@@ -251,7 +251,7 @@ lab TestLinkList::Container::Delete;
     sub Local::TestLinkList::Init;
 
     sub LinkList::Container::Create;
-    sub LinkList::Link::Delete;
+    sub LinkList::Container::Delete;
 
     jump succ;
 
