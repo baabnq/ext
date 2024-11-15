@@ -1,5 +1,6 @@
 
 use 'ext/tests/testDynlist.baabnq';
 use 'ext/tests/testRingbuf.baabnq';
-use 'ext/tests/testLinkList.baabnq';
+use 'ext/tests/testLinklist.baabnq';
+use 'ext/tests/testConvlist.baabnq';
 
