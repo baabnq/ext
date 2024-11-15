@@ -1,9 +1,10 @@
 
 use 'libs/tests/common.baabnq';
+use 'ext/linklist.baabnq';
 
 
 lab Local::TestLinkList::Init;
-    use 'ext/linklist.baabnq';
+    sub LinkList::ModuleInit;
 return;
 
 

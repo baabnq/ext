@@ -1,9 +1,10 @@
 
 use 'libs/tests/common.baabnq';
 use 'libs/chunk.baabnq';
+use 'ext/ringbuf.baabnq';
 
 lab Local::TestRingbuf::Init;
-    use 'ext/ringbuf.baabnq';
+    sub Ringbuf::ModuleInit;
 return;
 
 

@@ -1,9 +1,10 @@
 
 use 'libs/tests/common.baabnq';
+use 'ext/dynlist.baabnq';
 
 
 lab Local::TestDynList::Init;
-    use 'ext/dynlist.baabnq';
+    sub DynList::ModuleInit;
 return;
 
 
