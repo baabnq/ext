@@ -43,9 +43,37 @@ lab ConvList::L2D;
 
 
 
+"(::DynList) => (::LinkList) 
+lab ConvList::DynListToLinkList;
+lab ConvList::DynToLink;
+lab ConvList::D2L;
+    sub Stack::Swap;
+    pull _pDynList;
 
+    sub LinkList::Container::Create;
+    pull _pLinkList;
 
+    push _pDynList; sub DynList::Container; pull _pDynListContainer;
 
+    push _pDynList; sub LinkList::Container::Size; pull _i;
+    lab ConvList::DynListToLinkList::Loop;
+        jump ConvList::DynListToLinkList::Done ~ _i == 0;
+        put _i = _i - 1;
+
+        put _item <- _pDynListContainer + _i;
+        push _pLinkList;
+        push _item;
+        sub LinkList::Container::PushBack;
+
+        jump ConvList::DynListToLinkList::Loop;
+    lab ConvList::DynListToLinkList::Done;
+
+    push _pDynList;
+    sub DynList::Delete;
+
+    push _pLinkList;
+    sub Stack::Swap;
+    return;
 
 
 
