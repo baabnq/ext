@@ -41,3 +41,21 @@ lab TestConvList::LinkListToDynList;
 
 
 
+lab TestConvList::DynListToLinkList;
+    sub Local::TestConvList::Init;
+
+    static '\x10\x20\x30\x40\x50' _pRef;
+
+    push _pRef;
+    sub DynList::CreateUseChunk;
+    sub ConvList::DynListToLinkList;
+    pull _pList;
+
+    push _pList; sub LinkList::Container::PopFront; pull __; jump fail ~ __ != 00;
+    push _pList; sub LinkList::Container::PopFront; pull __; jump fail ~ __ != 80;
+    push _pList; sub LinkList::Container::PopFront; pull __; jump fail ~ __ != 64;
+    push _pList; sub LinkList::Container::PopFront; pull __; jump fail ~ __ != 48;
+    push _pList; sub LinkList::Container::PopFront; pull __; jump fail ~ __ != 32;
+    push _pList; sub LinkList::Container::PopFront; pull __; jump fail ~ __ != 16;
+
+    jump succ;
