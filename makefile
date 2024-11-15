@@ -13,6 +13,6 @@ lint:
 run:
 	-test -f $(OUT) && rm $(OUT)
 	cd $(ENV_PATH) && python3 compi.py -i ext/tests/testAll.baabnq -o $(OUT)
-	-test -f $(OUT) && python3 $(ENV_PATH)/vm.py -f $(OUT) -u TestLinkList
+	-test -f $(OUT) && python3 $(ENV_PATH)/vm.py -f $(OUT) -u Test
 
 

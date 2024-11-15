@@ -32,8 +32,8 @@
 
 
         
-        -generic linked list
-            -Link
+        -generic linked list //
+            -Link 
                 -Allocate   //
                 -CreateEmpty    //
                 -CreateData     //  
@@ -74,8 +74,9 @@
         -listed/dynamic conversion routines
             -convlist.baabnq
             
-            LinkListToDynList / L2D
-            DynListToLinkList / D2L 
+            LinkListToDynList / L2D //
+            DynListToLinkList / D2L //
+                => refactor
             
 
     -ring buffer //
