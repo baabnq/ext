@@ -301,6 +301,7 @@ lab TestLinkList::Container::Insert;
     push _pSent; sub LinkList::Link::Next; pull _pNext;
     push _pSent; sub LinkList::Link::Prev; pull _pPrev;
     jump fail ~ _pNext != _pPrev;
+    jump fail ~ _pNext == _pSent;
 
     push _pSent; sub LinkList::Link::Next; sub LinkList::Link::Prev; pull __; jump fail ~ __ != _pSent;
     push _pSent; sub LinkList::Link::Prev; sub LinkList::Link::Next; pull __; jump fail ~ __ != _pSent;
@@ -518,13 +519,13 @@ lab TestLinkList::Container::PushBack;
 
     push _pList; sub LinkList::Container::Size; pull __; jump fail ~ __ != 5;
 
-    push _pList; sub LinkList::Container::FrontLink;
+    push _pList; sub LinkList::Container::FrontLink; pull _pIter;
 
-    sub Stack::Dup; sub LinkList::Link::Get; pull __; jump fail ~ __ != 10; sub LinkList::Link::Next;
-    sub Stack::Dup; sub LinkList::Link::Get; pull __; jump fail ~ __ != 20; sub LinkList::Link::Next;
-    sub Stack::Dup; sub LinkList::Link::Get; pull __; jump fail ~ __ != 30; sub LinkList::Link::Next;
-    sub Stack::Dup; sub LinkList::Link::Get; pull __; jump fail ~ __ != 40; sub LinkList::Link::Next;
-    sub Stack::Dup; sub LinkList::Link::Get; pull __; jump fail ~ __ != 50; sub LinkList::Link::Next;
+    push _pIter; sub Stack::Dup; sub LinkList::Link::Next; pull _pIter; sub LinkList::Link::Get; pull __; jump fail ~ __ != 10;
+    push _pIter; sub Stack::Dup; sub LinkList::Link::Next; pull _pIter; sub LinkList::Link::Get; pull __; jump fail ~ __ != 20;
+    push _pIter; sub Stack::Dup; sub LinkList::Link::Next; pull _pIter; sub LinkList::Link::Get; pull __; jump fail ~ __ != 30;
+    push _pIter; sub Stack::Dup; sub LinkList::Link::Next; pull _pIter; sub LinkList::Link::Get; pull __; jump fail ~ __ != 40;
+    push _pIter; sub Stack::Dup; sub LinkList::Link::Next; pull _pIter; sub LinkList::Link::Get; pull __; jump fail ~ __ != 50;
 
     jump succ;
 
