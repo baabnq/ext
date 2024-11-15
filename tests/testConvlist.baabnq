@@ -1,0 +1,43 @@
+
+use 'libs/tests/common.baabnq';
+use 'ext/convlist.baabnq';
+
+
+lab Local::TestConvList::Init;
+    sub LinkList::ModuleInit;
+    sub DynList::ModuleInit;
+return;
+
+
+
+
+lab TestConvList::LinkListToDynList;
+    sub Local::TestConvList::Init;
+
+    sub LinkList::Container::Create;
+    pull _pList;
+
+
+    push _pList; push 16; sub LinkList::Container::PushBack;
+    push _pList; push 32; sub LinkList::Container::PushBack;
+    push _pList; push 48; sub LinkList::Container::PushBack;
+    push _pList; push 64; sub LinkList::Container::PushBack;
+    push _pList; push 80; sub LinkList::Container::PushBack;
+    push _pList; push 00; sub LinkList::Container::PushBack;
+
+    push _pList;
+    sub ConvList::LinkListToDynList;
+    pull _pList;
+
+    static '\x10\x20\x30\x40\x50' _pRef;
+
+    push _pList; sub DynList::Container;
+    push _pRef;
+    sub Chunk::Cmp;
+    pull __;
+    jump fail ~ __ != 1;
+
+    jump succ;
+
+
+
