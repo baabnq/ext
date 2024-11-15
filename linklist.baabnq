@@ -366,6 +366,25 @@ lab LinkList::Container::FrontLink;
     return;
 
 
+
+"(::LinkList, ::Subject) => (Item::Void)
+lab LinkList::Container::LocalGetAndErase;
+    sub Stack::Swap; pull _pSubj;
+    sub Stack::Swap; pull _pList;
+
+    "i love stack magic
+    push _pSubj; sub LinkList::Link::Get;
+
+    push _pList;
+    push _pSubj;
+    sub LinkList::Container::Erase;
+
+    sub Stack::Swap;
+    return;
+
+
+
+
 "(::LinkList, Item::Void)
 lab LinkList::Container::PushBack;
     sub Stack::Swap; pull _pItem;
@@ -382,14 +401,10 @@ lab LinkList::Container::PushBack;
 lab LinkList::Container::PopBack;
     sub Stack::Swap; pull _pList;
 
-    push _pList; sub LinkList::Container::BackLink; pull _pBackLink;
-    push _pBackLink; sub LinkList::Link::Get; pull _pItem;
-
     push _pList;
-    push _pBackLink;
-    sub LinkList::Container::Erase;
-
-    push _pItem;
+    push _pList; sub LinkList::Container::BackLink;
+    sub LinkList::Container::LocalGetAndErase;
+    
     sub Stack::Swap;
     return;
 
@@ -410,14 +425,10 @@ lab LinkList::Container::PushFront;
 lab LinkList::Container::PopFront;
     sub Stack::Swap; pull _pList;
 
-    push _pList; sub LinkList::Container::FrontLink; pull _pFrontLink;
-    push _pFrontLink; sub LinkList::Link::Get; pull _pItem;
-
     push _pList;
-    push _pFrontLink;
-    sub LinkList::Container::Erase;
-
-    push _pItem;
+    push _pList; sub LinkList::Container::FrontLink; 
+    sub LinkList::Container::LocalGetAndErase;
+    
     sub Stack::Swap;
     return;
 
