@@ -43,3 +43,44 @@ lab TestArena::Create;
 
     jump succ;
 
+
+
+lab TestArena::GetMemory;
+    sub Local::TestArena::Init;
+
+    push 10;
+    sub Arena::Create;
+    pull _pArena;
+
+    push _pArena; sub Arena::GetMemory; pull _pMemory;
+    put __ <- _pArena + _Arena::Arena::MEMORY;
+
+    jump fail ~ _pMemory != __;
+
+    jump succ;
+
+
+
+lab TestArena::GetIndex;
+    sub Local::TestArena::Init;
+
+    push 10;
+    sub Arena::Create;
+    pull _pArena;
+
+    put 123 -> _pArena + _Arena::Arena::INDEX;
+    push _pArena; sub Arena::GetIndex; pull _index;
+
+    jump fail ~ _index != 123;
+
+    jump succ;
+
+
+
+
+
+
+
+
+
+
