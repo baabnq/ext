@@ -1,0 +1,45 @@
+
+use 'libs/tests/common.baabnq';
+use 'libs/chunk.baabnq';
+use 'ext/arena.baabnq';
+
+
+lab Local::TestArena::Init;
+    sub Arena::ModuleInit;
+return;
+
+
+
+lab TestArena::Allocate;
+    sub Local::TestArena::Init;
+
+    sub Arena::Allocate;
+    pull _pArena;
+
+    push _pArena; sub Chunk::Len; pull __;
+    jump fail ~ __ != 2;
+
+    put __ <- _pArena + _Arena::Arena::MEMORY; jump fail ~ __ != 0;
+    put __ <- _pArena + _Arena::Arena::INDEX;  jump fail ~ __ != 0;
+
+    jump succ;
+
+
+lab TestArena::Create;
+    sub Local::TestArena::Init;
+
+    push 123;
+    sub Arena::Create;
+    pull _pArena;
+
+    push _pArena; sub Chunk::Len; pull __;
+    jump fail ~ __ != 2;
+
+    put __ <- _pArena + _Arena::Arena::MEMORY;
+    push __; sub Chunk::Len; pull __;
+    jump fail ~ __ != 123;
+
+    put __ <- _pArena + _Arena::Arena::INDEX;  jump fail ~ __ != 0;
+
+    jump succ;
+
