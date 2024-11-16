@@ -53,6 +53,28 @@ lab Arena::Create;
     return;
 
 
+"(::Arena) => (Memory::Chunk)
+lab Arena::GetMemory;
+    sub Stack::Swap;
+    pull _pArena;
+
+    put _pMemory <- _pArena + _Arena::Arena::MEMORY;
+
+    push _pMemory;
+    sub Stack::Swap;
+    return;
+
+
+"(::Arena) => (Index::Int)
+lab Arena::GetIndex;
+    sub Stack::Swap;
+    pull _pArena;
+
+    put _index <- _pArena + _Arena::Arena::INDEX;
+
+    push _index;
+    sub Stack::Swap;
+    return;
 
 
 
