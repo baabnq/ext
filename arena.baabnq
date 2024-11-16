@@ -15,9 +15,9 @@ lab Arena::ModuleInit;
     " _p+1 -> index  :: Int"
 
     "memory is preallocated and then cut into regions,
-    "of the needed size linearly. in this, 
+    "of the needed size linearly. in this,
     "index tracks the boundary between used and free memory.
-    
+
     "capacity is stored by memory, because it's a chunk
 
     put _Arena::Arena::MEMORY = 0;
@@ -25,7 +25,42 @@ lab Arena::ModuleInit;
 
     return;
 
-   
+
+"=> (::Arena)
+lab Arena::Allocate;
+    new 2 _pArena;
+
+    put 0 -> _pArena + _Arena::Arena::MEMORY;
+    put 0 -> _pArena + _Arena::Arena::INDEX;
+
+    push _pArena;
+    sub Stack::Swap;
+    return;
+
+"(Capacity::Int) => (::Arena)"
+lab Arena::Create;
+    sub Stack::Swap;
+    pull _capacity;
+
+    sub Arena::Allocate;
+    pull _pArena;
+
+    new _capacity _pMemory;
+    put _pMemory -> _pArena + _Arena::Arena::MEMORY;
+
+    push _pArena;
+    sub Stack::Swap;
+    return;
+
+
+
+
+
+
+
+
+
+
 
 
 
