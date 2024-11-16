@@ -76,8 +76,14 @@ lab TestArena::GetIndex;
     jump succ;
 
 
+lab TestArena::Delete;
+    sub Local::TestArena::Init;
 
+    push 10;
+    sub Arena::Create;
+    sub Arena::Delete;
 
+    jump succ;
 
 
 
