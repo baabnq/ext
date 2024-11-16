@@ -5,7 +5,7 @@ use 'libs/no.baabnq';
 
 sub Ringbuf::ModuleInit;
 
-jump Ringbuf::Jump;
+jump Ringbuf::Skip;
 
 
 lab Ringbuf::ModuleInit;
@@ -230,4 +230,4 @@ lab Ringbuf::Get;
 
 
 
-lab Ringbuf::Jump;
+lab Ringbuf::Skip;
