@@ -77,7 +77,16 @@ lab Arena::GetIndex;
     return;
 
 
+"(::Arena)
+lab Arena::Delete;
+    sub Stack::Swap;
+    pull _pArena;
 
+    push _pArena; sub Arena::GetMemory; pull _pMemory;
+    free _pMemory;
+    free _pArena;
+
+    return;
 
 
 
