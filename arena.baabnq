@@ -1,0 +1,34 @@
+
+use 'libs/stack.baabnq';
+
+
+
+
+sub Arena::ModuleInit;
+
+jump Arena::Skip;
+
+
+lab Arena::ModuleInit;
+    "arena structure
+    " _p+0 -> memory :: Chunk
+    " _p+1 -> index  :: Int"
+
+    "memory is preallocated and then cut into regions,
+    "of the needed size linearly. in this, 
+    "index tracks the boundary between used and free memory.
+    
+    "capacity is stored by memory, because it's a chunk
+
+    put _Arena::Arena::MEMORY = 0;
+    put _Arena::Arena::INDEX  = 1;
+
+    return;
+
+   
+
+
+
+
+
+lab Arena::Skip;
