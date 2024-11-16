@@ -1,6 +1,6 @@
 
 use 'libs/stack.baabnq';
-
+use 'libs/no.baabnq';
 
 
 
@@ -11,27 +11,29 @@ jump Arena::Skip;
 
 lab Arena::ModuleInit;
     "arena structure
-    " _p+0 -> memory :: Chunk
-    " _p+1 -> index  :: Int"
+    " _p+0 -> memory   :: Chunk
+    " _p+1 -> index    :: Int
+    " _p+2 _> capacity :: Int
 
     "memory is preallocated and then cut into regions,
     "of the needed size linearly. in this,
     "index tracks the boundary between used and free memory.
 
-    "capacity is stored by memory, because it's a chunk
 
-    put _Arena::Arena::MEMORY = 0;
-    put _Arena::Arena::INDEX  = 1;
+    put _Arena::Arena::MEMORY   = 0;
+    put _Arena::Arena::INDEX    = 1;
+    put _Arena::Arena::CAPACITY = 2;
 
     return;
 
 
 "=> (::Arena)
 lab Arena::Allocate;
-    new 2 _pArena;
+    new 3 _pArena;
 
     put 0 -> _pArena + _Arena::Arena::MEMORY;
     put 0 -> _pArena + _Arena::Arena::INDEX;
+    put 0 -> _pArena + _Arena::Arena::CAPACITY;
 
     push _pArena;
     sub Stack::Swap;
@@ -47,6 +49,7 @@ lab Arena::Create;
 
     new _capacity _pMemory;
     put _pMemory -> _pArena + _Arena::Arena::MEMORY;
+    put _capacity -> _pArena + _Arena::Arena::CAPACITY;
 
     push _pArena;
     sub Stack::Swap;
@@ -87,8 +90,6 @@ lab Arena::Delete;
     free _pArena;
 
     return;
-
-
 
 
 
