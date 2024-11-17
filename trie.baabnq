@@ -1,0 +1,69 @@
+
+use 'libs/stack.baabnq';
+
+
+sub Trie::ModuleInit;
+
+jump Trie::Skip;
+
+
+lab Trie::ModuleInit;
+    "trie structure
+    " _p + 0 -> sub :: Chunk[16]
+    " _p + 1 -> end :: Bool
+
+    "sub contains the references to sub nodes.
+    "end indicates whether node constitudes a sequence or not.
+
+    "a trickle is a sequence of nibbles,
+    "and is the type of sequence that this trie implementation uses.
+    "this is the case, because 16 entires per nodes strikes a good balance.
+
+
+    put _Trie::Trie::SUB = 0;
+    put _Trie::Trie::END = 1;
+
+    return;
+
+
+"=> (::Trie)
+lab Trie::Allocate;
+    new 2 _pTrie;
+
+    push _pTrie;
+    sub Stack::Swap;
+    return;
+
+
+"=> (::Trie)
+lab Trie::Create;
+    sub Trie::Allocate;
+    pull _pTrie;
+
+    new 16 _pSub;
+    put _pSub -> _pTrie + _Trie::Trie::SUB;
+
+    push _pTrie;
+    sub Stack::Swap;
+    return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+lab Trie::Skip;
+
+
