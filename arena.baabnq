@@ -113,8 +113,15 @@ lab Arena::Region;
 
 
 
+"(::Arena)
+"this will invalidate all regions on the arena
+lab Arena::Reset;
+    sub Stack::Swap;
+    pull _pArena;
 
+    put 0 -> _pArena + _Arena::Arena::INDEX;
 
+    return;
 
 
 
