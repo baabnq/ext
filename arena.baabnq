@@ -92,6 +92,26 @@ lab Arena::Delete;
     return;
 
 
+"(::Arena, Size::Int) => (Region::Ptr)
+lab Arena::Region;
+    sub Stack::Swap; pull _size;
+    sub Stack::Swap; pull _pArena;
+
+    push _pArena; sub Arena::GetIndex; pull _oldIndex;
+    put _newIndex = _oldIndex + _size;
+
+    put _capacity <- _pArena + _Arena::Arena::CAPACITY;
+    sub No::Return ~ _capacity < _newIndex;
+
+    push _pArena; sub Arena::GetMemory; pull _pMemory;
+    push _pMemory + _oldIndex;
+
+    put _newIndex -> _pArena + _Arena::Arena::INDEX;
+
+    sub Stack::Swap;
+    return;
+
+
 
 
 
