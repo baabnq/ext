@@ -88,6 +88,23 @@ lab TestArena::Delete;
     jump succ;
 
 
+lab TestArena::Region;
+    sub Local::TestArena::Init;
+
+    push 10;
+    sub Arena::Create;
+    pull _pArena;
+
+    push _pArena; sub Arena::GetMemory; pull _pMem;
+
+    push _pArena; push 3; sub Arena::Region; pull __; jump fail ~ __ != 0 + _pMem;
+    push _pArena; push 2; sub Arena::Region; pull __; jump fail ~ __ != 3 + _pMem;
+    push _pArena; push 4; sub Arena::Region; pull __; jump fail ~ __ != 5 + _pMem;
+
+    push _pArena; sub Arena::GetIndex; pull __; jump fail ~ __ != 9;
+
+    jump succ;
+
 
 
 
