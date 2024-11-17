@@ -107,5 +107,17 @@ lab TestArena::Region;
 
 
 
+lab TestArena::Reset;
+    sub Local::TestArena::Init;
 
+    push 10;
+    sub Arena::Create;
+    pull _pArena;
+
+    push _pArena; push 7; sub Arena::Region; pull __;
+    push _pArena; sub Arena::GetIndex; pull __; jump fail ~ __ != 7;
+    push _pArena; sub Arena::Reset;
+    push _pArena; sub Arena::GetIndex; pull __; jump fail ~ __ != 0;
+
+    jump succ;
 
