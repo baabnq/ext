@@ -94,10 +94,19 @@
         -Get //
 
 
-    -arena
-        -maybe
-        -kinda goes against baabnq's philosophy
-            
+    -arena //
+        -Allocate   //
+        -Create     //
+        -Delete     //
+        -GetMemory  //
+        -GetIndex   //
+        -Region     //
+        -Reset      //
+
+        -Chunk
+            to allocate chunk in the arena
+            (or at least something that acts like a chunk)
+
         
     -vec.baabnq
         -generic vector
