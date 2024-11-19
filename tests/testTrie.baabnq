@@ -53,5 +53,26 @@ lab TestTrie::Delete;
     jump succ;
 
 
+lab TestTrie::ChunkToTrickle;
+    sub Local::TestTrie::Init;
+
+    static 2 _pIn;
+    put ((1 << 12) + (2 << 8) + (3 << 4) + (4 << 0)) -> _pIn + 0;
+    put ((5 << 12) + (6 << 8) + (7 << 4) + (8 << 0)) -> _pIn + 1;
+
+    static '\x01\x02\x03\x04\x05\x06\x07\x08' _pRef;
+    put 9 -> _pRef - 1; "override lenght prefix, to exclude null terminator of string
+
+    push _pIn;
+    sub Trie::ChunkToTrickle;
+
+    push _pRef;
+    sub Chunk::Cmp;
+    pull __;
+    jump fail ~ __ != 1;
+
+    jump succ;
+
+
 
 
