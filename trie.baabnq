@@ -74,10 +74,32 @@ lab Trie::Delete;
     return;
 
 
+"(::Chunk) => (::Trickle)
+lab Trie::ChunkToTrickle;
+    sub Stack::Swap;
+    pull _pChunk;
 
+    push _pChunk; sub Chunk::Len; pull _chunkLen;
+    put _trickleLen = _chunkLen << 2; "4 nibbles per word, ergo multiply by 4
 
+    new _trickleLen _pTrickle;
 
+    put _i = 0;
+    lab Trie::ChunkToTrickle::Loop;
+        put _chunk <- _pChunk + _i;
 
+        put __ = _i << 2;
+        put (_chunk >> 12) & 15 -> _pTrickle + __ + 0;
+        put (_chunk >> 08) & 15 -> _pTrickle + __ + 1;
+        put (_chunk >> 04) & 15 -> _pTrickle + __ + 2;
+        put (_chunk >> 00) & 15 -> _pTrickle + __ + 3;
+
+        put _i = _i + 1;
+    jump Trie::ChunkToTrickle::Loop ~ _i < _chunkLen;
+
+    push _pTrickle;
+    sub Stack::Swap;
+    return;
 
 
 
