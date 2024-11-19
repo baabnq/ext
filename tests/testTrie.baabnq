@@ -1,0 +1,57 @@
+
+
+use 'libs/tests/common.baabnq';
+use 'libs/chunk.baabnq';
+use 'ext/trie.baabnq';
+
+lab Local::TestTrie::Init;
+    sub Trie::ModuleInit;
+return;
+
+
+lab TestTrie::Allocate;
+    sub Local::TestTrie::Init;
+
+    sub Trie::Allocate;
+    pull _pTrie;
+
+    push _pTrie; sub Chunk::Len; pull __;
+    jump fail ~ __ != 2;
+
+    jump succ;
+
+
+lab TestTrie::Create;
+    sub Local::TestTrie::Init;
+
+    sub Trie::Create;
+    pull _pTrie;
+
+    push _pTrie; sub Chunk::Len; pull __;
+    jump fail ~ __ != 2;
+
+    put __ <- _pTrie + _Trie::Trie::SUB;
+    push __; sub Chunk::Len; pull __;
+    jump fail ~ __ != 16;
+
+    jump succ;
+
+
+lab TestTrie::Delete;
+    sub Local::TestTrie::Init;
+
+    sub Trie::Create;
+    sub Trie::Create;
+    pull _pTrie; pull _pSubTrie;
+
+    put _pSubs <- _pTrie + _Trie::Trie::SUB;
+    put _pSubTrie -> _pSubs + 2;
+
+    push _pTrie;
+    sub Trie::Delete;
+
+    jump succ;
+
+
+
+
