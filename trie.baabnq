@@ -1,5 +1,6 @@
 
 use 'libs/stack.baabnq';
+use 'libs/no.baabnq';
 
 
 sub Trie::ModuleInit;
@@ -48,8 +49,29 @@ lab Trie::Create;
     return;
 
 
+"(::Trie)
+lab Trie::Delete;
+    sub Stack::Swap;
+    pull _pTrie;
 
+    sub No::Return ~ _pTrie == 0;
 
+    put _pSub <- _pTrie + _Trie::Trie::SUB;
+    free _pTrie;
+
+    lab Trie::Delete::Loop;
+        put __ <- _pSub + _i;
+        put _i = _i + 1;
+
+        push _i;
+        push _pSub;
+            push __;
+            sub Trie::Delete;
+        pull _pSub;
+        pull _i;
+    jump Trie::Delete::Loop ~ _i < 5;
+
+    return;
 
 
 
