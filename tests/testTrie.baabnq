@@ -114,3 +114,38 @@ lab TestTrie::InsertTrickle;
     jump fail ~ __ != 1;
 
     jump succ;
+
+
+
+
+
+
+lab TestTrie::TraverseTrickle;
+    sub Trie::ModuleInit;
+
+    static '\x00\x01\x02\x03\x04\x05\x06\x07\x08' _pIn;
+    put __     <- _pIn - 1;
+    put __ - 1 -> _pIn - 1;
+
+    sub Trie::Create;
+    pull _pTrie;
+
+    push _pTrie;
+    push _pIn;
+    sub Trie::InsertTrickle;
+
+    push _pTrie;
+    push _pIn;
+    sub Trie::TraverseTrickle;
+    pull _pEnd;
+
+    put __ <- _pEnd + _Trie::Trie::END;
+    jump fail ~ __ != 1;
+
+    jump succ;
+
+
+
+
+
+
