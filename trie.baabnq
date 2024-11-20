@@ -102,6 +102,34 @@ lab Trie::ChunkToTrickle;
     return;
 
 
+"(::Trie, ::Trickle)
+lab Trie::InsertTrickle;
+    sub Stack::Swap; pull _pTrickle;
+    sub Stack::Swap; pull _pTrie;
+
+    put _pIter = _pTrie;
+
+    push _pTrickle; sub Chunk::Len; pull _len;
+    put _i = 0;
+    lab Trie::InsertTrickle::Loop;
+        put _nibble <- _pTrickle + _i;
+
+        put _pSubs <- _pIter + _Trie::Trie::SUB;
+        put _pSubAddr = _pSubs + (_nibble & 15);
+        put _pSubTrie <- _pSubAddr;
+        jump Trie::InsertTrickle::Loop::NewSubTrieSkip ~ _pSubTrie != 0;
+            sub Trie::Create;
+            pull _pSubTrie;
+            put _pSubTrie -> _pSubAddr;
+        lab Trie::InsertTrickle::Loop::NewSubTrieSkip;
+
+        put _pIter = _pSubTrie;
+        put _i = _i + 1;
+    jump Trie::InsertTrickle::Loop ~ _i < _len;
+
+    put 1 -> _pIter + _Trie::Trie::END;
+
+    return;
 
 
 
