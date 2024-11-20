@@ -75,6 +75,7 @@ lab Trie::Delete;
 
 
 "(::Chunk) => (::Trickle)
+"conversion utility
 lab Trie::ChunkToTrickle;
     sub Stack::Swap;
     pull _pChunk;
@@ -103,6 +104,7 @@ lab Trie::ChunkToTrickle;
 
 
 "(::Trie, ::Trickle)
+"inserts trickle sequence into trie
 lab Trie::InsertTrickle;
     sub Stack::Swap; pull _pTrickle;
     sub Stack::Swap; pull _pTrie;
@@ -132,7 +134,32 @@ lab Trie::InsertTrickle;
     return;
 
 
+"(Start::Trie, ::Trickle) => (End::Trie)
+"traverses through trie tree based on trickle sequence
+lab Trie::TraverseTrickle;
+    sub Stack::Swap; pull _pTrickle;
+    sub Stack::Swap; pull _pStart;
 
+    put _pIter = _pStart;
+
+    push _pTrickle; sub Chunk::Len; pull _len;
+    put _i = 0;
+    lab Trie::TraverseTrickle::Loop;
+        put _nibble <- _pTrickle + _i;
+
+        put _pSubs <- _pIter + _Trie::Trie::SUB;
+        put _pIter <- _pSubs + (_nibble & 15);
+
+        jump Trie::TraverseTrickle::Fail ~ _pIter == 0;
+
+        put _i = _i + 1;
+    jump Trie::TraverseTrickle::Loop ~ _i < _len;
+
+    lab Trie::TraverseTrickle::Fail;
+
+    push _pIter;
+    sub Stack::Swap;
+    return;
 
 lab Trie::Skip;
 
