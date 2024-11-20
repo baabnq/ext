@@ -102,6 +102,54 @@ lab Trie::ChunkToTrickle;
     return;
 
 
+"(::Trie, ::Trickle)"
+lab Trie::InsertTrickle;
+    sub Stack::Swap; pull _pTrickle;
+    sub Stack::Swap; pull _pTrie;
+
+    push _pTrickle; sub Chunk::Len; pull _trickleLen;
+    jump Trie::InsertTrickle::BaseCaseSkip ~ _trickleLen != 0;
+        put 1 -> _pTrie + _Trie::Trie::END;
+        return;
+    lab Trie::InsertTrickle::BaseCaseSkip;
+
+    "save original trie
+    push _pTrie;
+
+    put _pSubs <- _pTrie + _Trie::Trie::SUB;
+    put _char <- _pTrickle;
+    put _pSubAddr = _pSubs + (_char & 15);
+    put _pSubTrie <- _pSubAddr;
+    jump Trie::InsertTrickle::NewSubTrieSkip ~ _pSubTrie != 0;
+        sub Trie::Create;
+        pull _pSubTrie;
+        put _pSubTrie -> _pSubAddr;
+    lab Trie::InsertTrickle::NewSubTrieSkip;
+
+    "now, it's time to unwrap the trickle
+    "this is a programming trick, straight from the forbidden books
+
+    "save current ctx
+    push _pTrickle;
+    push _char;
+
+    "rebase length prefix (this is the unwrapping part)
+    put _trickleLen -> _pTrickle;
+
+    push _pSubTrie;
+    push _pTrickle + 1;
+    sub Trie::InsertTrickle;
+
+    "restore ctx
+    pull _char;
+    pull _pTrickle;
+    pull _pTrie;
+
+    "change length prefix back to content (wrapping things up again)
+    put _char -> _pTrickle;
+
+    return;
+
 
 
 
