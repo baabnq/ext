@@ -243,6 +243,22 @@ lab Trie::SearchChunk;
 
 
 
+"(::Trie, ::Chunk) => (Matching::Bool)
+"does the same as Trie::PrefixTrickle, but with a chunk"
+lab Trie::PrefixChunk;
+    sub Stack::Swap; pull _pChunk;
+    sub Stack::Swap; pull _pTrie;
+
+    push _pChunk; sub Trie::ChunkToTrickle; pull _pTrickle;
+
+    push _pTrie;
+    push _pTrickle;
+    sub Trie::PrefixTrickle;
+
+    free _pTrickle;
+
+    sub Stack::Swap;
+    return;
 
 
     
