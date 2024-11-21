@@ -180,6 +180,39 @@ lab TestTrie::SearchTrickle;
     jump succ;
 
 
+lab TestTrie::PrefixTrickle;
+    sub Trie::ModuleInit;
+
+    static '\x00\x01\x02\x03\x04\x05\x00\x06\x07\x08' _p1;
+    static '\x00\x01\x02\x03\x04\x05' _p2;
+    static '\x00\x01\x02\x03\x04\x05\x00\x06\x07\x08\x09\0xaa' _p3;
+
+    sub Trie::Create;
+    pull _pTrie;
+
+    push _pTrie;
+    push _p1;
+    sub Trie::InsertTrickle;
+
+    push _pTrie;
+    push _p1;
+    sub Trie::PrefixTrickle;
+    pull __;
+    jump fail ~ __ != 1;
+
+    push _pTrie;
+    push _p2;
+    sub Trie::PrefixTrickle;
+    pull __;
+    jump fail ~ __ != 1;
+
+    push _pTrie;
+    push _p3;
+    sub Trie::PrefixTrickle;
+    pull __;
+    jump fail ~ __ != 0;
+
+    jump succ;
 
 
 
