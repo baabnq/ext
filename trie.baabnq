@@ -186,6 +186,24 @@ lab Trie::SearchTrickle;
     return;
 
 
+"(::Trie, ::Trickle) => (Matching::Bool)
+"searches for sequence in trie without checking for sequence termination
+lab Trie::PrefixTrickle;
+    sub Stack::Swap; pull _pTrickle;
+    sub Stack::Swap; pull _pTrie;
+
+    push _pTrie;
+    push _pTrickle;
+    sub Trie::TraverseTrickle;
+    pull _pEnd;
+
+    push 0;
+    push 1;
+    sub Stack::Swap ~ _pEnd != 0;
+    pull __;
+
+    sub Stack::Swap;
+    return;
 
     
 
