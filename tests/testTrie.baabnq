@@ -257,6 +257,42 @@ lab TestTrie::InsertChunk;
     jump succ;
 
 
+lab TestTrie::SearchChunk;
+    sub Trie::ModuleInit;
+
+    static 'ABCDE' _p1;
+    static 'AC' _p2;
+    static 'ABBCCCC' _p3;
+
+
+
+    sub Trie::Create;
+    pull _pTrie;
+
+    push _pTrie;
+    push _p1;
+    sub Trie::InsertChunk;
+
+
+    push _pTrie;
+    push _p1;
+    sub Trie::SearchChunk;
+    pull __;
+    jump fail ~ __ != 1;
+
+    push _pTrie;
+    push _p2;
+    sub Trie::SearchChunk;
+    pull __;
+    jump fail ~ __ != 0;
+
+    push _pTrie;
+    push _p3;
+    sub Trie::SearchChunk;
+    pull __;
+    jump fail ~ __ != 0;
+
+    jump succ;
 
 
 
