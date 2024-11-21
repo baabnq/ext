@@ -215,4 +215,50 @@ lab TestTrie::PrefixTrickle;
     jump succ;
 
 
+lab TestTrie::InsertChunk;
+    sub Trie::ModuleInit;
+
+    static 2 _pRef;
+    put (1 << 12) + (2 << 8) + (3 << 4) + (4 << 0) -> _pRef + 0;
+    put (5 << 12) + (6 << 8) + (7 << 4) + (8 << 0) -> _pRef + 1;
+
+    push _pRef;
+    sub Chunk::Copy;
+    pull _pIn;
+
+    sub Trie::Create;
+    pull _pTrie;
+
+    push _pTrie;
+    push _pIn;
+    sub Trie::InsertChunk;
+
+    "_pIn and _pRef (the original) need to be the same,
+    "as InsertTrickle is not allowed to (non-atomically) modify the trickle
+    push _pIn;
+    push _pRef;
+    sub Chunk::Cmp;
+    pull __;
+    jump fail ~ __ != 1;
+
+    put __ = _pTrie;
+    put __ <- __ + _Trie::Trie::SUB; put __ <- __ + 1; jump fail ~ __ == 0;
+    put __ <- __ + _Trie::Trie::SUB; put __ <- __ + 2; jump fail ~ __ == 0;
+    put __ <- __ + _Trie::Trie::SUB; put __ <- __ + 3; jump fail ~ __ == 0;
+    put __ <- __ + _Trie::Trie::SUB; put __ <- __ + 4; jump fail ~ __ == 0;
+    put __ <- __ + _Trie::Trie::SUB; put __ <- __ + 5; jump fail ~ __ == 0;
+    put __ <- __ + _Trie::Trie::SUB; put __ <- __ + 6; jump fail ~ __ == 0;
+    put __ <- __ + _Trie::Trie::SUB; put __ <- __ + 7; jump fail ~ __ == 0;
+    put __ <- __ + _Trie::Trie::SUB; put __ <- __ + 8; jump fail ~ __ == 0;
+
+    put __ <- __ + _Trie::Trie::END;
+    jump fail ~ __ != 1;
+
+    jump succ;
+
+
+
+
+
+
 
