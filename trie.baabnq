@@ -161,6 +161,34 @@ lab Trie::TraverseTrickle;
     sub Stack::Swap;
     return;
 
+
+
+"(::Trie, ::Trickle) => (Matching::Bool)
+"searches for sequence in trie
+lab Trie::SearchTrickle;
+    sub Stack::Swap; pull _pTrickle;
+    sub Stack::Swap; pull _pTrie;
+
+    push _pTrie;
+    push _pTrickle;
+    sub Trie::TraverseTrickle;
+    pull _pEnd;
+
+    push 0;
+    sub Stack::Swap;
+        sub No::Return ~ _pEnd == 0;
+    sub Stack::Swap;
+    pull __;
+
+    put _end <- _pEnd + _Trie::Trie::END;
+    push _end;
+    sub Stack::Swap;
+    return;
+
+
+
+    
+
 lab Trie::Skip;
 
 
