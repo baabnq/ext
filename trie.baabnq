@@ -204,6 +204,27 @@ lab Trie::PrefixTrickle;
     sub Stack::Swap;
     return;
 
+
+
+"(::Trie, ::Chunk)
+lab Trie::InsertChunk;
+    sub Stack::Swap; pull _pChunk;
+    sub Stack::Swap; pull _pTrie;
+
+    push _pChunk; sub Trie::ChunkToTrickle; pull _pTrickle;
+
+    push _pTrie;
+    push _pTrickle;
+    sub Trie::InsertTrickle;
+
+    free _pTrickle;
+
+    return;
+
+
+
+
+
     
 
 lab Trie::Skip;
