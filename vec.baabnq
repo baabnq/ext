@@ -1,0 +1,51 @@
+
+use 'libs/stack.baabnq';
+use 'libs/float.baabnq';
+use 'libs/chunk.baabnq';
+
+
+jump Vec::Skip;
+
+lab Vec::ModuleInit;
+    sub Floats::ModuleInit;
+
+    "vec<n> structure
+    " _p + <i> -> component<i> :: Float
+    "   ( where ∀i∈[0;n-1] )
+
+    "size of the vector is also size of vec structure,
+    "as a vector of size n will have n entries
+
+    return;
+
+
+"(N::Int) => (::Vec<N>)
+lab Vec::Create;
+    sub Stack::Swap;
+    pull _size;
+
+    new _size _pVec;
+
+    push _pVec;
+    push _Floats::Zero;
+    sub Chunk::Fill;
+
+    push _pVec;
+    sub Stack::Swap;
+    return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+lab Vec::Skip;
