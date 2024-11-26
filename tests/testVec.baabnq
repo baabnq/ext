@@ -1,0 +1,29 @@
+
+use 'libs/tests/common.baabnq';
+use 'ext/vec.baabnq';
+
+lab Local::TestVec::Init;
+    sub Vec::ModuleInit;
+return;
+
+lab TestVec::Create;
+    sub Local::TestVec::Init;
+
+    push 10;
+    sub Vec::Create;
+    pull _pVec;
+
+    push _pVec; sub Chunk::Len; pull _size;
+    jump fail ~ _size != 10;
+
+    put _i = 0;
+    lab Local::TestVec::Create::Loop;
+        put __ <- _pVec + _i;
+        jump fail ~ __ != _Floats::Zero;
+
+        put _i = _i + 1;
+    jump Local::TestVec::Create::Loop ~ _i < _size;
+
+
+    jump succ;
+
