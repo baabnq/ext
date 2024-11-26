@@ -27,3 +27,29 @@ lab TestVec::Create;
 
     jump succ;
 
+
+lab TestVec::Delete;
+    sub Local::TestVec::Init;
+
+    push 3;
+    sub Vec::Create;
+    sub Vec::Delete;
+
+    jump succ;
+
+
+
+lab TestVec::Dim;
+    sub Local::TestVec::Init;
+
+    push 10;
+    sub Vec::Create;
+    pull _pVec;
+
+    push _pVec;
+    sub Vec::Dim;
+    pull __;
+    jump fail ~ __ != 10;
+
+    jump succ;
+
