@@ -110,8 +110,29 @@
         
     -vec.baabnq
         -generic vector
-        -(vec2/vec3)
-        
+
+        -Create //
+        -Delete
+        -Dim
+        -Comps
+        -Get
+        -Set
+        -Add
+        -Neg
+        -Mul
+        -Div
+        -Scale
+        -ScaleInv
+        -CompSum
+        -AssertDim
+        -Dot
+        -Normalize
+        -Length
+        -Copy
+
+        -vec3d.baabnq
+            -Cross
+
     -bignum.baabnq
     
     -frac.baabnq
@@ -120,8 +141,20 @@
     -json.baabnq
         -json parse/generator
         
-    -trie.baabnq
-        -trie dictionary
+    -trie.baabnq //
+        -Allocate           //
+        -Create             //
+        -Delete             //
+        -ChunkToTrickle     //
+        -InsertTrickle      //
+        -TraverseTrickle    //
+        -SearchTrickle      //
+        -PrefixTrickle      //
+        -InsertChunk        //
+        -SearchChunk        //
+        -PrefixChunk        //
+
+
         
     -hashmap.baabnq
     -set.baabnq
