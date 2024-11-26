@@ -35,9 +35,22 @@ lab Vec::Create;
     return;
 
 
+"(::Vec<N>)
+lab Vec::Delete;
+    sub Stack::Swap;
+    pull _pVec;
 
+    free _pVec;
+    return;
 
+"(::Vec<N>) => (N::Int)
+lab Vec::Dim;
+    sub Stack::Swap;
 
+    sub Chunk::Len;
+
+    sub Stack::Swap;
+    return;
 
 
 
