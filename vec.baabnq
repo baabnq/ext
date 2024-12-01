@@ -220,5 +220,14 @@ lab Vec::Neg;
 
     return;
 
+"(Cumulator::Vec, Factor::Vec)
+lab Vec::Mul;
+    sub Vec::IterBin::Register;
+
+    sub Vec::IterBin::Begin;
+        sub Floats::Mul;
+    sub Vec::IterBin::End;
+
+    return;
 
 lab Vec::Skip;
