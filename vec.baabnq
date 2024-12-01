@@ -16,6 +16,7 @@ lab Vec::ModuleInit;
     "size of the vector is also size of vec structure,
     "as a vector of size n will have n entries
 
+
     return;
 
 
@@ -55,7 +56,101 @@ lab Vec::Dim;
 
 
 
+"(A::Vec<N>, B::Vec<M>) => (Size::Int)
+"Size = N == M ? N : 0
+lab Vec::VerifyDims;
+    sub Stack::Swap;
+        sub Vec::Dim;
+        pull _n;
+    sub Stack::Swap;
+        sub Vec::Dim;
+        pull _m;
 
+    push 0;
+    push _n;
+    sub Stack::Swap ~ _n == _m;
+    pull __;
+
+    sub Stack::Swap;
+    return;
+
+
+
+lab Vec::IterBin;
+    return;
+
+"   
+
+lab Vec::IterBin::Register;
+    pull _aMesa;
+    pull _aMeta;
+
+        pull _pCompAuxil;
+        pull _pCompCumul;
+
+        push _pCompCumul;
+        push _pCompAuxil;
+        sub Vec::VerifyDims;
+        pull _i;
+
+    push _aMeta;
+    push _aMesa;
+    return;
+
+
+"return addresses are included in signature
+"   (Mesa::Address) => (
+"       LoopStart::Address,
+"       CumulComponent::Int,
+"       AuxilComponent::Int,
+"       Mesa::Address
+"   )
+lab Vec::IterBin::Begin;
+    pull _aMesa;
+
+    "address of start of loop,
+    "which is used to continue to loop
+    push _aMesa - 1;
+
+    "update loop index
+    put _i = _i - 1;
+
+    "construct in-frame for vector operation
+    put _cumul <- _pCompCumul + _i; push _cumul;
+    put _auxil <- _pCompAuxil + _i; push _auxil;
+
+    push _aMesa;
+    return;
+
+"(Mesa::Address, Loop::Address) => (Target::Address)
+"Target::Address = LoopIndex > 0 ? Loop::Address : Mesa::Address
+lab Vec::IterBin::End;
+    pull _aMesa;
+
+    "deconstruct out-frame for vector operation
+    pull _cumul; put _cumul -> _pCompCumul + _i;
+
+    "pull loop address
+    pull _aLoop;
+
+    "continue loop if index is bound
+    push _aMesa;
+    push _aLoop; 
+    sub Stack::Swap ~ _i > 0;
+    pull __;
+    return;
+
+    
+
+"(Cumulator::Vec, Addend::Vec)
+lab Vec::Add;
+    sub Vec::IterBin::Register;
+    
+    sub Vec::IterBin::Begin;
+        sub Floats::Add;
+    sub Vec::IterBin::End;
+
+    return;
 
 
 
