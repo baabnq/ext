@@ -16,6 +16,9 @@ lab Vec::ModuleInit;
     "size of the vector is also size of vec structure,
     "as a vector of size n will have n entries
 
+    put _Vec::Iter::pCumul = 0;
+    put _Vec::Iter::pAuxil = 0;
+    put _Vec::Iter::Index  = 0;
 
     return;
 
@@ -77,7 +80,7 @@ lab Vec::VerifyDims;
 
 
 lab Vec::Iter;
-"   Vec::Iter<A> (where A∈{Bin, Uni})
+"   Vec::Iter<A> (where A∈{Bin, Una})
 "   is a system that effectively functions as a compile-time closure.
 "   is does so, by modifying the stack-frames of meta routines,
 "   causing them to, instead of returning their meta routine, jumps back
@@ -89,13 +92,13 @@ lab Vec::IterBin::Register;
     pull _aMesa;
     pull _aMeta;
 
-        pull _pCompAuxil;
-        pull _pCompCumul;
+        pull _Vec::Iter::pAuxil;
+        pull _Vec::Iter::pCumul;
 
-        push _pCompCumul;
-        push _pCompAuxil;
+        push _Vec::Iter::pCumul;
+        push _Vec::Iter::pAuxil;
         sub Vec::VerifyDims;
-        pull _i;
+        pull _Vec::Iter::Index;
 
     push _aMeta;
     push _aMesa;
@@ -104,12 +107,14 @@ lab Vec::IterBin::Register;
 
 "return addresses are included in signature
 "   (Mesa::Address) => (
-"       LoopStart::Address,
+"       Loop::Address,
 "       CumulComponent::Int,
 "       AuxilComponent::Int,
 "       Mesa::Address
 "   )
 lab Vec::IterBin::Begin;
+    "mesa for the call to Vec::IterBin::Begin
+    "as opposed to meta for the call calling this routine
     pull _aMesa;
 
     "address of start of loop,
@@ -117,11 +122,11 @@ lab Vec::IterBin::Begin;
     push _aMesa - 1;
 
     "update loop index
-    put _i = _i - 1;
+    put _Vec::Iter::Index = _Vec::Iter::Index - 1;
 
     "construct in-frame for vector operation
-    put _cumul <- _pCompCumul + _i; push _cumul;
-    put _auxil <- _pCompAuxil + _i; push _auxil;
+    put _cumul <- _Vec::Iter::pCumul + _Vec::Iter::Index; push _cumul;
+    put _auxil <- _Vec::Iter::pAuxil + _Vec::Iter::Index; push _auxil;
 
     push _aMesa;
     return;
@@ -132,7 +137,7 @@ lab Vec::IterBin::End;
     pull _aMesa;
 
     "deconstruct out-frame for vector operation
-    pull _cumul; put _cumul -> _pCompCumul + _i;
+    pull _cumul; put _cumul -> _Vec::Iter::pCumul + _Vec::Iter::Index;
 
     "pull loop address
     pull _aLoop;
@@ -140,7 +145,7 @@ lab Vec::IterBin::End;
     "continue loop if index is bound
     push _aMesa;
     push _aLoop; 
-    sub Stack::Swap ~ _i > 0;
+    sub Stack::Swap ~ _Vec::Iter::Index > 0;
     pull __;
     return;
 
