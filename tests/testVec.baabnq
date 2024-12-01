@@ -53,3 +53,36 @@ lab TestVec::Dim;
 
     jump succ;
 
+
+
+
+
+lab TestVec::Add;
+    sub Local::TestVec::Init;
+
+    static 4 _pVec; push _pVec; push _pVec;
+    push 0; sub Floats::Value2Fp; pull __; put __ -> _pVec + 0;
+    push 1; sub Floats::Value2Fp; pull __; put __ -> _pVec + 1;
+    push 2; sub Floats::Value2Fp; pull __; put __ -> _pVec + 2;
+    push 3; sub Floats::Value2Fp; pull __; put __ -> _pVec + 3;
+    static 4 _pVec; push _pVec;
+    push 1; sub Floats::Value2Fp; pull __; put __ -> _pVec + 0;
+    push 1; sub Floats::Value2Fp; pull __; put __ -> _pVec + 1;
+    push 1; sub Floats::Value2Fp; pull __; put __ -> _pVec + 2;
+    push 1; sub Floats::Value2Fp; pull __; put __ -> _pVec + 3;
+
+    sub Vec::Add;
+    
+    static 4 _pVec; push _pVec;
+    push 1; sub Floats::Value2Fp; pull __; put __ -> _pVec + 0;
+    push 2; sub Floats::Value2Fp; pull __; put __ -> _pVec + 1;
+    push 3; sub Floats::Value2Fp; pull __; put __ -> _pVec + 2;
+    push 4; sub Floats::Value2Fp; pull __; put __ -> _pVec + 3;
+
+    sub Chunk::Cmp;
+    pull __;
+    jump fail ~ __ != 1;
+
+    jump succ;
+
+
