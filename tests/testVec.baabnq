@@ -164,4 +164,32 @@ lab TestVec::Div;
 
     jump succ;
 
+lab TestVec::Scale;
+    sub Local::TestVec::Init;
+
+    static 4 _pVec; push _pVec; push _pVec;
+    push 0; sub Floats::Value2Fp; pull __; put __ -> _pVec + 0;
+    push 3; sub Floats::Value2Fp; pull __; put __ -> _pVec + 1;
+    push 6; sub Floats::Value2Fp; pull __; put __ -> _pVec + 2;
+    push 9; sub Floats::Value2Fp; pull __; put __ -> _pVec + 3;
+
+    push 2;
+    sub Floats::Value2Fp;
+    sub Vec::Scale;
+
+    static 4 _pVec; push _pVec;
+    push 0;  sub Floats::Value2Fp; pull __; put __ -> _pVec + 0;
+    push 6;  sub Floats::Value2Fp; pull __; put __ -> _pVec + 1;
+    push 12; sub Floats::Value2Fp; pull __; put __ -> _pVec + 2;
+    push 18; sub Floats::Value2Fp; pull __; put __ -> _pVec + 3;
+
+    sub Chunk::Cmp;
+    pull __;
+    jump fail ~ __ != 1;
+
+    jump succ;
+
+
+
+
 
