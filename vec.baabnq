@@ -240,6 +240,19 @@ lab Vec::Div;
 
     return;
 
+"(::Vec, Scalar::Int)
+lab Vec::Scale;
+    sub Stack::Swap;
+    pull _scalar;
+    sub Vec::IterUna::Register;
+
+    sub Vec::IterUna::Begin;
+        push _scalar;
+        sub Floats::Mul;
+    sub Vec::IterUna::End;
+
+    return;
+
 
 
 lab Vec::Skip;
