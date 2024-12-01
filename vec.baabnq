@@ -230,4 +230,16 @@ lab Vec::Mul;
 
     return;
 
+"(Cumulator::Vec, Denominator::Vec)
+lab Vec::Div;
+    sub Vec::IterBin::Register;
+
+    sub Vec::IterBin::Begin;
+        sub Floats::Div;
+    sub Vec::IterBin::End;
+
+    return;
+
+
+
 lab Vec::Skip;
