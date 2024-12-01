@@ -86,8 +86,11 @@ lab Vec::Iter;
 "   causing them to, instead of returning their meta routine, jumps back
 "   to an earlier part of the routines, inducing a loop.
 "   this virutal looping behavior is exploited to iterate over the vector.
+
+"   all routines under Vec::Iter<A> use forth-like type signatures
     return; 
 
+"(Mesa::Address, Meta::Address, Auxil::Vec, Cumul::Vec) -- (Meta::Address, Mesa::Address)
 lab Vec::IterBin::Register;
     pull _aMesa;
     pull _aMeta;
@@ -105,8 +108,25 @@ lab Vec::IterBin::Register;
     return;
 
 
-"return addresses are included in signature
-"   (Mesa::Address) => (
+
+"(Mesa::Address, Meta::Address, Cumul::Vec) -- (Meta::Address, Mesa::Address)
+lab Vec::IterUna::Register;
+    pull _aMesa;
+    pull _aMeta;
+
+        pull _Vec::Iter::pCumul;
+
+        push _Vec::Iter::pCumul;
+        sub Vec::Dim;
+        pull _Vec::Iter::Index;
+
+    push _aMeta;
+    push _aMesa;
+    return;
+
+
+
+"   (Mesa::Address) -- (
 "       Loop::Address,
 "       CumulComponent::Int,
 "       AuxilComponent::Int,
@@ -131,9 +151,38 @@ lab Vec::IterBin::Begin;
     push _aMesa;
     return;
 
-"(Mesa::Address, Loop::Address) => (Target::Address)
+
+
+"   (Mesa::Address) -- (
+"       Loop::Address,
+"       CumulComponent::Int,
+"       Mesa::Address
+"   )
+lab Vec::IterUna::Begin;
+    "mesa for the call to Vec::IterBin::Begin
+    "as opposed to meta for the call calling this routine
+    pull _aMesa;
+
+    "address of start of loop,
+    "which is used to continue to loop
+    push _aMesa - 1;
+
+    "update loop index
+    put _Vec::Iter::Index = _Vec::Iter::Index - 1;
+
+    "construct in-frame for vector operation
+    put _cumul <- _Vec::Iter::pCumul + _Vec::Iter::Index; push _cumul;
+
+    push _aMesa;
+    return;
+
+
+
+
+"(Mesa::Address, Loop::Address) -- (Target::Address)
 "Target::Address = LoopIndex > 0 ? Loop::Address : Mesa::Address
 lab Vec::IterBin::End;
+lab Vec::IterUna::End;
     pull _aMesa;
 
     "deconstruct out-frame for vector operation
@@ -161,8 +210,15 @@ lab Vec::Add;
 
     return;
 
+"(::Vec)
+lab Vec::Neg;
+    sub Vec::IterUna::Register;
 
+    sub Vec::IterUna::Begin;
+        sub Floats::Neg;
+    sub Vec::IterUna::End;
 
+    return;
 
 
 lab Vec::Skip;
