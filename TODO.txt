@@ -112,22 +112,24 @@
         -generic vector
 
         -Create //
-        -Delete
-        -Dim
-        -Comps
-        -Get
-        -Set
-        -Add
-        -Neg
-        -Mul
-        -Div
-        -Scale
-        -ScaleInv
-        -CompSum
-        -AssertDim
-        -Dot
+        -Delete //
+        -Dim    //
+        -VerfiyDims /
+        -Iter<A> (where A∈{Bin, Una}) /
+            -Register   /
+            -Begin      /
+            -End        /
+        -Add //
+        -Neg //
+        -Mul //
+        -Div //
+        -Scale //
+        -Dot //
+            => refactor
+        -Sum
+        -Length //
+            => refactor
         -Normalize
-        -Length
         -Copy
 
         -vec3d.baabnq
