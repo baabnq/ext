@@ -72,7 +72,7 @@ lab TestVec::Add;
     push 1; sub Floats::Value2Fp; pull __; put __ -> _pVec + 3;
 
     sub Vec::Add;
-    
+
     static 4 _pVec; push _pVec;
     push 1; sub Floats::Value2Fp; pull __; put __ -> _pVec + 0;
     push 2; sub Floats::Value2Fp; pull __; put __ -> _pVec + 1;
@@ -151,7 +151,7 @@ lab TestVec::Div;
     push 5; sub Floats::Value2Fp; pull __; put __ -> _pVec + 3;
 
     sub Vec::Div;
-    
+
     static 4 _pVec; push _pVec;
     push 5; sub Floats::Value2Fp; pull __; put __ -> _pVec + 0;
     push 7; sub Floats::Value2Fp; pull __; put __ -> _pVec + 1;
@@ -189,6 +189,38 @@ lab TestVec::Scale;
 
     jump succ;
 
+lab TestVec::Dot;
+    sub Local::TestVec::Init;
+
+    static 2 _pVec; push _pVec;
+    push 2; sub Floats::Value2Fp; pull __; put __ -> _pVec + 0;
+    push 4; sub Floats::Value2Fp; pull __; put __ -> _pVec + 1;
+
+    static 2 _pVec; push _pVec;
+    push 4; sub Floats::Value2Fp; pull __; put __ -> _pVec + 0;
+    push 2; sub Floats::Value2Fp; pull __; put __ -> _pVec + 1;
+
+    sub Vec::Dot;
+    sub Floats::Fp2Value;
+    pull __;
+    jump fail ~ __ != 16;
+
+    jump succ;
+
+lab TestVec::Length;
+    sub Local::TestVec::Init;
+
+    "pythagoras senpai~
+    static 2 _pVec; push _pVec;
+    push 3; sub Floats::Value2Fp; pull __; put __ -> _pVec + 0;
+    push 4; sub Floats::Value2Fp; pull __; put __ -> _pVec + 1;
+
+    sub Vec::Length;
+    sub Floats::Fp2Value;
+    pull __;
+    jump fail ~ __ != 5;
+
+    jump succ;
 
 
 
