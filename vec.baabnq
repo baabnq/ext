@@ -291,6 +291,26 @@ lab Vec::Dot;
     return;
 
 
+"(::Vec) => (Length::Int)
+lab Vec::Length;
+    sub Vec::IterUna::Register;
+
+    put _len = _Floats::Zero;
+    sub Vec::IterUna::Begin;
+        sub Stack::Dup;
+        sub Floats::Mul;
+        push _len;
+        sub Floats::Add;
+        pull _len;
+    sub Vec::IterUna::EndNoWriteback;
+
+    push _len;
+    sub Floats::Sqrt;
+    sub Stack::Swap;
+    return;
+
+
+
 
 lab Vec::Skip;
 
