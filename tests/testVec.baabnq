@@ -189,6 +189,24 @@ lab TestVec::Scale;
 
     jump succ;
 
+
+lab TestVec::Sum;
+    sub Local::TestVec::Init;
+
+    static 4 _pVec; push _pVec;
+    push 1; sub Floats::Value2Fp; pull __; put __ -> _pVec + 0;
+    push 2; sub Floats::Value2Fp; pull __; put __ -> _pVec + 1;
+    push 4; sub Floats::Value2Fp; pull __; put __ -> _pVec + 2;
+    push 8; sub Floats::Value2Fp; pull __; put __ -> _pVec + 3;
+
+    sub Vec::Sum;
+    sub Floats::Fp2Value;
+    pull __;
+    jump fail ~ __ != 15;
+
+    jump succ;
+
+
 lab TestVec::Dot;
     sub Local::TestVec::Init;
 
