@@ -291,11 +291,6 @@ lab Vec::Dot;
 
     put _dot = _Floats::Zero;
     sub Vec::IterBin::Begin;
-        pull _auxil;
-        pull _cumul;
-
-        push _auxil;
-        push _cumul;
         sub Floats::Mul;
         push _dot;
         sub Floats::Add;
