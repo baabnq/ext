@@ -334,7 +334,15 @@ lab Vec::Length;
     sub Stack::Swap;
     return;
 
+"(::Vec)
+lab Vec::Normalize;
+    sub Stack::Swap;
 
+    sub Stack::Dup;
+    sub Vec::Length;
+    sub Vec::InvScale;
+
+    return;
 
 
 
