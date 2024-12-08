@@ -53,6 +53,22 @@ lab TestVec::Dim;
 
     jump succ;
 
+lab TestVec::Copy;
+    sub Local::TestVec::Init;
+
+    static 4 _pVec; push _pVec; push _pVec;
+    put 00 -> _pVec + 0;
+    put 10 -> _pVec + 1;
+    put 20 -> _pVec + 2;
+    put 00 -> _pVec + 3;
+
+    sub Vec::Copy;
+
+    sub Chunk::Cmp;
+    pull __;
+    jump fail ~ __ != 1;
+
+    jump succ;
 
 
 
