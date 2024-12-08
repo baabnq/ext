@@ -266,5 +266,23 @@ lab TestVec::Length;
     jump succ;
 
 
+lab TestVec::Normalize;
+    sub Local::TestVec::Init;
+
+    static 5 _pVec; push _pVec; push _pVec;
+    push 5;   sub Floats::Value2Fp; pull __; put __ -> _pVec + 0;
+    push 4;   sub Floats::Value2Fp; pull __; put __ -> _pVec + 1;
+    push 10;  sub Floats::Value2Fp; pull __; put __ -> _pVec + 2;
+    push 9;   sub Floats::Value2Fp; pull __; put __ -> _pVec + 3;
+    push 200; sub Floats::Value2Fp; pull __; put __ -> _pVec + 4;
+
+    sub Vec::Normalize;
+    sub Vec::Length;
+
+    sub Floats::Fp2Value;
+    pull __;
+    jump fail ~ __ != 1;
+
+    jump succ;
 
 
