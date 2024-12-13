@@ -10,6 +10,10 @@ All extended libraries expect to be included like so: <br> ```use 'ext/<library>
 - **linklist.baabnq**: circular doubly linked list implementation and operations
 - **dynlist.baabnq**: dynamic list implementation and operations
 - **ringbuf.baabnq**: fixed size ring buffer implementation and operations
+- **convlist.baabnq**: routines for conversion between linklist and dynlist
+- **arena.baabnq**: arena-based memory manager implementation and operations
+- **trie.baabnq**: hexadecary (16-ary) trie implementation and operations
+- **vec.baabnq** generic n-dimensional vector implementation, operations, and iteration mechanisms
 
 
 
