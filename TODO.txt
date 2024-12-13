@@ -108,37 +108,37 @@
             (or at least something that acts like a chunk)
 
         
-    -vec.baabnq
+    -vec.baabnq //
         -generic vector
 
-        -Create //
-        -Delete //
-        -Dim    //
-        -VerfiyDims /
-        -Iter<A> (where A∈{Bin, Una}) /
-            -Register   /
-            -Begin      /
-            -End        /
-        -Add //
-        -Neg //
-        -Mul //
-        -Div //
-        -Scale //
-        -Dot //
-            => refactor
-        -Sum
-        -Length //
-            => refactor
-        -Normalize
-        -Copy
+        -Create                         //
+        -Delete                         //
+        -Dim                            //
+        -Copy                           //
+        -VerfiyDims                     /
+        -Iter<A> (where A∈{Bin, Una})   /
+            -Register                   /
+            -Begin                      /
+            -End                        /
+        -Add                            //
+        -Neg                            //
+        -Mul                            //
+        -Div                            //
+        -Scale                          //
+        -ScaleInv                       //
+        -Sum                            //
+        -Dot                            //
+        -Length                         //
+        -Normalize                      //
 
-        -vec3d.baabnq
-            -Cross
+    -vec3d.baabnq
+        -Cross
 
     -bignum.baabnq
     
     -frac.baabnq
         -fractions
+
         
     -json.baabnq
         -json parse/generator
