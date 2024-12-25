@@ -50,3 +50,11 @@ lab Json::Core::ModuleInit;
     return;
 
 
+"=> (::JsonNode)
+lab Json::Core::AllocateNode;
+    new 5 _pNode;
+
+    push _pNode;
+    sub Stack::Swap;
+    return;
+
