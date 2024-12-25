@@ -54,6 +54,12 @@ lab Json::Core::ModuleInit;
 lab Json::Core::AllocateNode;
     new 5 _pNode;
 
+    put 0 -> _pNode + 0;
+    put 0 -> _pNode + 1;
+    put 0 -> _pNode + 2;
+    put 0 -> _pNode + 3;
+    put 0 -> _pNode + 4;
+
     push _pNode;
     sub Stack::Swap;
     return;
