@@ -134,10 +134,26 @@
     -vec3d.baabnq
         -Cross
 
-    -bignum.baabnq
+        -Project2d
+        -Perspective
+        -RotateX
+        -RotateY
+        -RotateZ
+
     
-    -frac.baabnq
-        -fractions
+    ( impractical
+        -frac.baabnq
+            -fractions
+
+            -value2frac
+            -frac2value
+
+            -normalize
+            -add
+            -neg
+            -mul
+            -reci
+    )
 
         
     -json.baabnq
