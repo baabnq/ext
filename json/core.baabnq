@@ -1,0 +1,52 @@
+
+
+use 'libs/stack.baabnq';
+"use 'libs/no.baabnq';
+
+
+sub Json::Core::ModuleInit;
+
+jump Json::Core::Skip;
+
+lab Json::Core::ModuleInit;
+    "json type enumeration defines JsonType
+    " NULL   = 0
+    " TRUE   = 1
+    " FLASE  = 2
+    " OBJECT = 3
+    " ARRAY  = 4
+    " NUMBER = 5
+    " STRING = 6
+
+    put _Json::Type::NULL   = 0;
+    put _Json::Type::TRUE   = 1;
+    put _Json::Type::FLASE  = 2;
+    put _Json::Type::OBJECT = 3;
+    put _Json::Type::ARRAY  = 4;
+    put _Json::Type::NUMBER = 5;
+    put _Json::Type::STRING = 6;
+
+    "json node structure defines JsonNode
+    " _p+0 -> Next :: JsonNode
+    " _p+1 -> Prev :: JsonNode
+    " _p+2 -> Sub  :: JsonNode
+    " _p+3 -> Type :: JsonType
+    " _p+4 -> String :: String
+    " _p+4 -> Number :: Int
+    " _p+4 -> Name   :: JsonNode
+
+    " the {String, Number, Name} ∈ (JsonNode)
+    " members are unionized. that's why
+    " they share the address _p+4.
+
+    put _Json::Node::Next   = 0;
+    put _Json::Node::Prev   = 1;
+    put _Json::Node::Sub    = 2;
+    put _Json::Node::Type   = 3;
+    put _Json::Node::String = 4;
+    put _Json::Node::Number = 4;
+    put _Json::Node::Name   = 4;
+
+    return;
+
+
