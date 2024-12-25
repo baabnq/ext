@@ -80,6 +80,64 @@ lab Json::Node::CreateByType;
     return;
 
 
+"(::JsonNode)
+lab Json::Node::Delete;
+    sub Stack::Swap;
+    pull _node;
+
+    put _type <- _node + _Json::Node::Type;
+    jump Json::Node::Delete::Null   ~ _type == _Json::Type::Null  ;
+    jump Json::Node::Delete::True   ~ _type == _Json::Type::True  ;
+    jump Json::Node::Delete::False  ~ _type == _Json::Type::False ;
+    jump Json::Node::Delete::Number ~ _type == _Json::Type::Number;
+    jump Json::Node::Delete::Object ~ _type == _Json::Type::Object;
+    jump Json::Node::Delete::Array  ~ _type == _Json::Type::Array ;
+    jump Json::Node::Delete::String ~ _type == _Json::Type::String;
+
+    "invaild type will be ignored
+    return;
+
+
+    lab Json::Node::Delete::Null;
+    lab Json::Node::Delete::True;
+    lab Json::Node::Delete::False;
+    lab Json::Node::Delete::Number;
+        jump Json::Node::Delete::Free;
+
+    lab Json::Node::Delete::Object;
+        put _name <- _node + _Json::Node::Name;
+        push _name; sub Json::Node::Delete::Recurse;
+
+    lab Json::Node::Delete::Array;
+        put _next <- _node + _Json::Node::Next;
+        push _next;
+        sub Json::Node::Delete::Recurse ~ _next != 0;
+        sub Stack::Drop                 ~ _next == 0;
+
+        put _sub <- _node + _Json::Node::Sub;
+        push _sub; sub Json::Node::Delete::Recurse;
+
+        jump Json::Node::Delete::Free;
+
+    lab Json::Node::Delete::String;
+        put _string <- _node + _Json::Node::String;
+        free _string;
+        jump Json::Node::Delete::Free;
+
+    lab Json::Node::Delete::Free;
+        free _node;
+        return;
+
+
+    lab Json::Node::Delete::Recurse;
+        sub Stack::Swap;
+        pull _target;
+        push _node;
+        push _target;
+        sub Json::Node::Delete;
+        pull _node;
+        sub Stack::Swap;
+        return;
 
 
 
