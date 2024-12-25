@@ -58,3 +58,7 @@ lab Json::Core::AllocateNode;
     sub Stack::Swap;
     return;
 
+
+lab Json::Core::Skip;
+
+
