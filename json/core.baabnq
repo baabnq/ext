@@ -65,6 +65,24 @@ lab Json::Core::AllocateNode;
     return;
 
 
+"(Type::JsonType) => (::JsonNode)
+lab Json::Node::Create;
+lab Json::Node::CreateByType;
+    sub Stack::Swap;
+    pull _type;
+
+    sub Json::Core::AllocateNode;
+    pull _node;
+    put _type -> _node + _Json::Node::Type;
+
+    push _node;
+    sub Stack::Swap;
+    return;
+
+
+
+
+
 lab Json::Core::Skip;
 
 
