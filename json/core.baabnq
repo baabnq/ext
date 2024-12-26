@@ -141,6 +141,22 @@ lab Json::Node::Delete;
 
 
 
+
+"(Prev::JsonNode, This::JsonNode)
+lab Json::Node::Hook;
+    sub Stack::Swap; pull _this;
+    sub Stack::Swap; pull _prev;
+
+    put _this -> _prev + _Json::Node::Next;
+    put _prev -> _this + _Json::Node::Prev;
+
+    return;
+
+
+
+
+
+
 lab Json::Core::Skip;
 
 
