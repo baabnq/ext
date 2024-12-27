@@ -48,3 +48,59 @@ lab TestJson::Node::Create;
     jump succ;
 
 
+lab TestJson::Node::Hook;
+    sub Local::TestJson::Init;
+
+    sub Json::Core::AllocateNode;
+    sub Json::Core::AllocateNode;
+    pull _b;
+    pull _a;
+
+    put __ <- _a + _Json::Node::Next; jump fail ~ __ != 0;
+    put __ <- _b + _Json::Node::Prev; jump fail ~ __ != 0;
+
+    push _a; push _b; sub Json::Node::Hook;
+
+    put __ <- _a + _Json::Node::Next; jump fail ~ __ != _b;
+    put __ <- _b + _Json::Node::Prev; jump fail ~ __ != _a;
+
+    jump succ;
+
+
+lab TestJson::Node::SoftHook;
+    sub Local::TestJson::Init;
+
+    sub Json::Core::AllocateNode;
+    sub Json::Core::AllocateNode;
+    pull _b;
+    pull _a;
+
+    push 0; push 0; sub Json::Node::Hook;
+
+    put __ <- _a + _Json::Node::Next; jump fail ~ __ != 0;
+    push _a; push 0; sub Json::Node::SoftHook;
+    put __ <- _a + _Json::Node::Next; jump fail ~ __ != 0;
+
+    put __ <- _b + _Json::Node::Next; jump fail ~ __ != 0;
+    push 0; push _b; sub Json::Node::SoftHook;
+    put __ <- _b + _Json::Node::Next; jump fail ~ __ != 0;
+
+    put __ <- _a + _Json::Node::Next; jump fail ~ __ != 0;
+    put __ <- _b + _Json::Node::Prev; jump fail ~ __ != 0;
+    push _a; push _b; sub Json::Node::SoftHook;
+    put __ <- _a + _Json::Node::Next; jump fail ~ __ != _b;
+    put __ <- _b + _Json::Node::Prev; jump fail ~ __ != _a;
+
+    jump succ;
+    
+
+
+
+    
+    
+
+
+    
+
+
+
