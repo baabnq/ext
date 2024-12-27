@@ -90,10 +90,10 @@ lab Vec::VerifyDims;
 lab Vec::Iter;
 "   Vec::Iter<A> (where A∈{Bin, Una})
 "   is a system that effectively functions as a compile-time closure.
-"   is does so, by modifying the stack-frames of meta routines,
-"   causing them to, instead of returning their meta routine, jumps back
-"   to an earlier part of the routines, inducing a loop.
-"   this virutal looping behavior is exploited to iterate over the vector.
+"   it does so by modifying the stack-frames of mesa routines,
+"   causing them to, instead of returning to their meta routine,
+"   jump back to an earlier part of themself, inducing a loop.
+"   this induced looping behavior is exploited to iterate over the vector.
 
 "   all routines under Vec::Iter<A> use forth-like type signatures
     return;
