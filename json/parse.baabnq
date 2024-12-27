@@ -1,0 +1,92 @@
+
+use 'libs/no.baabnq';
+use 'ext/json/core.baabnq';
+
+
+
+jump Json::Parse::Skip;
+
+
+
+
+"=> (Char::Int)
+lab Json::Parse::Peek;
+    "put __ <- _Json::Parse::Ptr;
+    "push __;
+    "sub Stack::Swap;
+    asm '
+        lPA (_Json::Parse::Ptr);
+        pha;
+        jmS Stack::Swap;
+    ';
+    return;
+
+lab Json::Parse::Advance;
+    "put _Json::Parse::Ptr = _Json::Parse::Ptr + 1;
+    asm '
+        lDA (_Json::Parse::Ptr);
+        set 1;
+        add;
+        sAD (_Json::Parse::Ptr);
+    ';
+    return;
+
+
+
+"=> (Char::Int)
+lab Json::Parse::Pop;
+    sub Json::Parse::Peek;
+    sub Stack::Swap;
+    sub Json::Parse::Advance;
+    return;
+
+"() => ()
+lab Json::Parse::WhiteSpace;
+
+    lab Json::Parse::WhiteSpace::Loop;
+        sub Json::Parse::Peek; pull __;
+
+        jump Json::Parse::WhiteSpace::Yes ~ __ == _Json::Const::SPACE;
+        jump Json::Parse::WhiteSpace::Yes ~ __ == _Json::Const::TAB;
+        jump Json::Parse::WhiteSpace::Yes ~ __ == _Json::Const::NEWLINE;
+        jump Json::Parse::WhiteSpace::Yes ~ __ == _Json::Const::RETURN;
+        jump Json::Parse::WhiteSpace::Done;
+
+        lab Json::Parse::WhiteSpace::Yes;
+        sub Json::Parse::Advance;
+
+        jump Json::Parse::WhiteSpace::Loop;
+    lab Json::Parse::WhiteSpace::Done;
+
+    return;
+
+
+
+
+
+
+
+
+"(Source::String) => (::JsonNode)
+lab Json::Parse;
+    sub Stack::Swap;
+    pull _Json::Parse::Ptr;
+
+    "sub Json::ParseValue;
+    sub Stack::Swap;
+    return;
+
+
+
+
+
+
+
+
+
+
+lab Json::Parse::Skip;
+
+
+
+
