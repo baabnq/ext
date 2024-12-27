@@ -47,6 +47,16 @@ lab Json::Core::ModuleInit;
     put _Json::Node::Number = 4;
     put _Json::Node::Name   = 4;
 
+
+    put _Json::Parse::Ptr = 0;
+    put _Json::Gener::Ptr = 0;
+
+    static ' \t\n\r' _p;
+    put _Json::Const::SPACE   <- _p + 0;
+    put _Json::Const::TAB     <- _p + 1;
+    put _Json::Const::NEWLINE <- _p + 2;
+    put _Json::Const::RETURN  <- _p + 3;
+
     return;
 
 
