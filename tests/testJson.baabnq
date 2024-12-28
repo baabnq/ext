@@ -20,6 +20,18 @@ lab TestJson::Core::ModuleInit;
     static '\t' __; put __ <- __; jump fail ~ __ != _Json::Const::TAB;
     static '\n' __; put __ <- __; jump fail ~ __ != _Json::Const::NEWLINE;
     static '\r' __; put __ <- __; jump fail ~ __ != _Json::Const::RETURN;
+    static '{' __; put __ <- __; jump fail ~ __ != _Json::Const::OPENING_CURLY_BRACKET;
+    static '}' __; put __ <- __; jump fail ~ __ != _Json::Const::CLOSING_CURLY_BRACKET;
+    static '[' __; put __ <- __; jump fail ~ __ != _Json::Const::OPENING_SQUARE_BRACKET;
+    static ']' __; put __ <- __; jump fail ~ __ != _Json::Const::CLOSING_SQUARE_BRACKET;
+    static '"' __; put __ <- __; jump fail ~ __ != _Json::Const::QUOTE;
+    static '9' __; put __ <- __; jump fail ~ __ != _Json::Const::9;
+    static '0' __; put __ <- __; jump fail ~ __ != _Json::Const::0;
+    static '+' __; put __ <- __; jump fail ~ __ != _Json::Const::PLUS;
+    static '-' __; put __ <- __; jump fail ~ __ != _Json::Const::MINUS;
+    static 't' __; put __ <- __; jump fail ~ __ != _Json::Const::t;
+    static 'f' __; put __ <- __; jump fail ~ __ != _Json::Const::f;
+    static 'n' __; put __ <- __; jump fail ~ __ != _Json::Const::n;
 
     jump succ;
 
