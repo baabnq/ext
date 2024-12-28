@@ -9,6 +9,21 @@ lab Local::TestJson::Init;
 return;
 
 
+
+lab TestJson::Core::ModuleInit;
+    sub Local::TestJson::Init;
+
+    jump fail ~ _Json::Parse::Ptr != 0;
+    jump fail ~ _Json::Gener::Ptr != 0;
+
+    static ' '  __; put __ <- __; jump fail ~ __ != _Json::Const::SPACE;
+    static '\t' __; put __ <- __; jump fail ~ __ != _Json::Const::TAB;
+    static '\n' __; put __ <- __; jump fail ~ __ != _Json::Const::NEWLINE;
+    static '\r' __; put __ <- __; jump fail ~ __ != _Json::Const::RETURN;
+
+    jump succ;
+
+
 lab TestJson::Core::AllocateNode;
     sub Local::TestJson::Init;
 
