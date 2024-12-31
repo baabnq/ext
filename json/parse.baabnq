@@ -36,8 +36,13 @@ lab Json::Parse::Advance;
 "=> (Char::Int)
 lab Json::Parse::Pop;
     sub Json::Parse::Peek;
+    pull __;
+
+    "only advance ptr if not done
+    sub Json::Parse::Advance ~ __ != 0;
+
+    push __;
     sub Stack::Swap;
-    sub Json::Parse::Advance;
     return;
 
 "() => ()
@@ -61,8 +66,323 @@ lab Json::Parse::WhiteSpace;
     return;
 
 
+lab Json::Parse::Error;
+    pull __; "pull mesa return address
+    push 0;
+    sub Stack::Swap;
+
+    "on error, run ptr to end
+    lab Json::Parse::Error::Loop;
+        sub Json::Parse::Peek;
+        pull __;
+        jump Json::Parse::Error::Done ~ __ == 0;
+
+        sub Json::Parse::Advance;
+
+        jump Json::Parse::Error::Loop;
+    lab Json::Parse::Error::Done;
+
+    return;
 
 
+
+
+
+"(Word::String)
+lab Json::Parse::Expect;
+    sub Stack::Swap; pull _sWord;
+    sub Json::Parse::WhiteSpace;
+
+    lab Json::Parse::Expect::Loop; 
+        put _should <- _sWord;
+        jump Json::Parse::Expect::Done ~ _should == 0;
+        sub Json::Parse::Pop; pull _is;
+
+        jump Json::Parse::Error ~ _should != _is;
+
+        put _sWord = _sWord + 1;
+        jump Json::Parse::Expect::Loop;
+    lab Json::Parse::Expect::Done;
+
+    sub Json::Parse::WhiteSpace;
+    return;
+
+
+"(Char::String)
+lab Json::Parse::Cons;
+    sub Stack::Swap; pull _sChar;
+    put _char <- _sChar;
+    sub Json::Parse::WhiteSpace;
+
+    sub Json::Parse::Pop;
+    pull __;
+    sub Json::Parse::Error ~ __ != _char;
+
+    sub Json::Parse::WhiteSpace;
+    return;
+
+
+"=> (::JsonNode)
+lab Json::Parse::Object;
+    put _prev = 0;    
+    put _base = 0;    
+
+    static '{' __; push __; sub Json::Parse::Expect;
+
+    lab Json::Parse::Object::Loop;
+        sub Json::Parse::Peek;
+        pull __;
+        jump Json::Parse::Object::Done ~ __ == _Json::Const::CLOSING_CURLY_BRACKET;
+
+        push _Json::Type::OBJECT;
+        sub Json::Node::CreateByType;
+        pull _node;
+
+        push _prev;
+        push _node;
+        sub Json::Node::SoftHook;
+        
+        jump Json::Parse::Object::Loop::SkipBaseSet ~ _base != 0;
+            put _base = _node;
+        lab Json::Parse::Object::Loop::SkipBaseSet;
+
+
+        "save locals
+        push _node;
+        push _prev;
+        push _base;
+
+        sub Json::Parse::WhiteSpace;
+        sub Json::Parse::String; pull __; put __ -> _node + _Json::Node::Name;
+        static ':' __; push __; sub Json::Parse::Expect;
+        sub Json::Parse::Value;  pull __; put __ -> _node + _Json::Node::Sub; 
+        static ',' __; push __; sub Json::Parse::Cons;
+
+        "restore locals
+        pull _base;
+        pull _prev;
+        pull _node;
+
+
+        put _prev = _node;
+
+        jump Json::Parse::Object::Loop;
+    lab Json::Parse::Object::Done;
+
+    static '}' __; push __; sub Json::Parse::Expect;
+
+    push _base;
+    sub Stack::Swap;
+    return;
+
+
+"=> (::JsonNode)
+lab Json::Parse::Array;
+    put _prev = 0;    
+    put _base = 0;    
+
+    static '[' __; push __; sub Json::Parse::Expect;
+
+    lab Json::Parse::Array::Loop;
+        sub Json::Parse::Peek;
+        pull __;
+        jump Json::Parse::Array::Done ~ __ == _Json::Const::CLOSING_SQUARE_BRACKET;
+        jump Json::Parse::Array::Done ~ __ == 0;
+
+        push _Json::Type::OBJECT;
+        sub Json::Node::CreateByType;
+        pull _node;
+
+        push _prev;
+        push _node;
+        sub Json::Node::SoftHook;
+        
+        jump Json::Parse::Array::Loop::SkipBaseSet ~ _base != 0;
+            put _base = _node;
+        lab Json::Parse::Array::Loop::SkipBaseSet;
+
+        "save locals
+        push _node;
+        push _prev;
+        push _base;
+
+        sub Json::Parse::WhiteSpace;
+        sub Json::Parse::Value;  pull __; put __ -> _node + _Json::Node::Sub; 
+        static ',' __; push __; sub Json::Parse::Cons;
+
+        "restore locals
+        pull _base;
+        pull _prev;
+        pull _node;
+
+        put _prev = _node;
+
+        jump Json::Parse::Array::Loop;
+    lab Json::Parse::Array::Done;
+
+    static ']' __; push __; sub Json::Parse::Expect;
+
+    push _base;
+    sub Stack::Swap;
+    return;
+
+
+
+"=> (::JsonNode)
+lab Json::Parse::String;
+    
+    push _Json::Type::STRING;
+    sub Json::Node::CreateByType;
+    pull _node;
+
+    static '"' __; push __; sub Json::Parse::Expect;
+
+    put _pBase = _Json::Parse::Ptr;
+
+    lab Json::Parse::String::Loop;
+        sub Json::Parse::Peek;
+        pull __;
+        jump Json::Parse::String::Done ~ __ == _Json::Const::QUOTE;
+
+        sub Json::Parse::Advance;
+
+        jump Json::Parse::String::Loop;
+    lab Json::Parse::String::Done;
+
+
+    put _len = _Json::Parse::Ptr - _pBase;
+    new (_len + 1) _str;
+
+    push _pBase;
+    push _str;
+    push _len;
+    sub String::MemCpy;
+
+    put _str -> _node + _Json::Node::String;
+
+    push _str; sub String::Print;
+
+    static '"' __; push __; sub Json::Parse::Expect;
+
+    push _node;
+    sub Stack::Swap;
+    return;
+
+
+"=> (::JsonNode)
+lab Json::Parse::Int;
+    push _Json::Type::NUMBER;
+    sub Json::Node::CreateByType;
+    pull _node;
+
+    put _num = 0;
+
+    lab Json::Parse::Int::Loop;
+        sub Json::Parse::Peek;
+        pull _char;
+        put _digit = _char - _Json::Const::0;
+
+        jump Json::Parse::Int::Done ~ _digit > 9;
+
+        sub Json::Parse::Advance;
+        
+        push _num;
+        sub Fast::Mul10;
+        push _digit;
+        sub Math::Add;
+        pull _num;
+
+        jump Json::Parse::Int::Loop;
+    lab Json::Parse::Int::Done;
+
+    put _num -> _node + _Json::Node::Number;
+
+    push _node;
+    sub Stack::Swap;
+    return;
+
+"=> (::JsonNode)
+lab Json::Parse::Neg;
+    
+    static '-' __; push __; sub Json::Parse::Expect;
+
+    sub Json::Parse::Int;
+    pull _node;
+
+    put     __ <- _node + _Json::Node::Number;
+    put 0 - __ -> _node + _Json::Node::Number;
+
+
+    push _node;
+    sub Stack::Swap;
+    return;
+
+
+"=> (::JsonNode)
+lab Json::Parse::True;
+    static 'true' __; push __; sub Json::Parse::Expect;
+    
+    push _Json::Type::TRUE;
+    sub Json::Node::CreateByType;
+
+    sub Stack::Swap;
+    return;
+
+"=> (::JsonNode)
+lab Json::Parse::False;
+    static 'false' __; push __; sub Json::Parse::Expect;
+    
+    push _Json::Type::FALSE;
+    sub Json::Node::CreateByType;
+
+    sub Stack::Swap;
+    return;
+    
+"=> (::JsonNode)
+lab Json::Parse::Null;
+    static 'null' __; push __; sub Json::Parse::Expect;
+    
+    push _Json::Type::NULL;
+    sub Json::Node::CreateByType;
+
+    sub Stack::Swap;
+    return;
+    
+
+
+lab Json::Parse::Value;
+    sub Json::Parse::WhiteSpace;
+
+    sub Json::Parse::Peek;
+    pull __;
+
+    putchr __; putchr 10;
+
+    "anchor
+    push (0 - 1);
+    push 0;
+
+    sub Json::Parse::Object ~ __ == _Json::Const::OPENING_CURLY_BRACKET;
+    sub Json::Parse::Array  ~ __ == _Json::Const::OPENING_SQUARE_BRACKET;
+    sub Json::Parse::String ~ __ == _Json::Const::QUOTE;
+    sub Json::Parse::Int    ~ (__ - _Json::Const::0) < 10;
+    sub Json::Parse::Neg    ~ __ == _Json::Const::MINUS;
+    sub Json::Parse::True   ~ __ == _Json::Const::t;
+    sub Json::Parse::False  ~ __ == _Json::Const::f;
+    sub Json::Parse::Null   ~ __ == _Json::Const::n;
+
+    "
+    pull _result;
+
+    "remove anchor
+    pull __;
+    sub Stack::Drop ~ __ == 0;
+
+    "restore result
+    push _result;
+
+    sub Stack::Swap;
+    return;
 
 
 
@@ -72,7 +392,9 @@ lab Json::Parse;
     sub Stack::Swap;
     pull _Json::Parse::Ptr;
 
-    "sub Json::ParseValue;
+    putchr 10;
+
+    sub Json::Parse::Value;
     sub Stack::Swap;
     return;
 
