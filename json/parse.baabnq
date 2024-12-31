@@ -105,14 +105,14 @@ lab Json::Parse::Expect;
 
 
 "(Char::String)
-lab Json::Parse::Cons;
+lab Json::Parse::MaybeCons;
     sub Stack::Swap; pull _sChar;
     put _char <- _sChar;
     sub Json::Parse::WhiteSpace;
 
-    sub Json::Parse::Pop;
+    sub Json::Parse::Peek;
     pull __;
-    jump Json::Parse::Error ~ __ != _char;
+    jump Json::Parse::Advance ~ __ == _char;
 
     sub Json::Parse::WhiteSpace;
     return;
@@ -153,7 +153,7 @@ lab Json::Parse::Object;
         sub Json::Parse::String; pull __; sub Stack::Dup; pull _node; put __ -> _node + _Json::Node::Name;
         static ':' __; push __; sub Json::Parse::Expect;
         sub Json::Parse::Value;  pull __; sub Stack::Dup; pull _node; put __ -> _node + _Json::Node::Sub; 
-        static ',' __; push __; sub Json::Parse::Cons;
+        static ',' __; push __; sub Json::Parse::MaybeCons;
 
         "restore locals
         pull _node;
@@ -205,7 +205,7 @@ lab Json::Parse::Array;
 
         sub Json::Parse::WhiteSpace;
         sub Json::Parse::Value;  pull __; sub Stack::Dup; pull _node; put __ -> _node + _Json::Node::Sub; 
-        static ',' __; push __; sub Json::Parse::Cons;
+        static ',' __; push __; sub Json::Parse::MaybeCons;
         
         "restore locals
         pull _node;
@@ -218,8 +218,6 @@ lab Json::Parse::Array;
     lab Json::Parse::Array::Done;
 
     static ']' __; push __; sub Json::Parse::Expect;
-
-    print _base;
 
     push _base;
     sub Stack::Swap;
