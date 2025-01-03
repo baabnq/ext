@@ -350,48 +350,25 @@ lab Json::Parse::Null;
     return;
     
 
-put _indent = 0;
-
+"=> (::JsonNode)
 lab Json::Parse::Value;
     sub Json::Parse::WhiteSpace;
-
-
-    put _indent = _indent + 1;
-    put __ = _indent;
-    lab debug;
-       putchr 32;
-       put __ = __ - 1;
-    jump debug ~ __ > 0;
 
     sub Json::Parse::Peek;
     pull __;
     putchr __; putchr 10;
 
 
-    "anchor
-    push (0 - 1);
+    jump Json::Parse::Object ~ __ == _Json::Const::OPENING_CURLY_BRACKET;
+    jump Json::Parse::Array  ~ __ == _Json::Const::OPENING_SQUARE_BRACKET;
+    jump Json::Parse::String ~ __ == _Json::Const::QUOTE;
+    jump Json::Parse::Int    ~ (__ - _Json::Const::0) < 10;
+    jump Json::Parse::Neg    ~ __ == _Json::Const::MINUS;
+    jump Json::Parse::True   ~ __ == _Json::Const::t;
+    jump Json::Parse::False  ~ __ == _Json::Const::f;
+    jump Json::Parse::Null   ~ __ == _Json::Const::n;
+
     push 0;
-
-    sub Json::Parse::Object ~ __ == _Json::Const::OPENING_CURLY_BRACKET;
-    sub Json::Parse::Array  ~ __ == _Json::Const::OPENING_SQUARE_BRACKET;
-    sub Json::Parse::String ~ __ == _Json::Const::QUOTE;
-    sub Json::Parse::Int    ~ (__ - _Json::Const::0) < 10;
-    sub Json::Parse::Neg    ~ __ == _Json::Const::MINUS;
-    sub Json::Parse::True   ~ __ == _Json::Const::t;
-    sub Json::Parse::False  ~ __ == _Json::Const::f;
-    sub Json::Parse::Null   ~ __ == _Json::Const::n;
-
-    pull _result;
-
-    "remove anchor
-    pull __;
-    sub Stack::Drop ~ __ == 0;
-
-    "restore result
-    push _result;
-
-    put _indent = _indent - 1;
-
     sub Stack::Swap;
     return;
 
@@ -402,10 +379,6 @@ lab Json::Parse::Value;
 lab Json::Parse;
     sub Stack::Swap;
     pull _Json::Parse::Ptr;
-
-    putchr 10;
-
-    put _indent = 0;
 
     sub Json::Parse::Value;
     sub Stack::Swap;
