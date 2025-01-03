@@ -1,5 +1,10 @@
 
+use 'libs/stack.baabnq';
 use 'libs/no.baabnq';
+use 'libs/string.baabnq';
+use 'libs/math.baabnq';
+use 'libs/fast.baabnq';
+
 use 'ext/json/core.baabnq';
 
 
