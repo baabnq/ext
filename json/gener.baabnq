@@ -60,12 +60,21 @@ lab Json::Gener::Int;
     put __ <- _pNode + _Json::Node::Number;
     push __;
     sub String::Int2Str;
-    pull _sInt;
+    pull _sBase;
+    put _sInt = _sBase;
+
+    "skip leading space
+    lab Json::Gener::Int::Loop;
+        put __ <- _sInt;
+        jump Json::Gener::Int::Good ~ __ != 32;
+        put _sInt = _sInt + 1;
+        jump Json::Gener::Int::Loop;
+    lab Json::Gener::Int::Good;
 
     push _sInt;
     sub Json::Gener::Emit;
 
-    free _sInt;
+    free _sBase;
 
     return;
     
@@ -214,13 +223,9 @@ lab Json::Gener;
     sub Stack::Swap; pull _pNode;
 
     put _Json::Gener::Ptr = _pBuffer;
-
-    print _Json::Gener::Ptr;
     
     push _pNode;
     sub Json::Gener::Value;
-
-    print _Json::Gener::Ptr;
 
     return;
 
