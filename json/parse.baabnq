@@ -356,8 +356,6 @@ lab Json::Parse::Value;
 
     sub Json::Parse::Peek;
     pull __;
-    putchr __; putchr 10;
-
 
     jump Json::Parse::Object ~ __ == _Json::Const::OPENING_CURLY_BRACKET;
     jump Json::Parse::Array  ~ __ == _Json::Const::OPENING_SQUARE_BRACKET;
