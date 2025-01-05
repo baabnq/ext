@@ -191,7 +191,7 @@ lab Json::Parse::Array;
         jump Json::Parse::Array::Done ~ __ == _Json::Const::CLOSING_SQUARE_BRACKET;
         jump Json::Parse::Array::Done ~ __ == 0;
 
-        push _Json::Type::OBJECT;
+        push _Json::Type::ARRAY;
         sub Json::Node::CreateByType;
         pull _node;
 
