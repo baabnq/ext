@@ -227,6 +227,9 @@ lab Json::Gener;
     push _pNode;
     sub Json::Gener::Value;
 
+    "terminator
+    put 0 -> _Json::Gener::Ptr;
+
     return;
 
     
