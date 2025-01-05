@@ -158,6 +158,50 @@
         
     -json.baabnq
         -json parse/generator
+
+        -Core //
+            -ModuleInit     //
+            -AllocateNode   //
+            -Create / CreateByType  //
+            -Delete         //
+            -Hook           //
+            -HookSoft       //
+
+        -Parse /
+            -Peek           /
+            -Pop            /
+            -WhiteSpace     /
+            -Expect         /
+            -Consume        /
+
+            -Object         /
+            -Array          /
+            -String         /
+            -Int            /
+            -Neg            /
+            -True           /
+            -False          /
+            -Null           /
+            -Value          /
+            -Parse          //
+
+        -Gener
+            -Advance        /
+            -Emit           /
+
+            -Object         /
+            -Array          /
+            -String         /
+            -Int            /
+            -True           /
+            -False          /
+            -Null           /
+
+            -Value          /
+            -Gener          //
+                -refactor
+
+            
         
     -trie.baabnq //
         -Allocate           //
