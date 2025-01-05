@@ -1,0 +1,240 @@
+
+use 'libs/stack.baabnq';
+
+use 'ext/json/core.baabnq';
+
+
+jump Json::Gener::Skip;
+
+
+lab Json::Gener::Advance;
+    put _Json::Gener::Ptr = _Json::Gener::Ptr + 1;
+    return;
+
+
+"(Segment::String)
+lab Json::Gener::Emit;
+    sub Stack::Swap;
+    pull _sSegment;
+
+    push _sSegment;
+    sub String::Print;
+
+    lab Json::Gener::Emit::Loop;
+        put _char <- _sSegment;
+        put _sSegment = _sSegment + 1;
+        jump Json::Gener::Emit::Done ~ _char == 0;
+
+        put _char -> _Json::Gener::Ptr;
+        sub Json::Gener::Advance;
+
+        jump Json::Gener::Emit::Loop;
+    lab Json::Gener::Emit::Done;
+
+    return;
+
+
+lab Json::Gener::Null;
+    static 'null' _sNull;
+    push _sNull;
+    sub Json::Gener::Emit;
+    return;
+
+lab Json::Gener::True;
+    static 'true' _sTrue;
+    push _sTrue;
+    sub Json::Gener::Emit;
+    return;
+    
+lab Json::Gener::False;
+    static 'false' _sFalse;
+    push _sFalse;
+    sub Json::Gener::Emit;
+    return;
+
+
+
+"(::JsonNode)
+lab Json::Gener::Int;
+    sub Stack::Swap; pull _pNode;
+
+    put __ <- _pNode + _Json::Node::Number;
+    push __;
+    sub String::Int2Str;
+    pull _sInt;
+
+    push _sInt;
+    sub Json::Gener::Emit;
+
+    free _sInt;
+
+    return;
+    
+
+"(::JsonNode)
+lab Json::Gener::String;
+    sub Stack::Swap; pull _pNode;
+
+    static '"' __; push __; sub Json::Gener::Emit;
+    
+    put __ <- _pNode + _Json::Node::String;
+    push __;
+    sub Json::Gener::Emit;
+
+    static '"' __; push __; sub Json::Gener::Emit;
+
+    return;
+
+
+"(::JsonNode)
+lab Json::Gener::Object;
+    sub Stack::Swap; pull _pNode;
+
+    put _prev <- _pNode + _Json::Node::Prev;
+
+    "emit opening
+    static '{ ' __; push __;
+    push 0;
+    sub Stack::Swap ~ _prev != 0;
+    pull __;
+    sub Json::Gener::Emit;
+
+
+    "save node
+    push _pNode;
+
+    put __ <- _pNode + _Json::Node::Name;
+    push __; sub Json::Gener::Value;
+
+    "restore node
+    pull _pNode;
+
+
+    static ' : ' __; push __; sub Json::Gener::Emit;
+
+
+    "save node
+    push _pNode;
+
+    put __ <- _pNode + _Json::Node::Sub;
+    push __; sub Json::Gener::Value;
+
+    "restore node
+    pull _pNode;
+
+
+    "emit closing
+    put _next <- _pNode + _Json::Node::Next;
+    static ' }' __; push __;
+    static ', ' __; push __;
+    sub Stack::Swap ~ _next != 0;
+    pull __;
+    sub Json::Gener::Emit;
+
+    "emit next
+    put _next <- _pNode + _Json::Node::Next;
+    push _next;
+    sub Stack::Drop        ~ _next == 0;
+    sub Json::Gener::Value ~ _next != 0;
+
+    return;
+    
+
+
+"(::JsonNode)
+lab Json::Gener::Array;
+    sub Stack::Swap; pull _pNode;
+
+    put _prev <- _pNode + _Json::Node::Prev;
+
+    "emit opening
+    static '[ ' __; push __;
+    push 0;
+    sub Stack::Swap ~ _prev != 0;
+    pull __;
+    sub Json::Gener::Emit;
+
+
+    "save node
+    push _pNode;
+
+    put __ <- _pNode + _Json::Node::Sub;
+    push __; sub Json::Gener::Value;
+
+    "restore node
+    pull _pNode;
+
+
+    "emit closing
+    put _next <- _pNode + _Json::Node::Next;
+    static ' ]' __; push __;
+    static ', ' __; push __;
+    sub Stack::Swap ~ _next != 0;
+    pull __;
+    sub Json::Gener::Emit;
+
+    "emit next
+    put _next <- _pNode + _Json::Node::Next;
+    push _next;
+    sub Stack::Drop        ~ _next == 0;
+    sub Json::Gener::Value ~ _next != 0;
+
+    return;
+    
+
+
+
+"(::JsonNode)
+lab Json::Gener::Value;
+    sub Stack::Swap; pull _pNode;
+
+    jump Json::Gener::Null ~ _pNode == 0;
+
+    put _type <- _pNode + _Json::Node::Type;
+
+    jump Json::Gener::Null   ~ _type == _Json::Type::NULL;
+    jump Json::Gener::True   ~ _type == _Json::Type::TRUE;
+    jump Json::Gener::False  ~ _type == _Json::Type::FALSE;
+
+    push _pNode;
+    sub Stack::Swap;
+    jump Json::Gener::Object ~ _type == _Json::Type::OBJECT;
+    jump Json::Gener::Array  ~ _type == _Json::Type::ARRAY;
+    jump Json::Gener::Int    ~ _type == _Json::Type::NUMBER;
+    jump Json::Gener::String ~ _type == _Json::Type::STRING;
+    sub Stack::Swap;
+    pull __;
+
+    push 0;
+    sub Stack::Swap;
+    return;
+
+
+
+"(::JsonNode, Buffer::Chunk)
+lab Json::Gener;
+    sub Stack::Swap; pull _pBuffer;
+    sub Stack::Swap; pull _pNode;
+
+    put _Json::Gener::Ptr = _pBuffer;
+
+    print _Json::Gener::Ptr;
+    
+    push _pNode;
+    sub Json::Gener::Value;
+
+    print _Json::Gener::Ptr;
+
+    return;
+
+    
+
+
+
+
+
+
+
+
+
+lab Json::Gener::Skip;
