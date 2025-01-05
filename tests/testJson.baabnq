@@ -172,6 +172,18 @@ lab TestJson::Gener;
     jump succ;
 
 
+lab TestJson::Node::Delete;
+    sub Local::TestJson::Init;
+
+    push _TestJson::String;
+    sub Json::Parse;
+    pull _pNode;
+
+    push _pNode;
+    sub Json::Node::Delete;
+
+    jump succ;
+
 
 
 
