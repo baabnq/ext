@@ -139,8 +139,8 @@ lab Json::Node::Delete;
     lab Json::Node::Delete::Array;
         put _next <- _node + _Json::Node::Next;
         push _next;
-        sub Json::Node::Delete::Recurse ~ _next != 0;
         sub Stack::Drop                 ~ _next == 0;
+        sub Json::Node::Delete::Recurse ~ _next != 0;
 
         put _sub <- _node + _Json::Node::Sub;
         push _sub; sub Json::Node::Delete::Recurse;
