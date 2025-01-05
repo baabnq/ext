@@ -163,7 +163,7 @@ lab TestJson::Parse;
 lab TestJson::Gener;
     sub Local::TestJson::Init;
 
-    static 2048 _pBuffer;
+    static 1024 _pBuffer;
 
     push _TestJson::Valid1;
     sub Json::Parse;
@@ -176,7 +176,7 @@ lab TestJson::Gener;
     push _pBuffer;
     push _TestJson::Valid1;
     sub String::StrCmp;
-    pull __; print __;
+    pull __;
     jump fail ~ __ != 0;
 
     jump succ;
