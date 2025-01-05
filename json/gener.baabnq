@@ -17,8 +17,7 @@ lab Json::Gener::Emit;
     sub Stack::Swap;
     pull _sSegment;
 
-    push _sSegment;
-    sub String::Print;
+    sub No::Return ~ _sSegment == 0;
 
     lab Json::Gener::Emit::Loop;
         put _char <- _sSegment;
@@ -205,8 +204,6 @@ lab Json::Gener::Value;
     sub Stack::Swap;
     pull __;
 
-    push 0;
-    sub Stack::Swap;
     return;
 
 
