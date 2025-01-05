@@ -93,7 +93,7 @@ lab Json::Gener::Object;
     put _prev <- _pNode + _Json::Node::Prev;
 
     "emit opening
-    static '{ ' __; push __;
+    static '{' __; push __;
     push 0;
     sub Stack::Swap ~ _prev != 0;
     pull __;
@@ -110,7 +110,7 @@ lab Json::Gener::Object;
     pull _pNode;
 
 
-    static ' : ' __; push __; sub Json::Gener::Emit;
+    static ':' __; push __; sub Json::Gener::Emit;
 
 
     "save node
@@ -125,8 +125,8 @@ lab Json::Gener::Object;
 
     "emit closing
     put _next <- _pNode + _Json::Node::Next;
-    static ' }' __; push __;
-    static ', ' __; push __;
+    static '}' __; push __;
+    static ',' __; push __;
     sub Stack::Swap ~ _next != 0;
     pull __;
     sub Json::Gener::Emit;
@@ -148,7 +148,7 @@ lab Json::Gener::Array;
     put _prev <- _pNode + _Json::Node::Prev;
 
     "emit opening
-    static '[ ' __; push __;
+    static '[' __; push __;
     push 0;
     sub Stack::Swap ~ _prev != 0;
     pull __;
@@ -167,8 +167,8 @@ lab Json::Gener::Array;
 
     "emit closing
     put _next <- _pNode + _Json::Node::Next;
-    static ' ]' __; push __;
-    static ', ' __; push __;
+    static ']' __; push __;
+    static ',' __; push __;
     sub Stack::Swap ~ _next != 0;
     pull __;
     sub Json::Gener::Emit;
