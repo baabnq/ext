@@ -18,7 +18,8 @@ lab Local::TestJson::InitConst;
     "the string is formatted like this, because the stupid current version of the baabnq compiler can't handle it otherwise
     static '[{"_id":"6770916b851c6c99dfe64a3a","index":65535,"guid":"18e6a25b-1a57-4621-a26a-ff93befdb68b","isActive":true,"isInactive":false,"balance":"$1,674.02","picture":"http://placekitten.com/1920/1080","age":null,"eyeColor":"crimson","name":"Zero Kitty","gender":"enby","company":"Baabnq Inc.","email":"0@baabnq.void","phone":"<leave me alone>","address":"T H E   V O I D","about":"Black anthro cat","registered":"0000-00-00T00:00:00","tags":["cat","kitty","kitten","feline","neko","nxebur","nyaa","mrrreoww"],"friends":[{"id":0,"name":"S1monr3dst0ne07"},{"id":1,"name":"Ada Lovelace"},{"id":2,"name":"Grace Hopper"}],"greeting":"Hello, Zero Kitty!","favoriteFruit":"Cheese Burger"}]' _TestJson::JsonTestString;
 
-    static 'test' _TestJson::SourceTestString;
+    static 'test'        _TestJson::SourceTestString;
+    static '  \t\n\r  A' _TestJson::WhiteSpaceTestString;
 
     return;
 
@@ -155,7 +156,10 @@ lab TestJson::Parse::Advance;
     
     sub Json::Parse::Advance;
 
-    jump fail ~ _Json::Parse::Ptr != _TestJson::SourceTestString + 1;
+    push _Json::Parse::Ptr;
+    push _TestJson::SourceTestString;
+    sub Math::Sub; pull __;
+    jump fail ~ __ != 1;
     jump succ;
 
 lab TestJson::Parse::Pop;
@@ -170,7 +174,10 @@ lab TestJson::Parse::Pop;
     "check peek
     jump fail ~ _is != _should;
     "check advance
-    jump fail ~ _Json::Parse::Ptr != _TestJson::SourceTestString + 1;
+    push _Json::Parse::Ptr;
+    push _TestJson::SourceTestString;
+    sub Math::Sub; pull __;
+    jump fail ~ __ != 1;
 
 
     "test end of source buffer
@@ -193,6 +200,74 @@ lab TestJson::Parse::Pop;
     jump succ;
 
 
+lab TestJson::Parse::WhiteSpace;
+    sub Local::TestJson::Init;
+    put _Json::Parse::Ptr = _TestJson::WhiteSpaceTestString;
+
+    sub Json::Parse::WhiteSpace;
+    
+    put __ <- _Json::Parse::Ptr;
+    jump fail ~ __ != 65; "A
+
+    sub Json::Parse::WhiteSpace;
+
+    put __ <- _Json::Parse::Ptr;
+    jump fail ~ __ != 65; "A
+
+    jump succ;
+
+
+lab TestJson::Parse::Expect;
+    sub Local::TestJson::Init;
+
+    put _Json::Parse::Ptr = _TestJson::SourceTestString;
+    static 'te' __; push __; sub Json::Parse::Expect;
+    put __ <- _Json::Parse::Ptr;
+    jump fail ~ __ == 0;
+
+    put _Json::Parse::Ptr = _TestJson::SourceTestString;
+    static 'ab' __; push __; sub Json::Parse::Expect;
+    put __ <- _Json::Parse::Ptr;
+    jump fail ~ __ != 0;
+
+    jump succ;
+
+
+lab TestJson::Parse::MaybeCons;
+    sub Local::TestJson::Init;
+
+    put _Json::Parse::Ptr = _TestJson::SourceTestString;
+    static 't' __; push __;
+    sub Json::Parse::MaybeCons;
+
+    push _Json::Parse::Ptr;
+    push _TestJson::SourceTestString;
+    sub Math::Sub; pull __;
+    jump fail ~ __ != 1;
+
+
+    put _Json::Parse::Ptr = _TestJson::SourceTestString;
+    static 'a' __; push __;
+    sub Json::Parse::MaybeCons;
+
+    push _Json::Parse::Ptr;
+    push _TestJson::SourceTestString;
+    sub Math::Sub; pull __;
+    jump fail ~ __ != 0;
+
+
+    jump succ;
+
+
+    
+
+
+    
+
+
+
+
+    
 
 
 
