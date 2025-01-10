@@ -1,3 +1,10 @@
+-formatting
+    -at end of line
+        -0 slash => nothing implemented yet
+        -1 slash => implemented routine itself
+        -2 slash => implemented routine and test
+
+
 -extras
     -https://github.com/S1monr3dst0ne07/ext
         -generic  dynamic lists ///
