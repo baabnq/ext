@@ -18,8 +18,7 @@ lab Local::TestJson::InitConst;
     "the string is formatted like this, because the stupid current version of the baabnq compiler can't handle it otherwise
     static '[{"_id":"6770916b851c6c99dfe64a3a","index":65535,"guid":"18e6a25b-1a57-4621-a26a-ff93befdb68b","isActive":true,"isInactive":false,"balance":"$1,674.02","picture":"http://placekitten.com/1920/1080","age":null,"eyeColor":"crimson","name":"Zero Kitty","gender":"enby","company":"Baabnq Inc.","email":"0@baabnq.void","phone":"<leave me alone>","address":"T H E   V O I D","about":"Black anthro cat","registered":"0000-00-00T00:00:00","tags":["cat","kitty","kitten","feline","neko","nxebur","nyaa","mrrreoww"],"friends":[{"id":0,"name":"S1monr3dst0ne07"},{"id":1,"name":"Ada Lovelace"},{"id":2,"name":"Grace Hopper"}],"greeting":"Hello, Zero Kitty!","favoriteFruit":"Cheese Burger"}]' _TestJson::JsonTestString;
 
-    static 'test'        _TestJson::SourceTestString;
-    static '  \t\n\r  A' _TestJson::WhiteSpaceTestString;
+    static 'test' _TestJson::SourceTestString;
 
     return;
 
@@ -202,7 +201,7 @@ lab TestJson::Parse::Pop;
 
 lab TestJson::Parse::WhiteSpace;
     sub Local::TestJson::Init;
-    put _Json::Parse::Ptr = _TestJson::WhiteSpaceTestString;
+    static '  \t\n\r  A' _Json::Parse::Ptr;
 
     sub Json::Parse::WhiteSpace;
     
@@ -259,11 +258,30 @@ lab TestJson::Parse::MaybeCons;
     jump succ;
 
 
+
+
+lab TestJson::Parse::String;
+    sub Local::TestJson::Init;
+
+    static '"hello world"' _Json::Parse::Ptr;
+
+    sub Json::Parse::String;
+    pull _pNode;
+
+    put __ <- _pNode + _Json::Node::String; push __;
+    static 'hello world' __; push __;
+    sub String::StrCmp;
+    pull __;
+    jump fail ~ __ != 0;
+
+    free _pNode;
+
+    jump succ;
     
-
+        
 
     
-
+    
 
 
 
