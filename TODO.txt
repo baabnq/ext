@@ -82,16 +82,16 @@
     -ring buffer //
         -ringbuf.baabnq
 
-        -Allocate //
+        -Allocate   //
         -AdvancePtr //
-        -Container //
-        -Size //
+        -Container  //
+        -Size       //
 
-        -Create //
-        -Delete //
-        -Put //
-        -Peek //
-        -Get //
+        -Create     //
+        -Delete     //
+        -Put        //
+        -Peek       //
+        -Get        //
 
 
     -arena //
@@ -167,37 +167,37 @@
             -Hook           //
             -HookSoft       //
 
-        -Parse /
-            -Peek           /
-            -Pop            /
-            -WhiteSpace     /
-            -Expect         /
-            -Consume        /
+        -Parse //
+            -Peek           //
+            -Pop            //
+            -WhiteSpace     //
+            -Expect         //
+            -MaybeCons      // 
 
-            -Object         /
-            -Array          /
-            -String         /
-            -Int            /
-            -Neg            /
-            -True           /
-            -False          /
-            -Null           /
-            -Value          /
+            -Object         // (untestable due to circular recursion)
+            -Array          // (untestable due to circular recursion)
+            -String         //
+            -Int            //
+            -Neg            //
+            -True           //
+            -False          //
+            -Null           //
+            -Value          // (untestable due to circular recursion) 
             -Parse          //
 
         -Gener
             -Advance        /
             -Emit           /
 
-            -Object         /
-            -Array          /
+            -Object         /  (untestable due to circular recursion)
+            -Array          /  (untestable due to circular recursion)
             -String         /
             -Int            /
             -True           /
             -False          /
             -Null           /
 
-            -Value          /
+            -Value          /  (untestable due to circular recursion)
             -Gener          //
                 -refactor
 
