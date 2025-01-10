@@ -300,6 +300,8 @@ lab TestJson::Parse::Int;
     put _type <- _pNode + _Json::Node::Type;
     jump fail ~ _type != _Json::Type::NUMBER;
 
+    free _pNode;
+
     jump succ;
     
     
@@ -319,9 +321,64 @@ lab TestJson::Parse::Neg;
     put _type <- _pNode + _Json::Node::Type;
     jump fail ~ _type != _Json::Type::NUMBER;
 
+    free _pNode;
+
     jump succ;
     
 
+lab TestJson::Parse::True;
+    sub Local::TestJson::Init;
+
+    static 'trueA' _Json::Parse::Ptr;
+    sub Json::Parse::True;
+    pull _pNode;
+
+    "check type
+    put __ <- _pNode + _Json::Node::Type;
+    jump fail ~ __ != _Json::Type::TRUE;
+
+    "check ptr state
+    put __ <- _Json::Parse::Ptr;
+    jump fail ~ __ != 65;
+
+    free _pNode;
+    jump succ;
+
+lab TestJson::Parse::False;
+    sub Local::TestJson::Init;
+
+    static 'falseA' _Json::Parse::Ptr;
+    sub Json::Parse::False;
+    pull _pNode;
+
+    "check type
+    put __ <- _pNode + _Json::Node::Type;
+    jump fail ~ __ != _Json::Type::FALSE;
+
+    "check ptr state
+    put __ <- _Json::Parse::Ptr;
+    jump fail ~ __ != 65;
+
+    free _pNode;
+    jump succ;
+
+lab TestJson::Parse::Null;
+    sub Local::TestJson::Init;
+
+    static 'nullA' _Json::Parse::Ptr;
+    sub Json::Parse::Null;
+    pull _pNode;
+
+    "check type
+    put __ <- _pNode + _Json::Node::Type;
+    jump fail ~ __ != _Json::Type::NULL;
+
+    "check ptr state
+    put __ <- _Json::Parse::Ptr;
+    jump fail ~ __ != 65;
+
+    free _pNode;
+    jump succ;
 
 
     
