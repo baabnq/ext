@@ -268,19 +268,58 @@ lab TestJson::Parse::String;
     sub Json::Parse::String;
     pull _pNode;
 
+    "check content
     put __ <- _pNode + _Json::Node::String; push __;
     static 'hello world' __; push __;
     sub String::StrCmp;
     pull __;
     jump fail ~ __ != 0;
 
+    "check type
+    put _type <- _pNode + _Json::Node::Type;
+    jump fail ~ _type != _Json::Type::STRING;
+
     free _pNode;
 
     jump succ;
     
-        
 
+lab TestJson::Parse::Int;
+    sub Local::TestJson::Init;
+
+    static '1234' _Json::Parse::Ptr;
+
+    sub Json::Parse::Int;
+    pull _pNode;
+
+    "check content
+    put __ <- _pNode + _Json::Node::Number;
+    jump fail ~ __ != 1234;
     
+    "check type
+    put _type <- _pNode + _Json::Node::Type;
+    jump fail ~ _type != _Json::Type::NUMBER;
+
+    jump succ;
+    
+    
+lab TestJson::Parse::Neg;
+    sub Local::TestJson::Init;
+
+    static '-1' _Json::Parse::Ptr;
+
+    sub Json::Parse::Neg;
+    pull _pNode;
+
+    "check content
+    put __ <- _pNode + _Json::Node::Number;
+    jump fail ~ __ != (0 - 1);
+    
+    "check type
+    put _type <- _pNode + _Json::Node::Type;
+    jump fail ~ _type != _Json::Type::NUMBER;
+
+    jump succ;
     
 
 
