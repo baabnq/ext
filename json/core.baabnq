@@ -80,6 +80,7 @@ lab Json::Core::ConstInit;
 
 "=> (::JsonNode)
 lab Json::Core::AllocateNode;
+lab Json::Node::Create;
     new 5 _pNode;
 
     put 0 -> _pNode + 0;
@@ -94,7 +95,6 @@ lab Json::Core::AllocateNode;
 
 
 "(Type::JsonType) => (::JsonNode)
-lab Json::Node::Create;
 lab Json::Node::CreateByType;
     sub Stack::Swap;
     pull _type;

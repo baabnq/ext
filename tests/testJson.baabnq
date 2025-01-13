@@ -75,8 +75,25 @@ lab TestJson::Core::AllocateNode;
 lab TestJson::Node::Create;
     sub Local::TestJson::Init;
 
-    push _Json::Type::TRUE;
     sub Json::Node::Create;
+    pull _pNode;
+
+    put __ <- _pNode + _Json::Node::Next;   jump fail ~ __ != 0;
+    put __ <- _pNode + _Json::Node::Prev;   jump fail ~ __ != 0;
+    put __ <- _pNode + _Json::Node::Sub;    jump fail ~ __ != 0;
+    put __ <- _pNode + _Json::Node::Type;   jump fail ~ __ != 0;
+    put __ <- _pNode + _Json::Node::String; jump fail ~ __ != 0;
+    put __ <- _pNode + _Json::Node::Number; jump fail ~ __ != 0;
+    put __ <- _pNode + _Json::Node::Name;   jump fail ~ __ != 0;
+
+    jump succ;
+
+
+lab TestJson::Node::CreateByType;
+    sub Local::TestJson::Init;
+
+    push _Json::Type::TRUE;
+    sub Json::Node::CreateByType;
     pull _pNode;
 
     put __ <- _pNode + _Json::Node::Next;   jump fail ~ __ != 0;
