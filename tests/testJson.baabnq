@@ -432,6 +432,51 @@ lab TestJson::Gener::Emit;
 
 
 
+lab TestJson::Gener::Null;
+    sub Local::TestJson::Init;
+    put _Json::Gener::Ptr = _TestJson::BufferTestString;
+
+    sub Json::Gener::Null;
+
+    static 'null' __; push __;
+    push _TestJson::BufferTestString;
+    sub String::StrCmp;
+    pull __;
+    jump fail ~ __ != 0;
+
+    jump succ;
+
+lab TestJson::Gener::True;
+    sub Local::TestJson::Init;
+    put _Json::Gener::Ptr = _TestJson::BufferTestString;
+
+    sub Json::Gener::True;
+
+    static 'true' __; push __;
+    push _TestJson::BufferTestString;
+    sub String::StrCmp;
+    pull __;
+    jump fail ~ __ != 0;
+
+    jump succ;
+
+lab TestJson::Gener::False;
+    sub Local::TestJson::Init;
+    put _Json::Gener::Ptr = _TestJson::BufferTestString;
+
+    sub Json::Gener::False;
+
+    static 'false' __; push __;
+    push _TestJson::BufferTestString;
+    sub String::StrCmp;
+    pull __;
+    jump fail ~ __ != 0;
+
+    jump succ;
+    
+
+
+
 
 
 
