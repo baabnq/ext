@@ -163,7 +163,7 @@
     )
 
         
-    -json.baabnq
+    -json.baabnq //
         -json parse/generator
 
         -Core //
@@ -192,19 +192,19 @@
             -Value          // (untestable due to circular recursion) 
             -Parse          //
 
-        -Gener
-            -Advance        /
-            -Emit           /
+        -Gener //
+            -Advance        //
+            -Emit           //
 
-            -Object         /  (untestable due to circular recursion)
-            -Array          /  (untestable due to circular recursion)
-            -String         /
-            -Int            /
-            -True           /
-            -False          /
-            -Null           /
+            -Object         //  (untestable due to circular recursion)
+            -Array          //  (untestable due to circular recursion)
+            -String         //
+            -Int            //
+            -True           //
+            -False          //
+            -Null           //
 
-            -Value          /  (untestable due to circular recursion)
+            -Value          //  (untestable due to circular recursion)
             -Gener          //
                 -refactor
 
