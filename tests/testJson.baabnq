@@ -515,6 +515,31 @@ lab TestJson::Gener::Int;
     jump succ;
 
 
+lab TestJson::Gener::String;
+    sub Local::TestJson::Init;
+    put _Json::Gener::Ptr = _TestJson::BufferTestString;
+
+    static  'hello world test UwU'  _sSource;
+    static '"hello world test UwU"' _sEmit;
+
+    push _Json::Type::STRING;
+    sub Json::Node::CreateByType;
+    pull _pNode;
+    put _sSource -> _pNode + _Json::Node::String;
+
+    push _pNode;
+    sub Json::Gener::String;
+
+    push _TestJson::BufferTestString;
+    push _sEmit;
+    sub String::StrCmp;
+    pull __;
+    jump fail ~ __ != 0;
+
+    jump succ;
+
+    
+
 
 
 
