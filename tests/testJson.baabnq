@@ -492,6 +492,29 @@ lab TestJson::Gener::False;
     jump succ;
     
 
+lab TestJson::Gener::Int;
+    sub Local::TestJson::Init;
+    put _Json::Gener::Ptr = _TestJson::BufferTestString;
+    
+    push _Json::Type::NUMBER;
+    sub Json::Node::CreateByType;
+    pull _pNode;
+    put 123 -> _pNode + _Json::Node::Number;
+
+    push _pNode;
+    sub Json::Gener::Int;
+
+    free _pNode;
+
+    push _TestJson::BufferTestString;
+    static '123' __; push __;
+    sub String::StrCmp;
+    pull __;
+    jump fail ~ __ != 0;
+
+    jump succ;
+
+
 
 
 
