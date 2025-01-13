@@ -19,6 +19,7 @@ lab Local::TestJson::InitConst;
     static '[{"_id":"6770916b851c6c99dfe64a3a","index":65535,"guid":"18e6a25b-1a57-4621-a26a-ff93befdb68b","isActive":true,"isInactive":false,"balance":"$1,674.02","picture":"http://placekitten.com/1920/1080","age":null,"eyeColor":"crimson","name":"Zero Kitty","gender":"enby","company":"Baabnq Inc.","email":"0@baabnq.void","phone":"<leave me alone>","address":"T H E   V O I D","about":"Black anthro cat","registered":"0000-00-00T00:00:00","tags":["cat","kitty","kitten","feline","neko","nxebur","nyaa","mrrreoww"],"friends":[{"id":0,"name":"S1monr3dst0ne07"},{"id":1,"name":"Ada Lovelace"},{"id":2,"name":"Grace Hopper"}],"greeting":"Hello, Zero Kitty!","favoriteFruit":"Cheese Burger"}]' _TestJson::JsonTestString;
 
     static 'test' _TestJson::SourceTestString;
+    static 20     _TestJson::BufferTestString;
 
     return;
 
@@ -381,7 +382,77 @@ lab TestJson::Parse::Null;
     jump succ;
 
 
+
+
+
+
+lab TestJson::Gener::Advance;
+    sub Local::TestJson::Init;
+    put _Json::Gener::Ptr = _TestJson::BufferTestString;
     
+    sub Json::Gener::Advance;
+
+    push _Json::Gener::Ptr;
+    push _TestJson::BufferTestString;
+    sub Math::Sub; pull __;
+    jump fail ~ __ != 1;
+
+    jump succ;
+
+
+lab TestJson::Gener::Emit;
+    sub Local::TestJson::Init;
+
+    "normal emit
+    put _Json::Gener::Ptr = _TestJson::BufferTestString;
+
+    static 'test' _sEmit; push _sEmit;
+    sub Json::Gener::Emit;
+
+    push _TestJson::BufferTestString;
+    push _sEmit;
+    sub String::StrCmp;
+    pull __;
+    jump fail ~ __ != 0;
+
+    "nullptr emit
+    put _Json::Gener::Ptr = _TestJson::BufferTestString;
+
+    push 0;
+    sub Json::Gener::Emit;
+
+    "should not have emitted anything
+    push _TestJson::BufferTestString;
+    push _Json::Gener::Ptr;
+    sub Math::Sub;
+    pull __;
+    jump fail ~ __ != 0;
+
+    jump succ; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
