@@ -88,6 +88,54 @@ lab TestVec::VerifyDims;
     jump succ;
 
 
+lab TestVec::IterBin::Register;
+    sub Local::TestVec::Init;
+
+    push 2; sub Vec::Create; pull _pVec;
+
+    push _pVec; "cumul
+    push _pVec; "auxil
+
+    "virtual meta return address
+    push 123;
+
+    sub Vec::IterBin::Register;
+
+    pull __;
+    jump fail ~ __ != 123;
+
+    jump fail ~ _Vec::Iter::pAuxil != _pVec;
+    jump fail ~ _Vec::Iter::pCumul != _pVec;
+    jump fail ~ _Vec::Iter::Index != 2;
+
+    free _pVec;
+    jump succ;
+
+
+lab TestVec::IterUna::Register;
+    sub Local::TestVec::Init;
+
+    push 2; sub Vec::Create; pull _pVec;
+
+    push _pVec; "cumul
+
+    "virtual meta return address
+    push 123;
+
+    sub Vec::IterUna::Register;
+
+    pull __;
+    jump fail ~ __ != 123;
+
+    jump fail ~ _Vec::Iter::pCumul != _pVec;
+    jump fail ~ _Vec::Iter::Index != 2;
+
+    free _pVec;
+    jump succ;
+
+
+
+
 
 
 
