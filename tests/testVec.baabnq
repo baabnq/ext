@@ -72,6 +72,26 @@ lab TestVec::Copy;
 
 
 
+lab TestVec::VerifyDims;
+    sub Local::TestVec::Init;
+
+    push 2; sub Vec::Create; pull _pD2;
+    push 3; sub Vec::Create; pull _pD3;
+
+    push _pD2; push _pD3; sub Vec::VerifyDims; pull __; jump fail ~ __ != 0;
+    push _pD2; push _pD2; sub Vec::VerifyDims; pull __; jump fail ~ __ != 2;
+    push _pD3; push _pD3; sub Vec::VerifyDims; pull __; jump fail ~ __ != 3;
+
+    push _pD2; sub Vec::Delete;
+    push _pD3; sub Vec::Delete;
+
+    jump succ;
+
+
+
+
+
+
 
 lab TestVec::Add;
     sub Local::TestVec::Init;
