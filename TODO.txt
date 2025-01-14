@@ -122,11 +122,12 @@
         -Delete                         //
         -Dim                            //
         -Copy                           //
-        -VerfiyDims                     /
-        -Iter<A> (where A∈{Bin, Una})   /
-            -Register                   /
-            -Begin                      /
-            -End                        /
+        -VerfiyDims                     //
+        -Iter<A> (where A∈{Bin, Una})   //  (namespace only)
+            -Register                   //
+            -Begin                      //
+            -End                        //
+            -EndNoWriteback             //
         -Add                            //
         -Neg                            //
         -Mul                            //
