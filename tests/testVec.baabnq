@@ -171,6 +171,70 @@ lab TestVec::IterUna::Begin;
 
 
 
+lab TestVec::IterBin::End;
+    sub Local::TestVec::Init;
+    static 2 _Vec::Iter::pCumul;
+
+    sub Local::TestVec::IterBin::End::Target;
+    jump succ;
+    lab Local::TestVec::IterBin::End::Target;
+    pull _TestVec::Iter::aSinkhole;
+    "the functioning of the above mechanism is one of great magic.
+    "basically, it just makes it so that,
+    "if you jump to the address in _TestVec::Iter::aSinkhole
+    "the test will return success.
+
+    push _TestVec::Iter::aSinkhole; "loop address
+    put _Vec::Iter::Index = 0;
+
+    push 123; "cumul
+    sub Vec::IterBin::End;
+
+    put __ <- _Vec::Iter::pCumul;
+    jump fail ~ __ != 123;
+
+
+    push _TestVec::Iter::aSinkhole; "loop address
+    put _Vec::Iter::Index = 1;
+
+    push 123; "cumul
+    sub Vec::IterBin::End;
+
+    "should not be reached (last call should have jumped to sinkhole)
+    jump fail;
+
+
+lab TestVec::IterUna::End;
+    sub Local::TestVec::Init;
+    static 2 _Vec::Iter::pCumul;
+
+    sub Local::TestVec::IterUna::End::Target;
+    jump succ;
+    lab Local::TestVec::IterUna::End::Target;
+    pull _TestVec::Iter::aSinkhole;
+    "the functioning of the above mechanism is one of great magic.
+    "basically, it just makes it so that,
+    "if you jump to the address in _TestVec::Iter::aSinkhole
+    "the test will return success.
+
+    push _TestVec::Iter::aSinkhole; "loop address
+    put _Vec::Iter::Index = 0;
+
+    push 123; "cumul
+    sub Vec::IterUna::End;
+
+    put __ <- _Vec::Iter::pCumul;
+    jump fail ~ __ != 123;
+
+
+    push _TestVec::Iter::aSinkhole; "loop address
+    put _Vec::Iter::Index = 1;
+
+    push 123; "cumul
+    sub Vec::IterUna::End;
+
+    "should not be reached (last call should have jumped to sinkhole)
+    jump fail;
 
 
 
