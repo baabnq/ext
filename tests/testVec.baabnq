@@ -204,6 +204,9 @@ lab TestVec::IterBin::End;
     jump fail;
 
 
+"(i know, this test is pointless, because
+" TestVec::IterBin::End and
+" TestVec::IterUna::End are synonyms, but who cares)
 lab TestVec::IterUna::End;
     sub Local::TestVec::Init;
     static 2 _Vec::Iter::pCumul;
@@ -237,6 +240,54 @@ lab TestVec::IterUna::End;
     jump fail;
 
 
+
+lab TestVec::IterBin::EndNoWriteback;
+    sub Local::TestVec::Init;
+
+    sub Local::TestVec::IterBin::EndNoWriteback::Target;
+    jump succ;
+    lab Local::TestVec::IterBin::EndNoWriteback::Target;
+    pull _TestVec::Iter::aSinkhole;
+    "the functioning of the above mechanism is one of great magic.
+    "basically, it just makes it so that,
+    "if you jump to the address in _TestVec::Iter::aSinkhole
+    "the test will return success.
+
+    push _TestVec::Iter::aSinkhole; "loop address
+    put _Vec::Iter::Index = 0;
+    sub Vec::IterBin::EndNoWriteback;
+
+    push _TestVec::Iter::aSinkhole; "loop address
+    put _Vec::Iter::Index = 1;
+    sub Vec::IterBin::EndNoWriteback;
+
+    "should not be reached (last call should have jumped to sinkhole)
+    jump fail;
+
+
+"(same deal here as with TestVec::IterUna::End)
+lab TestVec::IterUna::EndNoWriteback;
+    sub Local::TestVec::Init;
+
+    sub Local::TestVec::IterUna::EndNoWriteback::Target;
+    jump succ;
+    lab Local::TestVec::IterUna::EndNoWriteback::Target;
+    pull _TestVec::Iter::aSinkhole;
+    "the functioning of the above mechanism is one of great magic.
+    "basically, it just makes it so that,
+    "if you jump to the address in _TestVec::Iter::aSinkhole
+    "the test will return success.
+
+    push _TestVec::Iter::aSinkhole; "loop address
+    put _Vec::Iter::Index = 0;
+    sub Vec::IterUna::EndNoWriteback;
+
+    push _TestVec::Iter::aSinkhole; "loop address
+    put _Vec::Iter::Index = 1;
+    sub Vec::IterUna::EndNoWriteback;
+
+    "should not be reached (last call should have jumped to sinkhole)
+    jump fail;
 
 
 
