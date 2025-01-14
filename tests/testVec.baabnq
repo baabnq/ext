@@ -134,6 +134,42 @@ lab TestVec::IterUna::Register;
     jump succ;
 
 
+lab TestVec::IterBin::Begin;
+    sub Local::TestVec::Init;
+
+    static '\x10' _Vec::Iter::pCumul;
+    static '\x20' _Vec::Iter::pAuxil;
+
+    put _Vec::Iter::Index = 1;
+
+    sub Vec::IterBin::Begin;
+
+    pull _auxil;
+    pull _cumul;
+    pull _aLoop; "loop address not testable
+
+    jump fail ~ _auxil != 32;
+    jump fail ~ _cumul != 16;
+
+    jump succ;
+
+lab TestVec::IterUna::Begin;
+    sub Local::TestVec::Init;
+
+    static '\xfe\xff' _Vec::Iter::pCumul;
+
+    put _Vec::Iter::Index = 1;
+
+    sub Vec::IterUna::Begin;
+
+    pull _cumul;
+    pull _aLoop; "loop address not testable
+
+    jump fail ~ _cumul != 254;
+
+    jump succ;
+
+
 
 
 
