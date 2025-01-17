@@ -453,6 +453,7 @@ lab TestJson::Gener::Null;
     sub Local::TestJson::Init;
     put _Json::Gener::Ptr = _TestJson::BufferTestString;
 
+    push 0;
     sub Json::Gener::Null;
 
     static 'null' __; push __;
@@ -467,6 +468,7 @@ lab TestJson::Gener::True;
     sub Local::TestJson::Init;
     put _Json::Gener::Ptr = _TestJson::BufferTestString;
 
+    push 0;
     sub Json::Gener::True;
 
     static 'true' __; push __;
@@ -481,6 +483,7 @@ lab TestJson::Gener::False;
     sub Local::TestJson::Init;
     put _Json::Gener::Ptr = _TestJson::BufferTestString;
 
+    push 0;
     sub Json::Gener::False;
 
     static 'false' __; push __;
