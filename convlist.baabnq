@@ -14,13 +14,16 @@ lab ConvList::L2D;
     sub Stack::Swap;
     pull _pLinkList;
 
+    "create dynlist
     sub DynList::CreateEmpty;
-    sub Stack::Dup;
-    push _pLinkList; sub LinkList::Container::Size;
-    sub DynList::Reserve;
     pull _pDynList;
 
+    "equalize capacity
+    push _pDynList;
+    push _pLinkList; sub LinkList::Container::Size;
+    sub DynList::Reserve;
 
+    "iterate reverse
     push _pLinkList; sub LinkList::Container::Size; pull _i;
     lab ConvList::LinkListToDynList::Loop;
         jump ConvList::LinkListToDynList::Done ~ _i == 0;
@@ -34,6 +37,7 @@ lab ConvList::L2D;
         jump ConvList::LinkListToDynList::Loop;
     lab ConvList::LinkListToDynList::Done;
 
+    "dealloc
     push _pLinkList;
     sub LinkList::Container::Delete;
 
@@ -50,24 +54,25 @@ lab ConvList::D2L;
     sub Stack::Swap;
     pull _pDynList;
 
+    "create linklist
     sub LinkList::Container::Create;
     pull _pLinkList;
 
-    push _pDynList; sub DynList::Container; pull _pDynListContainer;
-
+    "iterate
     push _pDynList; sub LinkList::Container::Size; pull _i;
     lab ConvList::DynListToLinkList::Loop;
         jump ConvList::DynListToLinkList::Done ~ _i == 0;
         put _i = _i - 1;
 
-        put _item <- _pDynListContainer + _i;
         push _pLinkList;
-        push _item;
-        sub LinkList::Container::PushBack;
+            push _pDynList;
+            sub DynList::PopBack;
+        sub LinkList::Container::PushFront;
 
         jump ConvList::DynListToLinkList::Loop;
     lab ConvList::DynListToLinkList::Done;
 
+    "dealloc
     push _pDynList;
     sub DynList::Delete;
 
