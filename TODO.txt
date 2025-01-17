@@ -83,7 +83,6 @@
             
             LinkListToDynList / L2D //
             DynListToLinkList / D2L //
-                => refactor
             
 
     -ring buffer //
@@ -110,9 +109,11 @@
         -Region     //
         -Reset      //
 
-        -Chunk
-            to allocate chunk in the arena
-            (or at least something that acts like a chunk)
+        (
+            -Chunk
+                to allocate chunk in the arena
+                (or at least something that acts like a chunk)
+        )
 
         
     -vec.baabnq //
@@ -207,7 +208,6 @@
 
             -Value          //  (untestable due to circular recursion)
             -Gener          //
-                -refactor
 
             
         
@@ -227,5 +227,6 @@
 
         
     -hashmap.baabnq
-    -set.baabnq
+    -set.baabnq (//)
+        -already covered by trie.baabnq (//)
 
