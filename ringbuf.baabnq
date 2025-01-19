@@ -106,7 +106,9 @@ lab Ringbuf::Create;
     sub Stack::Swap;
     pull _capacity;
 
-    sub No::Return ~ _capacity == 0;
+    push 0; sub Stack::Swap;
+        sub No::Return ~ _capacity == 0;
+    sub Stack::Swap; pull __;
 
     sub Ringbuf::Allocate;
     pull _pRing;
