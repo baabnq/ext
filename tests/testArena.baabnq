@@ -100,6 +100,7 @@ lab TestArena::Region;
     push _pArena; push 3; sub Arena::Region; pull __; jump fail ~ __ != 0 + _pMem;
     push _pArena; push 2; sub Arena::Region; pull __; jump fail ~ __ != 3 + _pMem;
     push _pArena; push 4; sub Arena::Region; pull __; jump fail ~ __ != 5 + _pMem;
+    push _pArena; push 2; sub Arena::Region; pull __; jump fail ~ __ != 0;
 
     push _pArena; sub Arena::GetIndex; pull __; jump fail ~ __ != 9;
 
