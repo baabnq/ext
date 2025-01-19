@@ -16,7 +16,7 @@ lab Ringbuf::ModuleInit;
     " _p+3 -> end       :: Ptr
     " _p+4 -> container :: Chunk
 
-    "the head pointer tracks write to the buffer.
+    "the head pointer tracks writing to the buffer.
     "the tail pointer tracks reading from the buffer.
     "the end pointer points to the end of container,
     "to allow for bounds checking

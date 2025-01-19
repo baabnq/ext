@@ -39,7 +39,7 @@ lab Arena::Allocate;
     sub Stack::Swap;
     return;
 
-"(Capacity::Int) => (::Arena)"
+"(Capacity::Int) => (::Arena)
 lab Arena::Create;
     sub Stack::Swap;
     pull _capacity;
@@ -94,6 +94,10 @@ lab Arena::Delete;
 
 "(::Arena, Size::Int) => (Region::Ptr)
 lab Arena::Region;
+lab Arena::Reserve;
+lab Arena::Defend; "haha get it, cuz like arena 'n stuff
+lab Arena::Guard;  "-
+lab Arena::Secure; "-
     sub Stack::Swap; pull _size;
     sub Stack::Swap; pull _pArena;
 
