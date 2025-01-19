@@ -105,7 +105,9 @@ lab Arena::Secure; "-
     put _newIndex = _oldIndex + _size;
 
     put _capacity <- _pArena + _Arena::Arena::CAPACITY;
-    sub No::Return ~ _capacity < _newIndex;
+    push 0; sub Stack::Swap;
+        sub No::Return ~ _capacity < _newIndex;
+    sub Stack::Swap; pull __;
 
     push _pArena; sub Arena::GetMemory; pull _pMemory;
     push _pMemory + _oldIndex;
