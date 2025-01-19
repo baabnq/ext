@@ -223,7 +223,7 @@ lab Vec::IterUna::EndNoWriteback;
     return;
 
 
-"(Cumulator::Vec, Addend::Vec)
+"(Cumulator::Vec<n>, Addend::Vec<n>)
 lab Vec::Add;
     sub Vec::IterBin::Register;
 
@@ -233,7 +233,7 @@ lab Vec::Add;
 
     return;
 
-"(::Vec)
+"(::Vec<n>)
 lab Vec::Neg;
     sub Vec::IterUna::Register;
 
@@ -243,7 +243,7 @@ lab Vec::Neg;
 
     return;
 
-"(Cumulator::Vec, Factor::Vec)
+"(Cumulator::Vec<n>, Factor::Vec<n>)
 lab Vec::Mul;
     sub Vec::IterBin::Register;
 
@@ -253,7 +253,7 @@ lab Vec::Mul;
 
     return;
 
-"(Cumulator::Vec, Denominator::Vec)
+"(Cumulator::Vec<n>, Denominator::Vec<n>)
 lab Vec::Div;
     sub Vec::IterBin::Register;
 
@@ -263,7 +263,7 @@ lab Vec::Div;
 
     return;
 
-"(::Vec, Scalar::Int)
+"(::Vec<n>, Scalar::Int)
 lab Vec::Scale;
     sub Stack::Swap;
     pull _scalar;
@@ -276,7 +276,7 @@ lab Vec::Scale;
 
     return;
 
-"(::Vec, InvScalar::Int)
+"(::Vec<n>, InvScalar::Int)
 lab Vec::InvScale;
     sub Stack::Swap;
     pull _scalar;
@@ -289,7 +289,7 @@ lab Vec::InvScale;
 
     return;
 
-"(::Vec) => (Sum::Int)
+"(::Vec<n>) => (Sum::Int)
 "vector component sum
 lab Vec::Sum;
     sub Vec::IterUna::Register;
@@ -306,7 +306,7 @@ lab Vec::Sum;
     return;
 
 
-"(A::Vec, B::Vec) => (Dot::Int)
+"(A::Vec<n>, B::Vec<n>) => (Dot::Int)
 lab Vec::Dot;
     sub Vec::IterBin::Register;
 
@@ -324,7 +324,7 @@ lab Vec::Dot;
     return;
 
 
-"(::Vec) => (Length::Int)
+"(::Vec<n>) => (Length::Int)
 lab Vec::Length;
     sub Stack::Swap;
 
@@ -335,7 +335,7 @@ lab Vec::Length;
     sub Stack::Swap;
     return;
 
-"(::Vec)
+"(::Vec<n>)
 lab Vec::Normalize;
     sub Stack::Swap;
 
