@@ -40,6 +40,12 @@ lab TestRingbuf::Create;
     put __ <- _pRing + _Ringbuf::Ringbuf::TAIL; jump fail ~ __ != _pContainer;
     put __ <- _pRing + _Ringbuf::Ringbuf::END ; jump fail ~ __ != _pWhatEndShouldBe; 
 
+
+    push 0;
+    sub Ringbuf::Create;
+    pull __;
+    jump fail ~ __ != 0;
+
     jump succ;
 
 
