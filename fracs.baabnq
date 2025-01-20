@@ -1,0 +1,41 @@
+
+sub Fracs::ModuleInit;
+
+jump Fracs::Skip;
+
+
+lab Fracs::ModuleInit;
+    "frac structure
+    " _p + 0 -> sign        :: Bool
+    " _p + 1 -> numerator   :: Int
+    " _p + 1 -> denominator :: Int
+
+    "there's not much to say, it's a fraction...
+
+    put _Fracs::Frac::SIGN = 0;
+    put _Fracs::Frac::NUMER = 1;
+    put _Fracs::Frac::DENER = 2;
+
+    return;
+
+"=> (::Frac)
+lab Fracs::Allocate;
+lab Fracs::Create;
+    new 3 _pFrac;
+
+    put 0 -> _Fracs::Frac::SIGN;
+    put 0 -> _Fracs::Frac::NUMER;
+    put 0 -> _Fracs::Frac::DENER;
+
+    push _pFrac;
+    sub Stack::Swap;
+    return;
+
+
+
+
+
+
+
+
+lab Fracs::Skip;
