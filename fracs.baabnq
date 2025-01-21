@@ -16,6 +16,9 @@ lab Fracs::ModuleInit;
     put _Fracs::Frac::NUMER = 1;
     put _Fracs::Frac::DENER = 2;
 
+    put _Fracs::SIGN_BIT  = (1 << 15); "16   - 1
+    put _Fracs::THRESHOLD = (1 << 7);  "16/2 - 1
+
     return;
 
 "=> (::Frac)
@@ -30,6 +33,78 @@ lab Fracs::Create;
     push _pFrac;
     sub Stack::Swap;
     return;
+
+"(::Frac)
+lab Fracs::Normalize;
+    sub Stack::Swap;
+    pull _pFrac;
+
+    put _num <- _pFrac + _Fracs::Frac::NUMER;
+    put _den <- _pFrac + _Fracs::Frac::DENER;
+
+    lab Fracs::Normalize::Loop;
+        jump Fracs::Normalize::Done ~ (_num | _den) < _Fracs::Frac::THRESHOLD;
+
+        put _num = (_num >> 1);
+        put _den = (_den >> 1);
+
+        jump Fracs::Normalize::Loop;
+    lab Fracs::Normalize::Done;
+
+
+    put _num -> _pFrac + _Fracs::Frac::NUMER;
+    put _den -> _pFrac + _Fracs::Frac::DENER;
+
+    return;
+
+
+"(A::Frac, B::Frac) => (Sum::Frac)
+"sum.numer / sum.dener = 
+"a.numer   / a.dener   +
+"b.numer   / b.dener
+lab Fracs::Add;
+    sub Stack::Swap; pull _pB;
+    sub Stack::Swap; pull _pA;
+
+    put _denA <- _pA + _Fracs::Frac::DENER;
+    put _numA <- _pA + _Fracs::Frac::NUMER;
+    put _denB <- _pB + _Fracs::Frac::DENER;
+    put _numB <- _pB + _Fracs::Frac::NUMER;
+
+    push _denB; push _numA; sub Math::Mul; pull _numA;
+    push _denA; push _numB; sub Math::Mul; pull _numB;
+
+    push _denA; push _denB; sub Math::Mul; pull _den;
+
+    put __ <- _pA + _Fracs::Frac::SIGN; push _numA; sub Twoc::Neg ~ __; pull _numA;
+    put __ <- _pB + _Fracs::Frac::SIGN; push _numB; sub Twoc::Neg ~ __; pull _numB;
+
+    put _num = _numA + _numB;
+
+    push 0;
+    push 1;
+    sub Stack::Swap ~ (_num & _Fracs::SIGN_BIT) != 0;
+    pull __;
+    pull _sign;
+
+    
+    push _num; sub Twoc::Neg != 0; pull _num;
+
+
+    sub Fracs::Create;
+    pull _pSum;
+    put _num  -> _pSum + _Fracs::Frac::NUMER;
+    put _den  -> _pSum + _Fracs::Frac::DENER;
+    put _sign -> _pSum + _Fracs::Frac::SIGN;
+
+    push _pSum;
+    sub Fracs::Normalize;
+
+    push _pSum;
+    sub Stack::Swap;
+    return;
+
+
 
 
 
