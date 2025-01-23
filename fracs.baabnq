@@ -1,3 +1,5 @@
+use 'libs/stack.baabnq';
+use 'libs/math.baabnq';
 
 sub Fracs::ModuleInit;
 
@@ -32,6 +34,14 @@ lab Fracs::Create;
 
     push _pFrac;
     sub Stack::Swap;
+    return;
+
+"(::Frac)
+lab Fracs::Delete;
+    sub Stack::Swap;
+    pull _p;
+    
+    free _p;
     return;
 
 "(::Frac)
@@ -181,12 +191,40 @@ lab Fracs::Div;
     push _pTmpReci;
     sub Fracs::Mul;
 
-    free _pTmpReci;
+    push _pTmpReci; sub Fracs::Delete;
 
     sub Stack::Swap;
     return;
 
 
+"(Big::Frac, Small::Frac) => (Is::Bool)
+"Is = Big > Small
+lab Fracs::Comp;
+    sub Stack::Swap; pull _pSmall;
+    sub Stack::Swap; pull _pBig;
+
+    "Is = (Big - Small) > 0
+    "Is = (Small - Big) < 0
+    "Is = (Small - Big).sign
+
+    push _pBig;
+    sub Fracs::Neg;
+
+    push _pBig;
+    push _pSmall;
+    sub Fracs::Add;
+    pull _pDelta;
+
+    put _sign <- _pDelta + _Fracs::Frac::SIGN;
+
+    push _pDelta; sub Fracs::Delete;
+
+    return;
+
+
+    
+
+    
 
     
     

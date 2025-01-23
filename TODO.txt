@@ -153,6 +153,7 @@
         -frac.baabnq
             -fractions
               => refactor object memory model
+              => synonymize Fracs::Comp and Fracs::Cmp
 
             -value2frac
             -frac2value
@@ -164,7 +165,8 @@
             -mul        /
             -reci       /
             -div        /
-            -comp
+            -comp       /
+            -copy
 
         
     -json.baabnq //
