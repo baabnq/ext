@@ -68,6 +68,21 @@ lab Fracs::Normalize;
     return;
 
 
+"(::Int) => (::Frac)
+lab Fracs::Value2Frac;
+    sub Stack::Swap; pull _x;
+
+    sub Fracs::Create; pull _pFrac;
+    put 0  -> _pFrac + _Fracs::Frac::SIGN;
+    put _x -> _pFrac + _Fracs::Frac::NUMER;
+    put 1  -> _pFrac + _Fracs::Frac::DENER;
+
+    push _pFrac;
+    sub Stack::Swap;
+    return;
+    
+
+
 "(A::Frac, B::Frac) => (Sum::Frac)
 "sum.numer / sum.dener = 
 "a.numer   / a.dener   +
@@ -200,6 +215,7 @@ lab Fracs::Div;
 "(Big::Frac, Small::Frac) => (Is::Bool)
 "Is = Big > Small
 lab Fracs::Comp;
+lab Fracs::Cmp;
     sub Stack::Swap; pull _pSmall;
     sub Stack::Swap; pull _pBig;
 
@@ -220,20 +236,6 @@ lab Fracs::Comp;
     push _pDelta; sub Fracs::Delete;
 
     return;
-
-
-    
-
-    
-
-    
-    
-
-
-
-
-
-
 
 
 

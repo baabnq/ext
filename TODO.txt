@@ -150,10 +150,9 @@
         -RotateZ
 
     
-        -frac.baabnq
+        -fracs.baabnq
             -fractions
               => refactor object memory model
-              => synonymize Fracs::Comp and Fracs::Cmp
 
             -value2frac
             -frac2value
@@ -167,6 +166,10 @@
             -div        /
             -comp       /
             -copy
+
+    -convnums.baabnq
+        -FracsToFloats / Fracs2Floats / R2L
+        -FloatsToFracs / Floats2Fras  / L2R
 
         
     -json.baabnq //
