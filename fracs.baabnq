@@ -107,6 +107,94 @@ lab Fracs::Add;
 
 
 
+"(::Frac)
+lab Fracs::Neg;
+    sub Stack::Swap;
+    pull _pFrac;
+
+    put _sign     <- _pFrac + _Fracs::Frac::SIGN;
+    put _sign ^ 1 -> _pFrac + _Fracs::Frac::SIGN;
+
+    return;
+
+"(A::Frac, B::Frac) => (Prod::Frac)
+lab Fracs::Mul;
+    sub Stack::Swap; pull _pA;
+    sub Stack::Swap; pull _pB;
+
+    sub Fracs::Create; pull _pProd;
+
+    put __ <- _pA + _Fracs::Frac::NUMER; push __;
+    put __ <- _pB + _Fracs::Frac::NUMER; push __;
+    sub Math::Mul;
+    pull __; put __ -> _pProd + _Fracs::Frac::NUMER;
+
+    put __ <- _pA + _Fracs::Frac::DENER; push __;
+    put __ <- _pB + _Fracs::Frac::DENER; push __;
+    sub Math::Mul;
+    pull __; put __ -> _pProd + _Fracs::Frac::DENER;
+
+    put _signA <- _pA + _Fracs::Frac::SIGN;
+    put _signB <- _pB + _Fracs::Frac::SIGN;
+    put _sign = _signA ^ _signB;
+    put _sign -> _pProd + _Fracs::Frac::SIGN;
+
+    push _pProd;
+    sub Fracs::Normalize;
+
+    push _pProd;
+    sub Stack::Swap;
+    return;
+
+
+"(::Frac) => (::Frac)
+lab Fracs::Reciprocal;
+    sub Stack::Swap;
+    pull _pFrac;
+
+    sub Fracs::Create;
+    pull _pReci;
+
+    "swap numerator and denominator
+    put __ <- _pFrac + _Fracs::Frac::NUMER; put __ -> _pFrac + _Fracs::Frac::DENER;
+    put __ <- _pFrac + _Fracs::Frac::DENER; put __ -> _pFrac + _Fracs::Frac::NUMER;
+    put __ <- _pFrac + _Fracs::Frac::SIGN;  put __ -> _pFrac + _Fracs::Frac::SIGN;
+    
+    push _pReci;
+    sub Fracs::Normalize;
+
+    push _pReci;
+    sub Stack::Swap;
+    return;
+
+
+"(A::Frac, B::Frac) => (Prod::Frac)
+lab Fracs::Div;
+    sub Stack::Swap; pull _pB;
+    sub Stack::Swap; pull _pA;
+
+    push _pB;
+    sub Fracs::Reciprocal;
+    pull _pTmpReci;
+
+    push _pA;
+    push _pTmpReci;
+    sub Fracs::Mul;
+
+    free _pTmpReci;
+
+    sub Stack::Swap;
+    return;
+
+
+
+    
+    
+
+
+
+
+
 
 
 

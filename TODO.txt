@@ -150,19 +150,21 @@
         -RotateZ
 
     
-    ( impractical
         -frac.baabnq
             -fractions
+              => refactor object memory model
 
             -value2frac
             -frac2value
 
-            -normalize
-            -add
-            -neg
-            -mul
-            -reci
-    )
+            
+            -normalize  /
+            -add        /
+            -neg        /
+            -mul        /
+            -reci       /
+            -div        /
+            -comp
 
         
     -json.baabnq //
