@@ -12,7 +12,7 @@ lab Fracs::ModuleInit;
     " _p + 1 -> numerator   :: Int
     " _p + 1 -> denominator :: Int
 
-    "there's not much to say, it's a fraction...
+    "there's not much to say, it's fractions...
 
     put _Fracs::Frac::SIGN = 0;
     put _Fracs::Frac::NUMER = 1;
@@ -43,6 +43,10 @@ lab Fracs::Delete;
     
     free _p;
     return;
+
+
+
+
 
 "(::Frac)
 lab Fracs::Normalize;
@@ -80,6 +84,19 @@ lab Fracs::Value2Frac;
     push _pFrac;
     sub Stack::Swap;
     return;
+
+"(::Frac) => (::Int)
+lab Fracs::Frac2Value;
+    sub Stack::Swap; pull _pFrac;
+
+    put __ <- _pFrac + _Fracs::Frac::NUMER; push __;
+    put __ <- _pFrac + _Fracs::Frac::DENER; push __;
+    sub Math::Div;
+    
+    sub Stack::Swap;
+    return;
+
+
     
 
 
@@ -236,6 +253,17 @@ lab Fracs::Cmp;
     push _pDelta; sub Fracs::Delete;
 
     return;
+
+
+"(Original::Frac) => (Copy::Frac)
+lab Fracs::Copy;
+    sub Stack::Swap;
+
+    sub Chunk::Copy;
+
+    sub Stack::Swap;
+    return;
+
 
 
 
