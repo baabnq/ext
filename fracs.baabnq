@@ -1,5 +1,7 @@
 use 'libs/stack.baabnq';
 use 'libs/math.baabnq';
+use 'libs/twoc.baabnq';
+use 'libs/chunk.baabnq';
 
 sub Fracs::ModuleInit;
 
@@ -62,7 +64,7 @@ lab Fracs::Normalize;
     put _den <- _pFrac + _Fracs::Frac::DENER;
 
     lab Fracs::Normalize::Loop;
-        jump Fracs::Normalize::Done ~ (_num | _den) < _Fracs::Frac::THRESHOLD;
+        jump Fracs::Normalize::Done ~ (_num | _den) < _Fracs::THRESHOLD;
 
         put _num = (_num >> 1);
         put _den = (_den >> 1);
@@ -127,8 +129,8 @@ lab Fracs::Add;
 
     push _denA; push _denB; sub Math::Mul; pull _den;
 
-    put __ <- _pA + _Fracs::Frac::SIGN; push _numA; sub Twoc::Neg ~ __; pull _numA;
-    put __ <- _pB + _Fracs::Frac::SIGN; push _numB; sub Twoc::Neg ~ __; pull _numB;
+    put __ <- _pA + _Fracs::Frac::SIGN; push _numA; sub Twoc::Neg ~ __ != 0; pull _numA;
+    put __ <- _pB + _Fracs::Frac::SIGN; push _numB; sub Twoc::Neg ~ __ != 0; pull _numB;
 
     put _num = _numA + _numB;
 
