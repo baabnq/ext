@@ -155,8 +155,6 @@ lab Fracs::Add;
 
     push _pSum;
     sub Fracs::Normalize;
-
-    push _pSum;
     sub Stack::Swap;
     return;
 
@@ -202,8 +200,6 @@ lab Fracs::Mul;
 
     push _pProd;
     sub Fracs::Normalize;
-
-    push _pProd;
     sub Stack::Swap;
     return;
 
@@ -225,8 +221,6 @@ lab Fracs::Reciprocal;
     
     push _pReci;
     sub Fracs::Normalize;
-
-    push _pReci;
     sub Stack::Swap;
     return;
 
