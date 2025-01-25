@@ -12,7 +12,7 @@ lab Fracs::ModuleInit;
     "frac structure
     " _p + 0 -> sign        :: Bool
     " _p + 1 -> numerator   :: Int
-    " _p + 1 -> denominator :: Int
+    " _p + 2 -> denominator :: Int
 
     "there's not much to say, it's fractions...
 
@@ -33,22 +33,22 @@ lab Fracs::ModuleInit;
 "=> (::Frac)
 lab Fracs::Allocate;
 lab Fracs::Create;
-    new 3 _pFrac;
+    new 3 _pNew;
 
-    put 0 -> _Fracs::Frac::SIGN;
-    put 0 -> _Fracs::Frac::NUMER;
-    put 0 -> _Fracs::Frac::DENER;
+    put 0 -> _pNew + _Fracs::Frac::SIGN;
+    put 0 -> _pNew + _Fracs::Frac::NUMER;
+    put 0 -> _pNew + _Fracs::Frac::DENER;
 
-    push _pFrac;
+    push _pNew;
     sub Stack::Swap;
     return;
 
 "(::Frac)
 lab Fracs::Delete;
     sub Stack::Swap;
-    pull _p;
+    pull _pOld;
     
-    free _p;
+    free _pOld;
     return;
 
 
@@ -64,7 +64,8 @@ lab Fracs::Normalize;
     put _den <- _pFrac + _Fracs::Frac::DENER;
 
     lab Fracs::Normalize::Loop;
-        jump Fracs::Normalize::Done ~ (_num | _den) < _Fracs::THRESHOLD;
+        jump Fracs::Normalize::Done ~ _num < _Fracs::THRESHOLD;
+        jump Fracs::Normalize::Done ~ _den < _Fracs::THRESHOLD;
 
         put _num = (_num >> 1);
         put _den = (_den >> 1);
@@ -175,8 +176,8 @@ lab Fracs::Neg;
 
 "(A::Frac, B::Frac) => (Prod::Frac)
 lab Fracs::Mul;
-    sub Stack::Swap; pull _pA;
     sub Stack::Swap; pull _pB;
+    sub Stack::Swap; pull _pA;
 
     sub Fracs::Create; pull _pProd;
 
@@ -194,6 +195,7 @@ lab Fracs::Mul;
     put _signB <- _pB + _Fracs::Frac::SIGN;
     put _sign = _signA ^ _signB;
     put _sign -> _pProd + _Fracs::Frac::SIGN;
+
 
     push _pA; sub Fracs::Delete;
     push _pB; sub Fracs::Delete;
@@ -213,9 +215,9 @@ lab Fracs::Reciprocal;
     pull _pReci;
 
     "swap numerator and denominator
-    put __ <- _pFrac + _Fracs::Frac::NUMER; put __ -> _pFrac + _Fracs::Frac::DENER;
-    put __ <- _pFrac + _Fracs::Frac::DENER; put __ -> _pFrac + _Fracs::Frac::NUMER;
-    put __ <- _pFrac + _Fracs::Frac::SIGN;  put __ -> _pFrac + _Fracs::Frac::SIGN;
+    put __ <- _pFrac + _Fracs::Frac::NUMER; put __ -> _pReci + _Fracs::Frac::DENER;
+    put __ <- _pFrac + _Fracs::Frac::DENER; put __ -> _pReci + _Fracs::Frac::NUMER;
+    put __ <- _pFrac + _Fracs::Frac::SIGN;  put __ -> _pReci + _Fracs::Frac::SIGN;
 
     push _pFrac; sub Fracs::Delete;
     
