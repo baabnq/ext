@@ -64,8 +64,7 @@ lab Fracs::Normalize;
     put _den <- _pFrac + _Fracs::Frac::DENER;
 
     lab Fracs::Normalize::Loop;
-        jump Fracs::Normalize::Done ~ _num < _Fracs::THRESHOLD;
-        jump Fracs::Normalize::Done ~ _den < _Fracs::THRESHOLD;
+        jump Fracs::Normalize::Done ~ (_num | _den) < _Fracs::THRESHOLD;
 
         put _num = (_num >> 1);
         put _den = (_den >> 1);
