@@ -152,20 +152,20 @@
     
         -fracs.baabnq
             -fractions
-              => refactor object memory model
 
-            -value2frac
-            -frac2value
+            -value2frac /
+            -frac2value /
 
             
             -normalize  /
             -add        /
+                => refactor
             -neg        /
             -mul        /
             -reci       /
             -div        /
             -comp       /
-            -copy
+            -copy       /
 
     -convnums.baabnq
         -FracsToFloats / Fracs2Floats / R2L
