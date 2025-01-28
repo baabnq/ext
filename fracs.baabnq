@@ -49,9 +49,9 @@ lab Fracs::CreateByComponents;
     sub Fracs::Allocate;
     pull _pNew;
 
-    sub Stack::Swap; pull __; put __ -> _pNew + _Fracs::Frac::SIGN;
-    sub Stack::Swap; pull __; put __ -> _pNew + _Fracs::Frac::NUMER;
     sub Stack::Swap; pull __; put __ -> _pNew + _Fracs::Frac::DENER;
+    sub Stack::Swap; pull __; put __ -> _pNew + _Fracs::Frac::NUMER;
+    sub Stack::Swap; pull __; put __ -> _pNew + _Fracs::Frac::SIGN;
 
     push _pNew;
     sub Stack::Swap;
@@ -99,12 +99,11 @@ lab Fracs::Normalize;
 lab Fracs::Value2Frac;
     sub Stack::Swap; pull _x;
 
-    sub Fracs::CreateEmpty; pull _pFrac;
-    put 0  -> _pFrac + _Fracs::Frac::SIGN;
-    put _x -> _pFrac + _Fracs::Frac::NUMER;
-    put 1  -> _pFrac + _Fracs::Frac::DENER;
+    push 0;
+    push _x;
+    push 1;
+    sub Fracs::CreateByComponents;
 
-    push _pFrac;
     sub Stack::Swap;
     return;
 
