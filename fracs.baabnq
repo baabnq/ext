@@ -32,12 +32,26 @@ lab Fracs::ModuleInit;
 
 "=> (::Frac)
 lab Fracs::Allocate;
-lab Fracs::Create;
+lab Fracs::CreateEmpty;
     new 3 _pNew;
 
     put 0 -> _pNew + _Fracs::Frac::SIGN;
     put 0 -> _pNew + _Fracs::Frac::NUMER;
     put 0 -> _pNew + _Fracs::Frac::DENER;
+
+    push _pNew;
+    sub Stack::Swap;
+    return;
+
+
+"(Sign::Bool, Numerator::Int, Denominator::Int) => (::Frac)
+lab Fracs::CreateByComponents;
+    sub Fracs::Allocate;
+    pull _pNew;
+
+    sub Stack::Swap; pull __; put __ -> _pNew + _Fracs::Frac::SIGN;
+    sub Stack::Swap; pull __; put __ -> _pNew + _Fracs::Frac::NUMER;
+    sub Stack::Swap; pull __; put __ -> _pNew + _Fracs::Frac::DENER;
 
     push _pNew;
     sub Stack::Swap;
@@ -85,7 +99,7 @@ lab Fracs::Normalize;
 lab Fracs::Value2Frac;
     sub Stack::Swap; pull _x;
 
-    sub Fracs::Create; pull _pFrac;
+    sub Fracs::CreateEmpty; pull _pFrac;
     put 0  -> _pFrac + _Fracs::Frac::SIGN;
     put _x -> _pFrac + _Fracs::Frac::NUMER;
     put 1  -> _pFrac + _Fracs::Frac::DENER;
@@ -147,7 +161,7 @@ lab Fracs::Add;
     push _pB; sub Fracs::Delete;
 
 
-    sub Fracs::Create;
+    sub Fracs::CreateEmpty;
     pull _pSum;
     put _num  -> _pSum + _Fracs::Frac::NUMER;
     put _den  -> _pSum + _Fracs::Frac::DENER;
@@ -178,7 +192,7 @@ lab Fracs::Mul;
     sub Stack::Swap; pull _pB;
     sub Stack::Swap; pull _pA;
 
-    sub Fracs::Create; pull _pProd;
+    sub Fracs::CreateEmpty; pull _pProd;
 
     put __ <- _pA + _Fracs::Frac::NUMER; push __;
     put __ <- _pB + _Fracs::Frac::NUMER; push __;
@@ -210,7 +224,7 @@ lab Fracs::Reciprocal;
     sub Stack::Swap;
     pull _pFrac;
 
-    sub Fracs::Create;
+    sub Fracs::CreateEmpty;
     pull _pReci;
 
     "swap numerator and denominator
