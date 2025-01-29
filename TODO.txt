@@ -153,19 +153,24 @@
         -fracs.baabnq
             -fractions
 
-            -value2frac /
-            -frac2value /
+            -Allocate           /
+            -CreateEmpty        /
+            -CreateByComponents /
+            -Delete             /
+            -Normalize          /
 
+            -Value2Frac /
+            -Frac2Value /
             
-            -normalize  /
-            -add        /
+            -Add        /
                 => refactor
-            -neg        /
-            -mul        /
-            -reci       /
-            -div        /
-            -comp       /
-            -copy       /
+            -Neg        /
+            -Mul        /
+            -Reci       /
+            -Div        /
+            -Comp/Cmp   /
+
+            -Copy       /
 
     -convnums.baabnq
         -FracsToFloats / Fracs2Floats / R2L
