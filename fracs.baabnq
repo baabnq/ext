@@ -160,13 +160,10 @@ lab Fracs::Add;
     push _pB; sub Fracs::Delete;
 
 
-    sub Fracs::CreateEmpty;
-    pull _pSum;
-    put _num  -> _pSum + _Fracs::Frac::NUMER;
-    put _den  -> _pSum + _Fracs::Frac::DENER;
-    put _sign -> _pSum + _Fracs::Frac::SIGN;
-
-    push _pSum;
+    push _sign;
+    push _num;
+    push _den;
+    sub Fracs::CreateByComponents;
     sub Fracs::Normalize;
     sub Stack::Swap;
     return;
@@ -185,6 +182,7 @@ lab Fracs::Neg;
 
     sub Stack::Swap; 
     return;
+
 
 "(A::Frac, B::Frac) => (Prod::Frac)
 lab Fracs::Mul;
