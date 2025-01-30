@@ -5,7 +5,7 @@
         -2 slash => implemented routine and test
 
 
--extras
+-extras /(/)
     -https://github.com/S1monr3dst0ne07/ext
         -generic  dynamic lists ///
 
@@ -140,40 +140,38 @@
         -Length                         //
         -Normalize                      //
 
-    -vec3d.baabnq
-        -Cross
+    (   too specific
+        -vec3d.baabnq
+            -Cross
 
-        -Project2d
-        -Perspective
-        -RotateX
-        -RotateY
-        -RotateZ
+            -Project2d
+            -Perspective
+            -RotateX
+            -RotateY
+            -RotateZ
+    )
 
     
-        -fracs.baabnq //
-            -fractions
+    -fracs.baabnq //
+        -fractions
 
-            -Allocate           //
-            -CreateEmpty        //
-            -CreateByComponents //
-            -Delete             //
-            -Normalize          //
+        -Allocate           //
+        -CreateEmpty        //
+        -CreateByComponents //
+        -Delete             //
+        -Normalize          //
 
-            -Value2Frac //
-            -Frac2Value //
-            
-            -Add        //
-            -Neg        //
-            -Mul        //
-            -Reci       //
-            -Div        //
-            -Comp/Cmp   //
+        -Value2Frac //
+        -Frac2Value //
+        
+        -Add        //
+        -Neg        //
+        -Mul        //
+        -Reci       //
+        -Div        //
+        -Comp/Cmp   //
 
-            -Copy       //
-
-    -convnums.baabnq
-        -FracsToFloats / Fracs2Floats / R2L
-        -FloatsToFracs / Floats2Fras  / L2R
+        -Copy       //
 
         
     -json.baabnq //
@@ -236,8 +234,6 @@
         -PrefixChunk        //
 
 
-        
-    -hashmap.baabnq
     -set.baabnq (//)
         -already covered by trie.baabnq (//)
 
