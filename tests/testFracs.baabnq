@@ -1,0 +1,26 @@
+
+use 'libs/tests/common.baabnq';
+use 'libs/chunk.baabnq';
+use 'ext/fracs.baabnq';
+
+
+lab Local::TestFracs::Init;
+    sub Fracs::ModuleInit;
+return;
+
+
+lab TestFracs::Allocate;
+lab TestFracs::CreateEmpty;
+    sub Local::TestFracs::Init;
+
+    sub Fracs::Allocate;
+    pull _pFrac;
+
+    push _pFrac; sub Chunk::Len; pull __;
+    jump fail ~ __ != 3;
+
+    put __ <- _pFrac + _Fracs::Frac::SIGN;  jump fail ~ __ != 0;
+    put __ <- _pFrac + _Fracs::Frac::NUMER; jump fail ~ __ != 0;
+    put __ <- _pFrac + _Fracs::Frac::DENER; jump fail ~ __ != 0;
+
+    jump succ;
