@@ -212,6 +212,40 @@ lab TestFracs::Div;
 
     jump succ;
 
+lab TestFracs::Comp;
+    sub Local::TestFracs::Init;
+
+    push 0;
+    push 1;
+    push 3;
+    sub Fracs::CreateByComponents;
+
+    push 0;
+    push 1;
+    push 4;
+    sub Fracs::CreateByComponents;
+
+    sub Fracs::Comp;
+    pull __;
+    jump fail ~ __ != 1;
+
+    push 0;
+    push 1;
+    push 5;
+    sub Fracs::CreateByComponents;
+
+    push 0;
+    push 1;
+    push 4;
+    sub Fracs::CreateByComponents;
+
+    sub Fracs::Comp;
+    pull __;
+    jump fail ~ __ != 0;
+
+    jump succ;
+
+    
     
     
 
