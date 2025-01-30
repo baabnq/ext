@@ -7,4 +7,5 @@ use 'ext/tests/testArena.baabnq';
 use 'ext/tests/testTrie.baabnq';
 use 'ext/tests/testVec.baabnq';
 use 'ext/tests/testJson.baabnq';
+use 'ext/tests/testFracs.baabnq';
 
