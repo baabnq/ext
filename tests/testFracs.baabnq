@@ -47,3 +47,32 @@ lab TestFracs::Delete;
     sub Fracs::Delete;
 
     jump succ;
+
+lab TestFracs::Normalize;
+    sub Local::TestFracs::Init;
+
+    push 0;
+    push 17;
+    push 3;
+    sub Fracs::CreateByComponents;
+    sub Fracs::Normalize;
+    pull _pFrac;
+
+    put __ <- _pFrac + _Fracs::Frac::SIGN;  jump fail ~ __ != 0;
+    put __ <- _pFrac + _Fracs::Frac::NUMER; jump fail ~ __ != 17;
+    put __ <- _pFrac + _Fracs::Frac::DENER; jump fail ~ __ != 3;
+
+    push 1;
+    push 1000;
+    push 300;
+    sub Fracs::CreateByComponents;
+    sub Fracs::Normalize;
+    pull _pFrac;
+
+    put __ <- _pFrac + _Fracs::Frac::SIGN;  jump fail ~ __ != 1;
+    put __ <- _pFrac + _Fracs::Frac::NUMER; jump fail ~ __ != 125;
+    put __ <- _pFrac + _Fracs::Frac::DENER; jump fail ~ __ != 37;
+    
+    jump succ;
+
+
