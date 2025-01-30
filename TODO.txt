@@ -150,27 +150,26 @@
         -RotateZ
 
     
-        -fracs.baabnq
+        -fracs.baabnq //
             -fractions
 
-            -Allocate           /
-            -CreateEmpty        /
-            -CreateByComponents /
-            -Delete             /
-            -Normalize          /
+            -Allocate           //
+            -CreateEmpty        //
+            -CreateByComponents //
+            -Delete             //
+            -Normalize          //
 
-            -Value2Frac /
-            -Frac2Value /
+            -Value2Frac //
+            -Frac2Value //
             
-            -Add        /
-                => refactor
-            -Neg        /
-            -Mul        /
-            -Reci       /
-            -Div        /
-            -Comp/Cmp   /
+            -Add        //
+            -Neg        //
+            -Mul        //
+            -Reci       //
+            -Div        //
+            -Comp/Cmp   //
 
-            -Copy       /
+            -Copy       //
 
     -convnums.baabnq
         -FracsToFloats / Fracs2Floats / R2L
