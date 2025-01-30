@@ -245,7 +245,24 @@ lab TestFracs::Comp;
 
     jump succ;
 
-    
+lab TestFracs::Copy;    
+    sub Local::TestFracs::Init;
+
+    push 1;
+    push 2;
+    push 3;
+    sub Fracs::CreateByComponents;
+    sub Stack::Dup; pull _pOriginal;
+    sub Fracs::Copy; pull _pCopy;
+
+    jump fail ~ _pOriginal == _pCopy;
+
+    put __ <- _pCopy + _Fracs::Frac::SIGN;  jump fail ~ __ != 1;
+    put __ <- _pCopy + _Fracs::Frac::NUMER; jump fail ~ __ != 2;
+    put __ <- _pCopy + _Fracs::Frac::DENER; jump fail ~ __ != 3;
+
+    jump succ;
+
     
     
 
