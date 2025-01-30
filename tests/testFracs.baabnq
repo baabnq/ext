@@ -24,3 +24,26 @@ lab TestFracs::CreateEmpty;
     put __ <- _pFrac + _Fracs::Frac::DENER; jump fail ~ __ != 0;
 
     jump succ;
+
+lab TestFracs::CreateByComponents;
+    sub Local::TestFracs::Init;
+
+    push 1;
+    push 2;
+    push 3;
+    sub Fracs::CreateByComponents;
+    pull _pFrac;
+
+    put __ <- _pFrac + _Fracs::Frac::SIGN;  jump fail ~ __ != 1;
+    put __ <- _pFrac + _Fracs::Frac::NUMER; jump fail ~ __ != 2;
+    put __ <- _pFrac + _Fracs::Frac::DENER; jump fail ~ __ != 3;
+
+    jump succ;
+
+lab TestFracs::Delete;
+    sub Local::TestFracs::Init;
+
+    sub Fracs::CreateEmpty;
+    sub Fracs::Delete;
+
+    jump succ;
