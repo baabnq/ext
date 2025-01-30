@@ -75,4 +75,36 @@ lab TestFracs::Normalize;
     
     jump succ;
 
+lab TestFracs::Value2Frac;
+    sub Local::TestFracs::Init;
+
+    push 12345;
+    sub Fracs::Value2Frac;
+    pull _pFrac;
+
+    put __ <- _pFrac + _Fracs::Frac::SIGN;  jump fail ~ __ != 0;
+    put __ <- _pFrac + _Fracs::Frac::NUMER; jump fail ~ __ != 12345;
+    put __ <- _pFrac + _Fracs::Frac::DENER; jump fail ~ __ != 1;
+
+    jump succ;
+
+lab TestFracs::Frac2Value;
+    sub Local::TestFracs::Init;
+
+    push 12345;
+    sub Fracs::Value2Frac;
+    sub Fracs::Frac2Value;
+    pull __;
+    jump fail ~ __ != 12345;
+
+    push 0;
+    push 12;
+    push 4;
+    sub Fracs::CreateByComponents;
+    sub Fracs::Frac2Value;
+    pull __;
+    jump fail ~ __ != 3;
+
+    jump succ;
+
 
