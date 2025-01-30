@@ -191,31 +191,29 @@ lab Fracs::Mul;
     sub Stack::Swap; pull _pB;
     sub Stack::Swap; pull _pA;
 
-    sub Fracs::CreateEmpty; pull _pProd;
+    put  _signA <- _pA + _Fracs::Frac::SIGN;
+    put  _signB <- _pB + _Fracs::Frac::SIGN;
 
-    put __ <- _pA + _Fracs::Frac::NUMER; push __;
-    put __ <- _pB + _Fracs::Frac::NUMER; push __;
-    sub Math::Mul;
-    pull __; put __ -> _pProd + _Fracs::Frac::NUMER;
-
-    put __ <- _pA + _Fracs::Frac::DENER; push __;
-    put __ <- _pB + _Fracs::Frac::DENER; push __;
-    sub Math::Mul;
-    pull __; put __ -> _pProd + _Fracs::Frac::DENER;
-
-    put _signA <- _pA + _Fracs::Frac::SIGN;
-    put _signB <- _pB + _Fracs::Frac::SIGN;
-    put _sign = _signA ^ _signB;
-    put _sign -> _pProd + _Fracs::Frac::SIGN;
-
+    push _signA ^ _signB;
+    push _Fracs::Frac::NUMER;
+        sub Fracs::Mul::PushComponentParams; sub Math::Mul;
+    push _Fracs::Frac::DENER;
+        sub Fracs::Mul::PushComponentParams; sub Math::Mul;
+    sub Fracs::CreateByComponents;
 
     push _pA; sub Fracs::Delete;
     push _pB; sub Fracs::Delete;
 
-    push _pProd;
     sub Fracs::Normalize;
     sub Stack::Swap;
     return;
+
+    lab Fracs::Mul::PushComponentParams;
+        sub Stack::Swap; pull _offset;
+        put __ <- _pA + _offset; push __; sub Stack::Swap;
+        put __ <- _pB + _offset; push __; sub Stack::Swap;
+        return;
+        
 
 
 "(::Frac) => (::Frac)
