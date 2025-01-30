@@ -190,6 +190,29 @@ lab TestFracs::Reciprocal;
 
     jump succ;
 
+lab TestFracs::Div;
+    sub Local::TestFracs::Init;
+
+    push 0;
+    push 91;
+    push 125;
+    sub Fracs::CreateByComponents;
+
+    push 1;
+    push 238;
+    push 191;
+    sub Fracs::CreateByComponents;
+
+    sub Fracs::Div;
+    pull _pFrac;
+
+    put __ <- _pFrac + _Fracs::Frac::SIGN;  jump fail ~ __ != 1;
+    put __ <- _pFrac + _Fracs::Frac::NUMER; jump fail ~ __ != 67;
+    put __ <- _pFrac + _Fracs::Frac::DENER; jump fail ~ __ != 116;
+
+    jump succ;
+
+    
     
 
     
