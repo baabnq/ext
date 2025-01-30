@@ -107,4 +107,47 @@ lab TestFracs::Frac2Value;
 
     jump succ;
 
+lab TestFracs::Add;
+    sub Local::TestFracs::Init;
+
+    push 1;
+    push 79;
+    push 204;
+    sub Fracs::CreateByComponents;
+
+    push 0;
+    push 235;
+    push 11;
+    sub Fracs::CreateByComponents;
+
+    sub Fracs::Add;
+    pull _pFrac;
+
+    put __ <- _pFrac + _Fracs::Frac::SIGN;  jump fail ~ __ != 1;
+    put __ <- _pFrac + _Fracs::Frac::NUMER; jump fail ~ __ != 72;
+    put __ <- _pFrac + _Fracs::Frac::DENER; jump fail ~ __ != 8;
+
+    jump succ;
+
+lab TestFracs::Neg;
+    sub Local::TestFracs::Init;
+
+    push 0;
+    push 0; 
+    push 0; 
+    sub Fracs::CreateByComponents;
+    sub Fracs::Neg;
+    pull _pFrac;
+
+    put __ <- _pFrac + _Fracs::Frac::SIGN;
+    jump fail ~ __ != 1;
+    
+    push _pFrac;
+    sub Fracs::Neg;
+    sub Stack::Drop;
+
+    put __ <- _pFrac + _Fracs::Frac::SIGN;
+    jump fail ~ __ != 0;
+
+    jump succ;
 
