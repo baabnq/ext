@@ -1,5 +1,5 @@
 # Extended Libraries
-![](https://github.com/S1monr3dst0ne07/baabnq-extension-libraries/actions/workflows/main.yml/badge.svg)
+![](https://github.com/baabnq/ext/actions/workflows/main.yml/badge.svg)
 
 This is a collection of extension libraries, which are not part of the standard libraries.
 Documentation can be found under ```docs/```.
@@ -13,7 +13,13 @@ All extended libraries expect to be included like so: <br> ```use 'ext/<library>
 - **convlist.baabnq**: routines for conversion between linklist and dynlist
 - **arena.baabnq**: arena-based memory manager implementation and operations
 - **trie.baabnq**: hexadecary (16-ary) trie implementation and operations
-- **vec.baabnq** generic n-dimensional vector implementation, operations, and iteration mechanisms
+- **vec.baabnq**: generic n-dimensional vector implementation, operations, and iteration mechanisms
+- **json**: json module
+  -**json/core.baabnq**: module as well as node structure definition
+  -**json/parse.baabnq**: recursive descent json parser
+  -**json/gener.baabnq**: recursive descent json generator/emitter
+- **fracs.baabnq**: fractional arithmetic implementation and operations
+
 
 
 
