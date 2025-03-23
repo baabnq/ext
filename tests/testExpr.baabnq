@@ -9,8 +9,14 @@ lab Local::TestExpr::Init;
 return;
 
 
-"TODO (im just tryna get this running)
 lab TestExpr::Token::ModuleInit;
+    sub Local::TestExpr::Init;
+
+    jump fail ~ _Expr::Token::Source != 0;
+
+    "token should be a buffer
+    jump fail ~ _Expr::Token::Token  == 0;
+
     jump succ;
 
 lab TestExpr::Token::GetCharType;
