@@ -24,7 +24,7 @@ lab Expr::Token::GetCharType;
 
     static '+-*/()'     _Expr::Token::GetCharType::SymConst;
     static '0123456789' _Expr::Token::GetCharType::NumConst;
-    
+
     "construct ctx
     push  _Expr::Token::CharType::SYMBOL; sub Stack::Swap;
         "test for symbol
@@ -32,19 +32,18 @@ lab Expr::Token::GetCharType;
         sub Chunk::Contains; pull __;
         sub No::Return ~ __ != 0;
     "destruct ctx
-    pull __;
+    sub Stack::Swap; pull __;
 
-    
     push  _Expr::Token::CharType::NUMBER; sub Stack::Swap;
         "test for number
         push _Expr::Token::GetCharType::NumConst; push _c;
         sub Chunk::Contains; pull __;
         sub No::Return ~ __ != 0;
-    pull __;
-
+    sub Stack::Swap; pull __;
 
     "other
     push _Expr::Token::CharType::OTHER; sub Stack::Swap;
     return;
 
 
+lab Expr::Token::Skip;
