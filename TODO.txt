@@ -7,6 +7,37 @@
 
 -extras /(/)
     -https://github.com/S1monr3dst0ne07/ext
+        -"functional routines"
+            -(maybe)
+            - concat
+            - take
+            - drop
+            - split / splitAt
+            - all / any
+
+        -expressions
+            -Token
+                -ModuleInit
+                    -CharType
+                -GetCharType
+                -Next
+            -Parse
+                -ModuleInit
+                    -NodeType
+                    -Node
+                -AllocateNode
+				-ParseExpr
+				-ParseTerm
+				-ParseFactor
+				-ParseParen
+				-Parsenum
+                -DeleteNode
+            -Eval
+                -Eval (which is syn of EvalTree prolly)
+                -EvalTree
+                -EvalLeaf
+
+
         -generic  dynamic lists ///
 
             -constructors
@@ -236,4 +267,6 @@
 
     -set.baabnq (//)
         -already covered by trie.baabnq (//)
+
+
 
