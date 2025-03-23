@@ -89,7 +89,12 @@ lab TestExpr::Token::Next;
 
     static '  (( 123 * 564 / 987 -+ ) MEOW' _Expr::Token::Source;
 
-    static '((' __; push __;
+    static '(' __; push __;
+    sub Expr::Token::Next; push _Expr::Token::Token;
+    sub String::StrCmp; pull __;
+    jump fail ~ __ != 0;
+
+    static '(' __; push __;
     sub Expr::Token::Next; push _Expr::Token::Token;
     sub String::StrCmp; pull __;
     jump fail ~ __ != 0;
@@ -119,7 +124,12 @@ lab TestExpr::Token::Next;
     sub String::StrCmp; pull __;
     jump fail ~ __ != 0;
 
-    static '-+' __; push __;
+    static '-' __; push __;
+    sub Expr::Token::Next; push _Expr::Token::Token;
+    sub String::StrCmp; pull __;
+    jump fail ~ __ != 0;
+ 
+    static '+' __; push __;
     sub Expr::Token::Next; push _Expr::Token::Token;
     sub String::StrCmp; pull __;
     jump fail ~ __ != 0;
