@@ -1,0 +1,80 @@
+
+use 'libs/tests/common.baabnq';
+
+use 'ext/expr/token.baabnq';
+
+
+lab Local::TestExpr::Init;
+    sub Expr::Token::ModuleInit;
+return;
+
+
+"TODO (im just tryna get this running)
+lab TestExpr::ModuleInit;
+    jump succ;
+
+lab TestExpr::GetCharType;
+    sub Local::TestExpr::Init;
+
+    "space -> OTHER = 0
+    static ' ' __; put __ <- __;
+    push __; sub Expr::Token::GetCharType;
+    pull __; 
+    jump fail ~ __ != 0;
+
+    "alpha -> OTHER = 0
+    static 'A' __; put __ <- __;
+    push __; sub Expr::Token::GetCharType;
+    pull __; 
+    jump fail ~ __ != 0;
+
+
+
+    "plus -> SYMBOL = 1
+    static '+' __; put __ <- __;
+    push __; sub Expr::Token::GetCharType;
+    pull __; 
+    jump fail ~ __ != 1;
+
+    "minus -> SYMBOL = 1
+    static '-' __; put __ <- __;
+    push __; sub Expr::Token::GetCharType;
+    pull __; 
+    jump fail ~ __ != 1;
+
+    "times -> SYMBOL = 1
+    static '*' __; put __ <- __;
+    push __; sub Expr::Token::GetCharType;
+    pull __; 
+    jump fail ~ __ != 1;
+
+    "over -> SYMBOL = 1
+    static '/' __; put __ <- __;
+    push __; sub Expr::Token::GetCharType;
+    pull __; 
+    jump fail ~ __ != 1;
+
+    "i'm not gonna do all the numbers
+     
+    "zero -> NUMBER = 2
+    static '0' __; put __ <- __;
+    push __; sub Expr::Token::GetCharType;
+    pull __; 
+    jump fail ~ __ != 2;
+
+    "five -> NUMBER = 2
+    static '5' __; put __ <- __;
+    push __; sub Expr::Token::GetCharType;
+    pull __; 
+    jump fail ~ __ != 2;
+
+    "nine -> NUMBER = 2
+    static '9' __; put __ <- __;
+    push __; sub Expr::Token::GetCharType;
+    pull __; 
+    jump fail ~ __ != 2;
+
+
+    jump succ;
+
+
