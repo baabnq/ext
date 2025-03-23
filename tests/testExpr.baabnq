@@ -10,10 +10,10 @@ return;
 
 
 "TODO (im just tryna get this running)
-lab TestExpr::ModuleInit;
+lab TestExpr::Token::ModuleInit;
     jump succ;
 
-lab TestExpr::GetCharType;
+lab TestExpr::Token::GetCharType;
     sub Local::TestExpr::Init;
 
     "space -> OTHER = 0
@@ -76,5 +76,7 @@ lab TestExpr::GetCharType;
 
 
     jump succ;
+
+
 
 
