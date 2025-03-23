@@ -79,6 +79,9 @@ lab Expr::Token::Next;
 
         put _Expr::Token::Source = _Expr::Token::Source + 1;
 
+        "symbols always trigger state transitions
+        jump Expr::Token::Next::FindEndDone ~ _type == _Expr::Token::CharType::SYMBOL;
+
         jump Expr::Token::Next::FindEndLoop;
     lab Expr::Token::Next::FindEndDone;
 
