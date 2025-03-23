@@ -1,5 +1,6 @@
 use 'libs/stack.baabnq';
 use 'libs/chunk.baabnq';
+use 'libs/string.baabnq';
 
 sub Expr::Token::ModuleInit;
 
@@ -50,6 +51,49 @@ lab Expr::Token::GetCharType;
     "other
     push _Expr::Token::CharType::OTHER; sub Stack::Swap;
     return;
+
+
+lab Expr::Token::Next;
+    "make sure source is not NULL
+    sub No::Return ~ _Expr::Token::Source == 0;
+
+    "skip chars of other type
+    lab Expr::Token::Next::SkipOthersLoop;
+        sub Expr::Token::GetCharType; pull _type;
+        jump Expr::Token::Next::SkipOthersDone ~ _type != _Expr::Token::CharType::OTHER; 
+
+        put _Expr::Token::Source = _Expr::Token::Source + 1;
+
+        jump Expr::Token::Next::SkipOthersLoop;
+    lab Expr::Token::Next::SkipOthersDone;
+
+    
+    put _base = _Expr::Token::Source;
+    sub Expr::Token::GetCharType; pull _type;
+    
+    "find end of token
+    lab Expr::Token::Next::FindEndLoop;
+        sub Expr::Token::GetCharType; pull __;
+        "loop end on char type transition
+        jump Expr::Token::Next::FindEndDone ~ __ != _type;
+
+        put _Expr::Token::Source = _Expr::Token::Source + 1;
+
+        jump Expr::Token::Next::FindEndLoop;
+    lab Expr::Token::Next::FindEndDone;
+
+    "copy token into buffer
+    put _len = _Expr::Token::Source - _base;
+
+    push _base;
+    push _Expr::Token::Token;
+    push _len;
+    sub String::MemCpy;
+    
+    put 0 -> _Expr::Token::Token + _len;
+
+    return;
+
 
 
 
