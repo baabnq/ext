@@ -1,0 +1,50 @@
+use 'libs/stack.baabnq';
+use 'libs/chunk.baabnq';
+
+sub Expr::Token::ModuleInit;
+
+jump Expr::Token::Skip;
+
+lab Expr::Token::ModuleInit;
+    "character type enumeration defines CharType"
+    " OTHER  = 0
+    " SYMBOL = 1
+    " NUMBER = 2
+
+    put _Expr::Token::CharType::OTHER  = 0;
+    put _Expr::Token::CharType::SYMBOL = 1;
+    put _Expr::Token::CharType::NUMBER = 2;
+
+    return;
+
+
+"(C::Char) => (T::CharType)
+lab Expr::Token::GetCharType;
+    sub Stack::Swap; pull _c;
+
+    static '+-*/()'     _Expr::Token::GetCharType::SymConst;
+    static '0123456789' _Expr::Token::GetCharType::NumConst;
+    
+    "construct ctx
+    push  _Expr::Token::CharType::SYMBOL; sub Stack::Swap;
+        "test for symbol
+        push _Expr::Token::GetCharType::SymConst; push _c;
+        sub Chunk::Contains; pull __;
+        sub No::Return ~ __ != 0;
+    "destruct ctx
+    pull __;
+
+    
+    push  _Expr::Token::CharType::NUMBER; sub Stack::Swap;
+        "test for number
+        push _Expr::Token::GetCharType::NumConst; push _c;
+        sub Chunk::Contains; pull __;
+        sub No::Return ~ __ != 0;
+    pull __;
+
+
+    "other
+    push _Expr::Token::CharType::OTHER; sub Stack::Swap;
+    return;
+
+
