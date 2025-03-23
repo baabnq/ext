@@ -17,13 +17,13 @@ lab TestExpr::GetCharType;
     sub Local::TestExpr::Init;
 
     "space -> OTHER = 0
-    static ' ' __; put __ <- __;
+    static ' ' _Expr::Token::Source;
     push __; sub Expr::Token::GetCharType;
     pull __; 
     jump fail ~ __ != 0;
 
     "alpha -> OTHER = 0
-    static 'A' __; put __ <- __;
+    static 'A' _Expr::Token::Source;
     push __; sub Expr::Token::GetCharType;
     pull __; 
     jump fail ~ __ != 0;
@@ -31,25 +31,25 @@ lab TestExpr::GetCharType;
 
 
     "plus -> SYMBOL = 1
-    static '+' __; put __ <- __;
+    static '+' _Expr::Token::Source;
     push __; sub Expr::Token::GetCharType;
     pull __; 
     jump fail ~ __ != 1;
 
     "minus -> SYMBOL = 1
-    static '-' __; put __ <- __;
+    static '-' _Expr::Token::Source;
     push __; sub Expr::Token::GetCharType;
     pull __; 
     jump fail ~ __ != 1;
 
     "times -> SYMBOL = 1
-    static '*' __; put __ <- __;
+    static '*' _Expr::Token::Source;
     push __; sub Expr::Token::GetCharType;
     pull __; 
     jump fail ~ __ != 1;
 
     "over -> SYMBOL = 1
-    static '/' __; put __ <- __;
+    static '/' _Expr::Token::Source;
     push __; sub Expr::Token::GetCharType;
     pull __; 
     jump fail ~ __ != 1;
@@ -57,19 +57,19 @@ lab TestExpr::GetCharType;
     "i'm not gonna do all the numbers
      
     "zero -> NUMBER = 2
-    static '0' __; put __ <- __;
+    static '0' _Expr::Token::Source;
     push __; sub Expr::Token::GetCharType;
     pull __; 
     jump fail ~ __ != 2;
 
     "five -> NUMBER = 2
-    static '5' __; put __ <- __;
+    static '5' _Expr::Token::Source;
     push __; sub Expr::Token::GetCharType;
     pull __; 
     jump fail ~ __ != 2;
 
     "nine -> NUMBER = 2
-    static '9' __; put __ <- __;
+    static '9' _Expr::Token::Source;
     push __; sub Expr::Token::GetCharType;
     pull __; 
     jump fail ~ __ != 2;

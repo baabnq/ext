@@ -15,12 +15,18 @@ lab Expr::Token::ModuleInit;
     put _Expr::Token::CharType::SYMBOL = 1;
     put _Expr::Token::CharType::NUMBER = 2;
 
+
+    "pointer to raw source
+    put _Expr::Token::Source = 0;
+    "buffer to hold current token
+    static 32 _Expr::Token::Token;
+
     return;
 
 
-"(C::Char) => (T::CharType)
+"(T::CharType)
 lab Expr::Token::GetCharType;
-    sub Stack::Swap; pull _c;
+    put _char <- _Expr::Token::Source;
 
     static '+-*/()'     _Expr::Token::GetCharType::SymConst;
     static '0123456789' _Expr::Token::GetCharType::NumConst;
@@ -28,7 +34,7 @@ lab Expr::Token::GetCharType;
     "construct ctx
     push  _Expr::Token::CharType::SYMBOL; sub Stack::Swap;
         "test for symbol
-        push _Expr::Token::GetCharType::SymConst; push _c;
+        push _Expr::Token::GetCharType::SymConst; push _char;
         sub Chunk::Contains; pull __;
         sub No::Return ~ __ != 0;
     "destruct ctx
@@ -36,7 +42,7 @@ lab Expr::Token::GetCharType;
 
     push  _Expr::Token::CharType::NUMBER; sub Stack::Swap;
         "test for number
-        push _Expr::Token::GetCharType::NumConst; push _c;
+        push _Expr::Token::GetCharType::NumConst; push _char;
         sub Chunk::Contains; pull __;
         sub No::Return ~ __ != 0;
     sub Stack::Swap; pull __;
@@ -44,6 +50,8 @@ lab Expr::Token::GetCharType;
     "other
     push _Expr::Token::CharType::OTHER; sub Stack::Swap;
     return;
+
+
 
 
 lab Expr::Token::Skip;
