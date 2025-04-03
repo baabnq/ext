@@ -1,0 +1,51 @@
+
+sub Expr::Core::ModuleInit;
+
+jump Expr::Core::Skip;
+
+
+lab Expr::Core::ModuleInit;
+    "node type enumeration defines NodeType
+    " NUM = 0
+    " ADD = 1
+    " SUB = 2
+    " MUL = 3
+    " DIV = 4
+
+    put _Expr::Core::NodeType::NUM = 0;
+    put _Expr::Core::NodeType::ADD = 1;
+    put _Expr::Core::NodeType::SUB = 2;
+    put _Expr::Core::NodeType::MUL = 3;
+    put _Expr::Core::NodeType::DIV = 4;
+
+    "node structure defines ExprNode
+    " _p + 0 -> Type  :: NodeType
+    " _p + 1 -> Left  :: Node
+    " _p + 2 -> Right :: Node
+    " _p + 3 -> Num   :: Int
+
+    put _Expr::Core::ExprNode::Type  = 0;
+    put _Expr::Core::ExprNode::Left  = 1;
+    put _Expr::Core::ExprNode::Right = 2;
+    put _Expr::Core::ExprNode::Num   = 3;
+
+    return;
+
+
+"=> (::ExprNode)
+lab Expr::Core::AllocateNode;
+    new 4 _pNode;
+
+    put 0 -> _pNode + 0;
+    put 0 -> _pNode + 1;
+    put 0 -> _pNode + 2;
+    put 0 -> _pNode + 3;
+
+    push _pNode;
+    sub Stack::Swap;
+    return;
+
+
+
+
+lab Expr::Core::Skip;
