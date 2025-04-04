@@ -1,4 +1,7 @@
 
+use 'libs/stack.baabnq';
+
+
 sub Expr::Core::ModuleInit;
 
 jump Expr::Core::Skip;
@@ -45,6 +48,7 @@ lab Expr::Core::AllocateNode;
     sub Stack::Swap;
     return;
 
+    
 
 
 
