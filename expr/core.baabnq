@@ -1,5 +1,6 @@
 
 use 'libs/stack.baabnq';
+use 'libs/no.baabnq';
 
 
 sub Expr::Core::ModuleInit;
@@ -48,6 +49,27 @@ lab Expr::Core::AllocateNode;
     sub Stack::Swap;
     return;
 
+
+
+"(::ExprNode)
+lab Expr::Core::DeleteNode;
+    sub Stack::Swap;
+    pull _pNode;
+
+    sub No::Return ~ _pNode == 0;
+
+    put _pLeft  <- _pNode + _Expr::Core::ExprNode::Left;
+    put _pRight <- _pNode + _Expr::Core::ExprNode::Right;
+
+    free _pNode;
+
+    push _pLeft;
+    push _pRight;
+
+    sub Expr::Core::DeleteNode;
+    sub Expr::Core::DeleteNode;
+
+    return;
     
 
 
