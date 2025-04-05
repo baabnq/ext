@@ -2,11 +2,76 @@
 use 'libs/tests/common.baabnq';
 
 use 'ext/expr/token.baabnq';
+use 'ext/expr/parse.baabnq';
 
 
 lab Local::TestExpr::Init;
     sub Expr::Token::ModuleInit;
+    sub Expr::Core::ModuleInit;
 return;
+
+
+
+lab TestExpr::Core::ModuleInit;
+    sub Local::TestExpr::Init;
+
+    jump fail ~ _Expr::Core::NodeType::NUM != 0;
+    jump fail ~ _Expr::Core::NodeType::ADD != 1;
+    jump fail ~ _Expr::Core::NodeType::SUB != 2;
+    jump fail ~ _Expr::Core::NodeType::MUL != 3;
+    jump fail ~ _Expr::Core::NodeType::DIV != 4;
+
+    jump fail ~ _Expr::Core::ExprNode::Type  != 0;
+    jump fail ~ _Expr::Core::ExprNode::Left  != 1;
+    jump fail ~ _Expr::Core::ExprNode::Right != 2;
+    jump fail ~ _Expr::Core::ExprNode::Num   != 3;
+
+    jump succ;
+
+lab TestExpr::Core::AllocateNode;
+    sub Local::TestExpr::Init;
+
+    sub Expr::Core::AllocateNode;
+    pull _pNode;
+
+    put __ <- _pNode + 0; jump fail ~ __ != 0;
+    put __ <- _pNode + 1; jump fail ~ __ != 0;
+    put __ <- _pNode + 2; jump fail ~ __ != 0;
+    put __ <- _pNode + 3; jump fail ~ __ != 0;
+
+    jump succ;
+
+
+lab TestExpr::Core::DeleteNode;
+    sub Local::TestExpr::Init;
+
+    sub Expr::Core::AllocateNode; pull _pTestNode0;
+    sub Expr::Core::AllocateNode; pull _pTestNode1;
+    sub Expr::Core::AllocateNode; pull _pTestNode2;
+
+    "structurize, TestNode0 is root
+    put _pTestNode1 -> _pTestNode0 + _Expr::Core::ExprNode::Left;
+    put _pTestNode2 -> _pTestNode1 + _Expr::Core::ExprNode::Right;
+
+    "delete
+    push _pTestNode0;
+    sub Expr::Core::DeleteNode;
+
+    "now allocing three nodes again, should result in the same addresses,
+    "as that space on the heap should be free
+
+    sub Expr::Core::AllocateNode; pull __; jump fail ~ __ != _pTestNode0;
+    sub Expr::Core::AllocateNode; pull __; jump fail ~ __ != _pTestNode1;
+    sub Expr::Core::AllocateNode; pull __; jump fail ~ __ != _pTestNode2;
+
+    jump succ;
+
+
+
+
+    
+
+
 
 
 lab TestExpr::Token::ModuleInit;
@@ -138,6 +203,22 @@ lab TestExpr::Token::Next;
     sub Expr::Token::Next; push _Expr::Token::Token;
     sub String::StrCmp; pull __;
     jump fail ~ __ != 0;
+
+    jump succ;
+
+
+
+
+
+lab TestExpr::Parse;
+    sub Local::TestExpr::Init;
+
+    static '((2 + 4 - 1) * 4 + 1) / 3' _sTest;
+    push _sTest;
+    sub Expr::Parse;
+
+    pull __;
+    print __;
 
     jump succ;
 
