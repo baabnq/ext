@@ -210,17 +210,83 @@ lab TestExpr::Token::Next;
 
 
 
-lab TestExpr::Parse;
+
+
+lab TestExpr::Parse::Expr;
     sub Local::TestExpr::Init;
 
-    static '((2 + 4 - 1) * 4 + 1) / 3' _sTest;
-    push _sTest;
-    sub Expr::Parse;
+    static '1 + 1' _Expr::Token::Source; sub Expr::Token::Next;
+    sub Expr::Parse::Expr; pull _pNode;
+    put _type <- _pNode + _Expr::Core::ExprNode::Type;
+    jump fail ~ _type != _Expr::Core::NodeType::ADD;
+    
+    static '1 - 1' _Expr::Token::Source; sub Expr::Token::Next;
+    sub Expr::Parse::Expr; pull _pNode;
+    put _type <- _pNode + _Expr::Core::ExprNode::Type;
+    jump fail ~ _type != _Expr::Core::NodeType::SUB;
 
-    pull __;
-    print __;
 
     jump succ;
 
+lab TestExpr::Parse::Term;
+    sub Local::TestExpr::Init;
 
+    static '1 * 1' _Expr::Token::Source; sub Expr::Token::Next;
+    sub Expr::Parse::Term; pull _pNode;
+    put _type <- _pNode + _Expr::Core::ExprNode::Type;
+    jump fail ~ _type != _Expr::Core::NodeType::MUL;
+    
+    static '1 / 1' _Expr::Token::Source; sub Expr::Token::Next;
+    sub Expr::Parse::Term; pull _pNode;
+    put _type <- _pNode + _Expr::Core::ExprNode::Type;
+    jump fail ~ _type != _Expr::Core::NodeType::DIV;
+
+
+    jump succ;
+
+lab TestExpr::Parse::Factor;
+    sub Local::TestExpr::Init;
+
+    static '(1)' _Expr::Token::Source; sub Expr::Token::Next;
+    sub Expr::Parse::Factor; pull _pNode;
+    put _type <- _pNode + _Expr::Core::ExprNode::Type;
+    jump fail ~ _type != _Expr::Core::NodeType::NUM;
+    
+    static '1' _Expr::Token::Source; sub Expr::Token::Next;
+    sub Expr::Parse::Factor; pull _pNode;
+    put _type <- _pNode + _Expr::Core::ExprNode::Type;
+    jump fail ~ _type != _Expr::Core::NodeType::NUM;
+
+    jump succ;
+
+lab TestExpr::Parse::Paren;
+    sub Local::TestExpr::Init;
+
+    static '(1 + 1)' _Expr::Token::Source; sub Expr::Token::Next;
+    sub Expr::Parse::Paren; pull _pNode;
+    put _type <- _pNode + _Expr::Core::ExprNode::Type;
+    jump fail ~ _type != _Expr::Core::NodeType::ADD;
+
+    static '(1 - 1)' _Expr::Token::Source; sub Expr::Token::Next;
+    sub Expr::Parse::Paren; pull _pNode;
+    put _type <- _pNode + _Expr::Core::ExprNode::Type;
+    jump fail ~ _type != _Expr::Core::NodeType::SUB;
+
+    jump succ;
+
+lab TestExpr::Parse::Num;
+    sub Local::TestExpr::Init;
+
+    static '123' _Expr::Token::Source; sub Expr::Token::Next;
+    sub Expr::Parse::Num; pull _pNode;
+    put _type <- _pNode + _Expr::Core::ExprNode::Type;
+    jump fail ~ _type != _Expr::Core::NodeType::NUM;
+
+    jump succ;
+
+        
+    
+
+
+    "static '((2 + 4 - 1) * (2 + 2) + 1) / 3' _sTest;
 
