@@ -7,35 +7,36 @@
 
 -extras /(/)
     -https://github.com/S1monr3dst0ne07/ext
-        -"functional routines"
-            -(maybe)
-            - concat
-            - take
-            - drop
-            - split / splitAt
-            - all / any
-
         -expressions
-            -Token
-                -ModuleInit
-                    -CharType
-                -GetCharType
-                -Next
-            -Parse
-                -ModuleInit
+            -Core (shared) //
+                -ModuleInit   //
                     -NodeType
                     -Node
-                -AllocateNode
-				-ParseExpr
-				-ParseTerm
-				-ParseFactor
-				-ParseParen
-				-Parsenum
-                -DeleteNode
+                -AllocateNode //
+                -DeleteNode   //
+            -Token //
+                -ModuleInit   //
+                    -CharType
+                    -Source
+                    -Token
+                -GetCharType  //
+                -Next         //
+            -Parse
+				-Expr         //
+				-Term         //
+				-Factor       //
+				-Paren        //
+				-Num          //
+                -Parse        //
             -Eval
-                -Eval (which is syn of EvalTree prolly)
-                -EvalTree
-                -EvalLeaf
+				-Invalid             /
+				-Num                 /
+				-EvalBothSubBranches /
+				-Add                 /
+				-Sub                 /
+				-Mul                 /
+				-Div                 /
+				-Eval                /
 
 
         -generic  dynamic lists ///
