@@ -414,8 +414,36 @@ lab TestExpr::Eval::Sub;
     jump succ;
 
 
+lab TestExpr::Eval::Mul;
+    sub Local::TestExpr::Init;
+
+    sub Local::TestExpr::Eval::BuildTree;
+
+    put 3 -> _pLeft  + _Expr::Core::ExprNode::Num;
+    put 4 -> _pRight + _Expr::Core::ExprNode::Num;
+
+    push _pNode;
+    sub Expr::Eval::Mul;
+    pull __;
+    jump fail ~ __ != 12;
+
+    jump succ;
 
 
+lab TestExpr::Eval::Div;
+    sub Local::TestExpr::Init;
+
+    sub Local::TestExpr::Eval::BuildTree;
+
+    put 21 -> _pLeft  + _Expr::Core::ExprNode::Num;
+    put 3  -> _pRight + _Expr::Core::ExprNode::Num;
+
+    push _pNode;
+    sub Expr::Eval::Div;
+    pull __;
+    jump fail ~ __ != 7;
+
+    jump succ;
     
 
 
