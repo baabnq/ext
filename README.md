@@ -19,8 +19,11 @@ All extended libraries expect to be included like so: <br> ```use 'ext/<library>
   - **json/parse.baabnq**: recursive descent json parser
   - **json/gener.baabnq**: recursive descent json generator/emitter
 - **fracs.baabnq**: fractional arithmetic implementation and operations
-
-
+- **expr**: mathematical expression module
+  - **expr/core.baabnq**: node structure definition and implementation
+  - **expr/token.baabnq**: lexical analysis and token structure definition
+  - **expr/parse.baabnq**: recursive descent expression parser
+  - **expr/eval.baabnq**: recursive descent expression evaluator
 
 
 
