@@ -34,7 +34,7 @@ lab Expr::Eval::Num;
     return;
 
 
-"(::ExprNode) => (Left::Int, Right::Int)
+"(::ExprNode) => (Right::Int, Left::Int)
 lab Expr::Eval::EvalBothSubBranches;
     sub Stack::Swap;
     pull _pNode;
