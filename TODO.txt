@@ -7,7 +7,7 @@
 
 -extras /(/)
     -https://github.com/S1monr3dst0ne07/ext
-        -expressions
+        -Expr //
             -Core (shared) //
                 -ModuleInit   //
                     -NodeType
@@ -21,22 +21,22 @@
                     -Token
                 -GetCharType  //
                 -Next         //
-            -Parse
+            -Parse //
 				-Expr         //
 				-Term         //
 				-Factor       //
 				-Paren        //
 				-Num          //
                 -Parse        //
-            -Eval
-				-Invalid             /
-				-Num                 /
-				-EvalBothSubBranches /
-				-Add                 /
-				-Sub                 /
-				-Mul                 /
-				-Div                 /
-				-Eval                /
+            -Eval //
+				-Invalid             //
+				-Num                 //
+				-EvalBothSubBranches //
+				-Add                 //
+				-Sub                 //
+				-Mul                 //
+				-Div                 //
+				-Eval                //
 
 
         -generic  dynamic lists ///
