@@ -284,7 +284,31 @@ lab TestExpr::Parse::Num;
 
     jump succ;
 
-        
+lab TestExpr::Parse;
+    sub Local::TestExpr::Init;
+
+    static '(1 + 2)' _sTest;
+    push _sTest;
+    sub Expr::Parse;
+    pull _pNode;
+
+    put _type <- _pNode + _Expr::Core::ExprNode::Type;
+    jump fail ~ _type != _Expr::Core::NodeType::ADD;
+
+    put _pLeft <- _pNode + _Expr::Core::ExprNode::Left;
+    put _pRight <- _pNode + _Expr::Core::ExprNode::Right;
+
+    put _type <- _pLeft + _Expr::Core::ExprNode::Type;
+    put _num  <- _pLeft + _Expr::Core::ExprNode::Num;
+    jump fail ~ _type != _Expr::Core::NodeType::NUM;
+    jump fail ~ _num  != 1; 
+    
+    put _type <- _pRight + _Expr::Core::ExprNode::Type;
+    put _num  <- _pRight + _Expr::Core::ExprNode::Num;
+    jump fail ~ _type != _Expr::Core::NodeType::NUM;
+    jump fail ~ _num  != 2; 
+
+    jump succ;
     
 
 
