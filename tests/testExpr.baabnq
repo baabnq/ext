@@ -3,6 +3,7 @@ use 'libs/tests/common.baabnq';
 
 use 'ext/expr/token.baabnq';
 use 'ext/expr/parse.baabnq';
+use 'ext/expr/eval.baabnq';
 
 
 lab Local::TestExpr::Init;
@@ -313,4 +314,108 @@ lab TestExpr::Parse;
 
 
     "static '((2 + 4 - 1) * (2 + 2) + 1) / 3' _sTest;
+
+
+
+lab TestExpr::Eval::Invaild;
+    sub Local::TestExpr::Init;
+
+    sub Expr::Core::AllocateNode;
+    
+    sub Expr::Eval::Invaild;
+    pull __;
+    jump fail ~ __ != 0;
+
+    jump succ;
+    
+
+lab TestExpr::Eval::Num;
+    sub Local::TestExpr::Init;
+
+    sub Expr::Core::AllocateNode;
+    sub Stack::Dup;
+
+    pull _pNode;
+    put 123 -> _pNode + _Expr::Core::ExprNode::Num;
+
+    sub Expr::Eval::Num;
+    pull __;
+    jump fail ~ __ != 123;
+
+    jump succ;
+
+
+lab Local::TestExpr::Eval::BuildTree;
+    sub Expr::Core::AllocateNode;
+    sub Expr::Core::AllocateNode;
+    sub Expr::Core::AllocateNode;
+
+    pull _pNode;
+    pull _pLeft;
+    pull _pRight;
+
+    put _Expr::Core::NodeType::NUM -> _pLeft  + _Expr::Core::ExprNode::Type;
+    put _Expr::Core::NodeType::NUM -> _pRight + _Expr::Core::ExprNode::Type;
+
+    put _pLeft -> _pNode + _Expr::Core::ExprNode::Left;
+    put _pRight -> _pNode + _Expr::Core::ExprNode::Right;
+
+    return;
+
+    
+
+lab TestExpr::Eval::EvalBothSubBranches;
+    sub Local::TestExpr::Init;
+
+    sub Local::TestExpr::Eval::BuildTree;
+
+    put 2 -> _pLeft  + _Expr::Core::ExprNode::Num;
+    put 3 -> _pRight + _Expr::Core::ExprNode::Num;
+
+    push _pNode;
+    sub Expr::Eval::EvalBothSubBranches;
+    pull _resRight;
+    pull _resLeft;
+
+    jump fail ~ _resLeft  != 2;
+    jump fail ~ _resRight != 3;
+
+    jump succ;
+
+
+lab TestExpr::Eval::Add;
+    sub Local::TestExpr::Init;
+
+    sub Local::TestExpr::Eval::BuildTree;
+
+    put 2 -> _pLeft  + _Expr::Core::ExprNode::Num;
+    put 1 -> _pRight + _Expr::Core::ExprNode::Num;
+
+    push _pNode;
+    sub Expr::Eval::Add;
+    pull __;
+    jump fail ~ __ != 3;
+
+    jump succ;
+
+lab TestExpr::Eval::Sub;
+    sub Local::TestExpr::Init;
+
+    sub Local::TestExpr::Eval::BuildTree;
+
+    put 2 -> _pLeft  + _Expr::Core::ExprNode::Num;
+    put 1 -> _pRight + _Expr::Core::ExprNode::Num;
+
+    push _pNode;
+    sub Expr::Eval::Sub;
+    pull __;
+    jump fail ~ __ != 1;
+
+    jump succ;
+
+
+
+
+    
+
 
