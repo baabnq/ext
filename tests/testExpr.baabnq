@@ -444,6 +444,59 @@ lab TestExpr::Eval::Div;
     jump fail ~ __ != 7;
 
     jump succ;
+
+
+lab TestExpr::Eval;
+    sub Local::TestExpr::Init;
+
+    sub Local::TestExpr::Eval::BuildTree;
+    put _Expr::Core::NodeType::ADD -> _pNode + _Expr::Core::ExprNode::Type;
+    put 2 -> _pLeft  + _Expr::Core::ExprNode::Num;
+    put 3 -> _pRight + _Expr::Core::ExprNode::Num;
+    push _pNode; sub Expr::Eval; pull __;
+    jump fail ~ __ != 5;
+
+    sub Local::TestExpr::Eval::BuildTree;
+    put _Expr::Core::NodeType::SUB -> _pNode + _Expr::Core::ExprNode::Type;
+    put 3 -> _pLeft  + _Expr::Core::ExprNode::Num;
+    put 1 -> _pRight + _Expr::Core::ExprNode::Num;
+    push _pNode; sub Expr::Eval; pull __;
+    jump fail ~ __ != 2;
+
+    sub Local::TestExpr::Eval::BuildTree;
+    put _Expr::Core::NodeType::MUL -> _pNode + _Expr::Core::ExprNode::Type;
+    put 10 -> _pLeft  + _Expr::Core::ExprNode::Num;
+    put 10 -> _pRight + _Expr::Core::ExprNode::Num;
+    push _pNode; sub Expr::Eval; pull __;
+    jump fail ~ __ != 100;
+
+    sub Local::TestExpr::Eval::BuildTree;
+    put _Expr::Core::NodeType::DIV -> _pNode + _Expr::Core::ExprNode::Type;
+    put 100 -> _pLeft  + _Expr::Core::ExprNode::Num;
+    put 25 -> _pRight + _Expr::Core::ExprNode::Num;
+    push _pNode; sub Expr::Eval; pull __;
+    jump fail ~ __ != 4;
+
+    sub Local::TestExpr::Eval::BuildTree;
+    put _Expr::Core::NodeType::NUM -> _pNode + _Expr::Core::ExprNode::Type;
+    put 420 -> _pNode  + _Expr::Core::ExprNode::Num;
+    push _pNode; sub Expr::Eval; pull __;
+    jump fail ~ __ != 420;
+
+    jump succ;
     
+
+lab TestExpr;
+    sub Local::TestExpr::Init;
+    static '((2 + 4 - 1) * (2 + 2) + 1) / 3' _sTest;
+
+    push _sTest;
+    sub Expr::Parse;
+    sub Expr::Eval;
+    pull __;
+    jump fail ~ __ != 7;
+
+    jump succ;
+
 
 
