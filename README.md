@@ -1,8 +1,7 @@
 # Extended Libraries
 ![](https://github.com/baabnq/ext/actions/workflows/main.yml/badge.svg)
 
-This is a collection of extension libraries, which are not part of the standard libraries.
-Documentation can be found under ```docs/```.
+This is a collection of extension libraries, which are not part of the standard libraries. <br>
 All extended libraries expect to be included like so: <br> ```use 'ext/<library>.baabnq'```
 
 ### Files
